@@ -1,0 +1,15 @@
+.list {
+  margin: 0;
+  padding-left: 24px;
+}
+
+.item {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+  line-height: 1.6;
+}
+
+.item:last-child {
+  border-bottom: 0;
+}
+
