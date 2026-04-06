@@ -53,6 +53,35 @@
   font-size: 0.92rem;
 }
 
+.heroActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.primaryAction,
+.secondaryAction {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 18px;
+  border-radius: 999px;
+  text-decoration: none;
+  border: 1px solid var(--line);
+}
+
+.primaryAction {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
+}
+
+.secondaryAction {
+  background: rgba(255, 255, 255, 0.64);
+}
+
 .sectionIntro {
   margin-top: 28px;
   max-width: 54rem;
@@ -75,6 +104,42 @@
   border: 1px solid var(--line);
   background: rgba(255, 252, 246, 0.7);
   box-shadow: var(--shadow);
+}
+
+.linkHub {
+  margin-top: 24px;
+  padding: 30px;
+  border-radius: 28px;
+  border: 1px solid var(--line);
+  background: rgba(255, 252, 246, 0.7);
+  box-shadow: var(--shadow);
+}
+
+.linkCards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.linkCard {
+  display: block;
+  padding: 18px;
+  border-radius: 22px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+}
+
+.linkCard strong {
+  display: block;
+}
+
+.linkCard span {
+  display: block;
+  margin-top: 8px;
+  color: var(--muted);
+  line-height: 1.55;
 }
 
 .seoBlock {
@@ -108,7 +173,8 @@
 
 @media (max-width: 900px) {
   .grid,
-  .roadmap {
+  .roadmap,
+  .linkCards {
     grid-template-columns: 1fr;
   }
 
@@ -126,4 +192,3 @@
     align-items: flex-start;
   }
 }
-

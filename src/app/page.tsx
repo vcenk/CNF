@@ -1,26 +1,42 @@
 import { ModuleCard } from "@/components/module-card";
 import { MilestoneList } from "@/components/milestone-list";
 import { firstSliceMilestones, productPillars } from "@/features/product-intake/intake-blueprint";
+import { marketingPages } from "@/lib/marketing-pages";
 import { siteConfig } from "@/lib/site-config";
+import Link from "next/link";
 import styles from "./page.module.css";
 
 export default function HomePage() {
   const structuredData = {
     "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    name: siteConfig.name,
-    applicationCategory: "BusinessApplication",
-    operatingSystem: "Web",
-    description: siteConfig.description,
-    offers: {
-      "@type": "Offer",
-      price: "0",
-      priceCurrency: "USD"
-    },
-    featureList: [
-      "AI-assisted cosmetic product entry",
-      "Structured CNF draft validation",
-      "Health Canada portal export preparation"
+    "@graph": [
+      {
+        "@type": "Organization",
+        name: siteConfig.name,
+        url: siteConfig.url
+      },
+      {
+        "@type": "WebSite",
+        name: siteConfig.name,
+        url: siteConfig.url
+      },
+      {
+        "@type": "SoftwareApplication",
+        name: siteConfig.name,
+        applicationCategory: "BusinessApplication",
+        operatingSystem: "Web",
+        description: siteConfig.description,
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "USD"
+        },
+        featureList: [
+          "AI-assisted cosmetic product entry",
+          "Structured CNF draft validation",
+          "Health Canada portal export preparation"
+        ]
+      }
     ]
   };
 
@@ -41,6 +57,14 @@ export default function HomePage() {
           <span>Built for Health Canada cosmetic notification workflows</span>
           <span>AI-assisted intake with validation-first architecture</span>
         </div>
+        <div className={styles.heroActions}>
+          <Link href="/intake" className={styles.primaryAction}>
+            Open intake workflow
+          </Link>
+          <a href="#slice-heading" className={styles.secondaryAction}>
+            See the first build slice
+          </a>
+        </div>
       </section>
 
       <section className={styles.sectionIntro} aria-labelledby="pillars-heading">
@@ -58,6 +82,27 @@ export default function HomePage() {
         {productPillars.map((pillar) => (
           <ModuleCard key={pillar.name} pillar={pillar} />
         ))}
+      </section>
+
+      <section className={styles.linkHub} aria-labelledby="seo-pages-heading">
+        <div>
+          <p className={styles.sectionLabel}>SEO Page Architecture</p>
+          <h2 id="seo-pages-heading" className={styles.sectionTitle}>
+            Built with distinct keyword intent in mind.
+          </h2>
+          <p className={styles.sectionCopy}>
+            Each page targets a different search intent and links the visitor back into the product
+            workflow, which gives the site better crawl structure and clearer relevance.
+          </p>
+        </div>
+        <div className={styles.linkCards}>
+          {marketingPages.map((page) => (
+            <Link key={page.href} href={page.href} className={styles.linkCard}>
+              <strong>{page.title}</strong>
+              <span>{page.description}</span>
+            </Link>
+          ))}
+        </div>
       </section>
 
       <section className={styles.roadmap} aria-labelledby="slice-heading">

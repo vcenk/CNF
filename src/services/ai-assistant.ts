@@ -13,11 +13,12 @@ export type AiSuggestionResult = {
 };
 
 export async function getAiSuggestions(
-  _request: AiSuggestionRequest
+  request: AiSuggestionRequest
 ): Promise<AiSuggestionResult> {
+  void request;
+
   return {
     ingredientHints: [],
     complianceNotes: []
   };
 }
-

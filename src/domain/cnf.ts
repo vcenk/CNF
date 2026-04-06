@@ -18,6 +18,7 @@ export type IngredientEntry = {
 export type ProductDraft = {
   id: string;
   companyProfileId?: string;
+  companyName: string;
   name: string;
   category?: string;
   usageType?: "rinse-off" | "leave-on";
@@ -34,3 +35,13 @@ export type ProductPillar = {
   outcomes: string[];
 };
 
+export const productCategories = [
+  "Skin care",
+  "Hair care",
+  "Body care",
+  "Fragrance",
+  "Makeup",
+  "Oral care"
+] as const;
+
+export type ProductCategory = (typeof productCategories)[number];
