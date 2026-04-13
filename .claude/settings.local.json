@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(wc -l /c/Users/cenkk/Desktop/VibeCoding/CNF/src/**/*.tsx /c/Users/cenkk/Desktop/VibeCoding/CNF/src/**/*.ts)",
+      "Bash(git -C /c/Users/cenkk/Desktop/VibeCoding/CNF log --oneline)",
+      "WebSearch",
+      "WebFetch(domain:www.soapmakingforum.com)",
+      "Bash(python3 -c ':*)",
+      "Bash(node -e ':*)",
+      "Bash(npm -v)",
+      "Bash(npm install:*)",
+      "Bash(npx shadcn@latest init -d --css-variables --style default)",
+      "Bash(npx shadcn@latest init -d)"
+    ]
+  }
+}

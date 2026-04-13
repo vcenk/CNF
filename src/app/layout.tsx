@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
-import { Fraunces, Manrope } from "next/font/google";
+import { Fraunces, Manrope, Geist } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/lib/site-config";
+import { cn } from "@/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const display = Fraunces({
   subsets: ["latin"],
@@ -65,7 +68,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={cn("font-sans", geist.variable)}>
       <body className={`${display.variable} ${body.variable}`}>{children}</body>
     </html>
   );
