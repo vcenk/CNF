@@ -265,40 +265,45 @@ export default function HomePage() {
           formulas, labels, and exports.
         </p>
 
-        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {tiers.map((tier) => (
-            <Card
+            <div
               key={tier.name}
-              className={`relative ${tier.highlighted ? "border-brand shadow-md" : ""}`}
+              className={`relative flex flex-col rounded-xl border bg-card p-6 ${
+                tier.highlighted
+                  ? "border-brand ring-2 ring-brand/20 shadow-lg"
+                  : "border-border"
+              }`}
             >
               {tier.highlighted && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-brand px-3 py-0.5 text-xs font-medium text-white">
-                  Popular
+                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-brand px-4 py-1 text-xs font-semibold text-white shadow-sm">
+                  Most popular
                 </div>
               )}
-              <CardHeader>
-                <CardTitle className="text-base">{tier.name}</CardTitle>
-                <div className="mt-2">
-                  <span className="font-display text-3xl font-bold">
-                    {tier.price}
+              <p className="text-sm font-semibold">{tier.name}</p>
+              <div className="mt-4 flex items-baseline gap-1">
+                <span className="font-display text-3xl font-bold tracking-tight">
+                  {tier.price}
+                </span>
+                {tier.period && (
+                  <span className="text-sm text-muted-foreground">
+                    {tier.period}
                   </span>
-                  {tier.period && (
-                    <span className="text-sm text-muted-foreground">
-                      {tier.period}
-                    </span>
-                  )}
-                </div>
-                <CardDescription>{tier.description}</CardDescription>
-                <ul className="mt-4 space-y-2 text-sm">
-                  {tier.features.map((f) => (
-                    <li key={f} className="flex items-start gap-2">
-                      <span className="mt-0.5 text-brand">&#10003;</span>
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-              </CardHeader>
-            </Card>
+                )}
+              </div>
+              <p className="mt-1 text-sm text-muted-foreground">
+                {tier.description}
+              </p>
+              <div className="my-5 h-px bg-border" />
+              <ul className="flex-1 space-y-2.5 text-sm">
+                {tier.features.map((f) => (
+                  <li key={f} className="flex items-start gap-2">
+                    <span className="mt-0.5 text-brand">&#10003;</span>
+                    <span className="text-muted-foreground">{f}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           ))}
         </div>
 

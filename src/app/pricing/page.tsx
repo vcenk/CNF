@@ -1,17 +1,16 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-} from "@/components/ui/card";
+import { Check } from "lucide-react";
 
 const tiers = [
   {
     name: "Free",
     price: "$0",
     description: "Browse and research",
+    cta: "Get started",
+    ctaHref: "/ingredients",
+    ctaVariant: "outline" as const,
     features: [
       "Full ingredient database with INCI names",
       "Supplier directory with pricing",
@@ -25,6 +24,10 @@ const tiers = [
     price: "CA$12",
     period: "/mo",
     description: "For active makers",
+    cta: "Start free trial",
+    ctaHref: "/auth/signup",
+    ctaVariant: "primary" as const,
+    highlighted: true,
     features: [
       "10 formulas with full version control",
       "Phase grouping (water, oil, cool-down)",
@@ -33,13 +36,15 @@ const tiers = [
       "Bilingual EN/FR label generator",
       "PDF label export",
     ],
-    highlighted: true,
   },
   {
     name: "Studio",
     price: "CA$29",
     period: "/mo",
     description: "For growing brands",
+    cta: "Start free trial",
+    ctaHref: "/auth/signup",
+    ctaVariant: "outline" as const,
     features: [
       "50 formulas",
       "Everything in Maker",
@@ -54,6 +59,9 @@ const tiers = [
     price: "CA$59",
     period: "/mo",
     description: "For established brands",
+    cta: "Contact us",
+    ctaHref: "/auth/signup",
+    ctaVariant: "outline" as const,
     features: [
       "Unlimited formulas",
       "Everything in Studio",
@@ -107,40 +115,67 @@ export default function PricingPage() {
 
         <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {tiers.map((tier) => (
-            <Card
+            <div
               key={tier.name}
-              className={`relative flex flex-col ${tier.highlighted ? "border-brand shadow-md" : ""}`}
+              className={`relative flex flex-col rounded-xl border bg-card p-6 ${
+                tier.highlighted
+                  ? "border-brand ring-2 ring-brand/20 shadow-lg"
+                  : "border-border"
+              }`}
             >
               {tier.highlighted && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-brand px-3 py-0.5 text-xs font-medium text-white">
+                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-brand px-4 py-1 text-xs font-semibold text-white shadow-sm">
                   Most popular
                 </div>
               )}
-              <CardHeader className="flex-1">
-                <CardTitle className="text-base">{tier.name}</CardTitle>
-                <div className="mt-3">
-                  <span className="font-display text-4xl font-bold">
-                    {tier.price}
+
+              {/* Tier name */}
+              <p className="text-sm font-semibold text-foreground">
+                {tier.name}
+              </p>
+
+              {/* Price — fixed height block for alignment */}
+              <div className="mt-4 flex items-baseline gap-1">
+                <span className="font-display text-4xl font-bold tracking-tight">
+                  {tier.price}
+                </span>
+                {tier.period && (
+                  <span className="text-base text-muted-foreground">
+                    {tier.period}
                   </span>
-                  {tier.period && (
-                    <span className="text-sm text-muted-foreground">
-                      {tier.period}
-                    </span>
-                  )}
-                </div>
-                <CardDescription className="mt-1">
-                  {tier.description}
-                </CardDescription>
-                <ul className="mt-6 space-y-2.5 text-sm">
-                  {tier.features.map((f) => (
-                    <li key={f} className="flex items-start gap-2">
-                      <span className="mt-0.5 text-brand">&#10003;</span>
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-              </CardHeader>
-            </Card>
+                )}
+              </div>
+
+              {/* Description */}
+              <p className="mt-1 text-sm text-muted-foreground">
+                {tier.description}
+              </p>
+
+              {/* CTA button */}
+              <Link
+                href={tier.ctaHref}
+                className={`mt-6 block w-full rounded-lg py-2.5 text-center text-sm font-semibold transition-colors ${
+                  tier.ctaVariant === "primary"
+                    ? "bg-brand text-white hover:bg-brand-dark"
+                    : "border border-border bg-card text-foreground hover:bg-muted"
+                }`}
+              >
+                {tier.cta}
+              </Link>
+
+              {/* Divider */}
+              <div className="my-6 h-px bg-border" />
+
+              {/* Features */}
+              <ul className="flex-1 space-y-3 text-sm">
+                {tier.features.map((f) => (
+                  <li key={f} className="flex items-start gap-2.5">
+                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
+                    <span className="text-muted-foreground">{f}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           ))}
         </div>
       </div>

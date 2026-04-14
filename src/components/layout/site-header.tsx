@@ -2,8 +2,11 @@ import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
 import { MainNav } from "./main-nav";
 import { MobileNav } from "./mobile-nav";
+import { getOptionalUser } from "@/lib/auth/require-auth";
 
-export function SiteHeader() {
+export async function SiteHeader() {
+  const user = await getOptionalUser();
+
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-surface/80 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
@@ -13,8 +16,8 @@ export function SiteHeader() {
           </span>
         </Link>
 
-        <MainNav />
-        <MobileNav />
+        <MainNav isLoggedIn={!!user} />
+        <MobileNav isLoggedIn={!!user} />
       </div>
     </header>
   );

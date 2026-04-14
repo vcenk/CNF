@@ -11,16 +11,15 @@ import {
 import { useState } from "react";
 import { siteConfig } from "@/lib/site-config";
 
-const navItems = [
+const publicNavItems = [
   { label: "Ingredients", href: "/ingredients" },
   { label: "Suppliers", href: "/suppliers" },
   { label: "Shop", href: "/shop" },
   { label: "Blog", href: "/blog" },
-  { label: "Formulas", href: "/formulas" },
   { label: "Pricing", href: "/pricing" },
 ];
 
-export function MobileNav() {
+export function MobileNav({ isLoggedIn }: { isLoggedIn: boolean }) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -34,7 +33,7 @@ export function MobileNav() {
           {siteConfig.name}
         </SheetTitle>
         <nav className="mt-6 flex flex-col gap-1">
-          {navItems.map((item) => (
+          {publicNavItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
@@ -44,13 +43,23 @@ export function MobileNav() {
               {item.label}
             </Link>
           ))}
-          <Link
-            href="/auth/login"
-            onClick={() => setOpen(false)}
-            className="mt-4 rounded-lg bg-primary px-4 py-2.5 text-center text-base font-medium text-primary-foreground"
-          >
-            Sign in
-          </Link>
+          {isLoggedIn ? (
+            <Link
+              href="/dashboard"
+              onClick={() => setOpen(false)}
+              className="mt-4 rounded-lg bg-primary px-4 py-2.5 text-center text-base font-medium text-primary-foreground"
+            >
+              Dashboard
+            </Link>
+          ) : (
+            <Link
+              href="/auth/login"
+              onClick={() => setOpen(false)}
+              className="mt-4 rounded-lg bg-primary px-4 py-2.5 text-center text-base font-medium text-primary-foreground"
+            >
+              Sign in
+            </Link>
+          )}
         </nav>
       </SheetContent>
     </Sheet>

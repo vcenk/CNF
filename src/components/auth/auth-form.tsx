@@ -39,7 +39,7 @@ export function AuthForm({ mode }: AuthFormProps) {
         setLoading(false);
         return;
       }
-      router.push("/formulas");
+      router.push("/dashboard");
       router.refresh();
     } else {
       const { error } = await supabase.auth.signInWithPassword({
@@ -51,7 +51,7 @@ export function AuthForm({ mode }: AuthFormProps) {
         setLoading(false);
         return;
       }
-      router.push("/formulas");
+      router.push("/dashboard");
       router.refresh();
     }
   }
