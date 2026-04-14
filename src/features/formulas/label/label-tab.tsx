@@ -13,7 +13,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
-import { Save, Tag, AlertTriangle, Download } from "lucide-react";
+import { LabelPdfDownload } from "./label-pdf";
+import { Save, Tag, AlertTriangle } from "lucide-react";
 
 interface IngredientForLabel {
   inciName: string;
@@ -228,15 +229,23 @@ export function LabelTab({
         {/* PDF download */}
         <Card>
           <CardContent className="p-4">
-            <button
-              disabled
-              className="flex w-full items-center justify-center gap-2 rounded-md bg-muted px-4 py-2 text-sm text-muted-foreground"
-            >
-              <Download className="h-4 w-4" />
-              Export PDF (coming soon)
-            </button>
+            <LabelPdfDownload
+              productNameEn={nameEn}
+              productNameFr={nameFr}
+              companyName={company}
+              companyAddress={address}
+              netWeight={weightG || null}
+              netVolume={volumeMl || null}
+              inciList={inciList}
+              mayContain={mayContain}
+              warningsEn={autoWarnings.en}
+              warningsFr={autoWarnings.fr}
+              allergens={allergens}
+              claimsEn={claimsEn.split("\n").filter(Boolean)}
+              claimsFr={claimsFr.split("\n").filter(Boolean)}
+            />
             <p className="mt-2 text-center text-xs text-muted-foreground">
-              PDF export with @react-pdf/renderer
+              A5 bilingual label with INCI list
             </p>
           </CardContent>
         </Card>

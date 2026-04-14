@@ -6,7 +6,8 @@ import { categoryLabels, type ShopCategory } from "@/domain/shop";
 import { siteConfig } from "@/lib/site-config";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { ShoppingCart, Download } from "lucide-react";
+import { EmailCaptureForm } from "@/features/shop/email-capture-form";
+import { BuyButton } from "@/features/shop/buy-button";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -105,34 +106,21 @@ export default async function ProductDetailPage({ params }: PageProps) {
 
                 {product.is_free ? (
                   <div className="mt-6">
-                    <p className="mb-3 text-center text-sm text-muted-foreground">
-                      Enter your email to download
-                    </p>
-                    {/* Email capture form will be a client component */}
-                    <Link
-                      href={`/resources/${product.slug}`}
-                      className="flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-4 py-3 text-sm font-medium text-primary-foreground hover:bg-brand-dark"
-                    >
-                      <Download className="h-4 w-4" />
-                      Download free
-                    </Link>
+                    <EmailCaptureForm
+                      productSlug={product.slug}
+                      productTitle={product.title}
+                    />
                   </div>
                 ) : (
                   <div className="mt-6">
                     <p className="mb-3 text-center text-sm text-muted-foreground">
                       Instant digital download
                     </p>
-                    {/* Stripe checkout button — placeholder for now */}
-                    <button
-                      className="flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-4 py-3 text-sm font-medium text-primary-foreground hover:bg-brand-dark"
-                      disabled
-                    >
-                      <ShoppingCart className="h-4 w-4" />
-                      Buy now — CA${product.price_cad}
-                    </button>
-                    <p className="mt-2 text-center text-xs text-muted-foreground">
-                      Stripe checkout coming soon
-                    </p>
+                    <BuyButton
+                      productId={product.id}
+                      productSlug={slug}
+                      priceCad={Number(product.price_cad)}
+                    />
                   </div>
                 )}
 

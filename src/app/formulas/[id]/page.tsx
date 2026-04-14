@@ -210,6 +210,23 @@ export default async function FormulaBuilderPage({ params }: PageProps) {
             <ExportTab
               formulaId={formula.id}
               issues={cnfIssues}
+              exportData={labelTemplate ? {
+                productNameEn: labelTemplate.product_display_name_en,
+                productNameFr: labelTemplate.product_display_name_fr,
+                companyName: labelTemplate.company_display_name,
+                companyAddress: labelTemplate.company_address ?? "",
+                productCategory: formula.product_category ?? "",
+                usageType: formula.usage_type ?? "",
+                ingredients: ingredients.map((ing) => {
+                  const d = ing.ingredients as Record<string, unknown>;
+                  return {
+                    inciName: (d?.inci_name as string) ?? "",
+                    percentage: Number(ing.percentage),
+                    casNumber: (d?.cas_number as string) ?? null,
+                    isFragranceAllergen: (d?.is_fragrance_allergen as boolean) ?? false,
+                  };
+                }),
+              } : undefined}
             />
             <SubmissionHistory submissions={cnfSubmissions} />
           </div>

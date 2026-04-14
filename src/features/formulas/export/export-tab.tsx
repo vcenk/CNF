@@ -12,9 +12,25 @@ import {
   ClipboardCheck,
 } from "lucide-react";
 
+interface ExportIngredient {
+  inciName: string;
+  percentage: number;
+  casNumber: string | null;
+  isFragranceAllergen: boolean;
+}
+
 interface ExportTabProps {
   formulaId: string;
   issues: ValidationIssue[];
+  exportData?: {
+    productNameEn: string;
+    productNameFr: string;
+    companyName: string;
+    companyAddress: string;
+    productCategory: string;
+    usageType: string;
+    ingredients: ExportIngredient[];
+  };
 }
 
 const checklistItems = [
@@ -33,13 +49,31 @@ const checklistItems = [
   { code: "CNF_NO_LABEL", label: "Label template created" },
 ];
 
-export function ExportTab({ issues }: ExportTabProps) {
+export function ExportTab({ issues, exportData }: ExportTabProps) {
   const errors = issues.filter((i) => i.severity === "error");
   const warnings = issues.filter((i) => i.severity === "warning");
   const infos = issues.filter((i) => i.severity === "info");
 
   const issueCodes = new Set(issues.map((i) => i.code));
   const isReady = errors.length === 0;
+
+  function handleExport() {
+    if (!exportData || !isReady) return;
+
+    // Dynamic import to keep bundle small
+    import("@/services/hcxs-export").then(({ generateHcxsFile }) => {
+      const file = generateHcxsFile(exportData);
+      const blob = new Blob([file.content], { type: file.mimeType });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = file.filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    });
+  }
 
   return (
     <div className="grid gap-6 lg:grid-cols-3">
@@ -146,7 +180,8 @@ export function ExportTab({ issues }: ExportTabProps) {
             </div>
 
             <button
-              disabled={!isReady}
+              onClick={handleExport}
+              disabled={!isReady || !exportData}
               className="flex w-full items-center justify-center gap-2 rounded-md bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground hover:bg-brand-dark disabled:cursor-not-allowed disabled:opacity-50"
             >
               <FileOutput className="h-4 w-4" />
