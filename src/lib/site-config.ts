@@ -1,6 +1,8 @@
 export const siteConfig = {
-  name: "CNF Builder",
-  url: "https://cnfbuilder.com",
+  name: "FormulaNorth",
+  url: "https://formulanorth.com",
   description:
-    "CNF Builder is an AI-assisted workflow for preparing Health Canada cosmetic notifications with structured validation and future-ready .hcxs export."
+    "The all-in-one platform for Canadian cosmetic makers. Ingredient database, formula management, product costing, bilingual label generation, and Health Canada CNF export.",
+  tagline: "Formulate. Comply. Sell.",
+  locale: "en_CA",
 };

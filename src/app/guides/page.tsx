@@ -1,37 +1,89 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { marketingPages } from "@/lib/marketing-pages";
-import styles from "./page.module.css";
+import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+
+const guides = [
+  {
+    title: "Health Canada Cosmetic Notification Guide",
+    description:
+      "Step-by-step walkthrough of the CNF filing process, requirements, and common pitfalls.",
+    href: "/guides/health-canada-cosmetic-notification",
+  },
+  {
+    title: "INCI Names Explained",
+    description:
+      "What INCI names are, how to find them, and why they matter for Canadian cosmetic compliance.",
+    href: "/guides/inci-names-explained",
+    comingSoon: true,
+  },
+  {
+    title: "Cosmetic Labelling in Canada",
+    description:
+      "Bilingual label requirements, mandatory warnings, font sizes, and INCI ordering rules.",
+    href: "/guides/cosmetic-labelling-canada",
+    comingSoon: true,
+  },
+  {
+    title: "Fragrance Allergen Disclosure 2026",
+    description:
+      "New April 2026 rules requiring individual fragrance allergen disclosure on labels and CNFs.",
+    href: "/guides/fragrance-allergen-disclosure-2026",
+    comingSoon: true,
+  },
+  {
+    title: "Cosmetic Product Costing",
+    description:
+      "How to calculate true COGS, set profitable pricing, and track ingredient costs as a small maker.",
+    href: "/guides/cosmetic-product-costing",
+    comingSoon: true,
+  },
+];
 
 export const metadata: Metadata = {
   title: "Guides",
   description:
-    "Browse CNF Builder guides covering Health Canada cosmetic notification workflows, submission preparation, and export planning."
+    "Practical guides for Canadian cosmetic makers covering Health Canada compliance, INCI naming, labelling, costing, and more.",
 };
 
 export default function GuidesIndexPage() {
-  const guidePages = marketingPages.filter((page) => page.href.startsWith("/guides/"));
-
   return (
-    <main className={styles.page}>
-      <section className={styles.hero}>
-        <p className={styles.eyebrow}>Guides</p>
-        <h1 className={styles.title}>Search-friendly resources for cosmetic notification work.</h1>
-        <p className={styles.summary}>
-          This guide hub supports informational search intent and routes readers toward the core
-          product pages and workflow entry points.
+    <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+      <div className="mb-12">
+        <p className="text-sm font-semibold uppercase tracking-wider text-brand">
+          Guides
         </p>
-      </section>
+        <h1 className="mt-2 font-display text-3xl font-bold tracking-tight sm:text-4xl">
+          Resources for Canadian cosmetic makers
+        </h1>
+        <p className="mt-4 max-w-2xl text-lg text-muted-foreground">
+          From Health Canada compliance to pricing your products — practical
+          guides to help you formulate, label, and sell with confidence.
+        </p>
+      </div>
 
-      <section className={styles.grid}>
-        {guidePages.map((page) => (
-          <Link key={page.href} href={page.href} className={styles.card}>
-            <strong>{page.title}</strong>
-            <span>{page.description}</span>
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {guides.map((guide) => (
+          <Link
+            key={guide.href}
+            href={guide.comingSoon ? "#" : guide.href}
+            className={guide.comingSoon ? "pointer-events-none" : ""}
+          >
+            <Card className="h-full transition-shadow hover:shadow-md">
+              <CardHeader>
+                <div className="flex items-start justify-between">
+                  <CardTitle className="text-base">{guide.title}</CardTitle>
+                  {guide.comingSoon && (
+                    <span className="shrink-0 rounded-full bg-muted px-2 py-0.5 text-xs text-muted-foreground">
+                      Soon
+                    </span>
+                  )}
+                </div>
+                <CardDescription>{guide.description}</CardDescription>
+              </CardHeader>
+            </Card>
           </Link>
         ))}
-      </section>
-    </main>
+      </div>
+    </div>
   );
 }
-

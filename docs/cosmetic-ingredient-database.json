@@ -1,0 +1,889 @@
+{
+  "_metadata": {
+    "title": "Canadian Cosmetic Ingredient Database - Research Data",
+    "compiled": "2026-04-11",
+    "sources": [
+      "Health Canada Cosmetic Ingredient Hotlist (https://www.canada.ca/en/health-canada/services/consumer-product-safety/cosmetics/cosmetic-ingredient-hotlist-prohibited-restricted-ingredients/hotlist.html)",
+      "EU Regulation 1223/2009 Annex III - 26 Fragrance Allergens",
+      "EU Regulation 2023/1545 - Extended allergen labelling",
+      "International Nomenclature of Cosmetic Ingredients (INCI)",
+      "CIR (Cosmetic Ingredient Review) safety assessments",
+      "Personal Care Products Council INCI Dictionary"
+    ],
+    "notes": "The Health Canada Hotlist contains ~500 entries. The canada.ca site blocks automated scraping. The prohibited/restricted entries below are compiled from multiple secondary regulatory sources and may not be 100% complete. Always verify against the official Hotlist at canada.ca for regulatory compliance."
+  },
+
+  "section1_health_canada_hotlist": {
+    "description": "Health Canada Cosmetic Ingredient Hotlist - Prohibited and Restricted Ingredients",
+    "official_url": "https://www.canada.ca/en/health-canada/services/consumer-product-safety/cosmetics/cosmetic-ingredient-hotlist-prohibited-restricted-ingredients/hotlist.html",
+    "last_updated": "August 2025",
+    "total_entries_approx": 500,
+
+    "prohibited_ingredients": [
+      {
+        "ingredient": "Mercury and its compounds",
+        "inci_names": ["Mercury", "Mercuric Oxide", "Phenyl Mercuric Acetate", "Phenyl Mercuric Benzoate", "Phenyl Mercuric Borate", "Thimerosal"],
+        "reason": "Neurotoxin, bioaccumulation. Part of Health Canada mercury reduction strategy.",
+        "notes": "Amended from restriction to prohibition"
+      },
+      {
+        "ingredient": "Lead and lead compounds",
+        "inci_names": ["Lead", "Lead Acetate"],
+        "reason": "Toxic heavy metal. Intentional addition prohibited (trace contaminants addressed separately)"
+      },
+      {
+        "ingredient": "Basic Green 4 (Malachite Green)",
+        "cas": "569-64-2",
+        "reason": "Developmental effects",
+        "date_added": "May 2024"
+      },
+      {
+        "ingredient": "Bithionol",
+        "cas": "97-18-7",
+        "reason": "Photosensitizer"
+      },
+      {
+        "ingredient": "Chloroform",
+        "inci_name": "Chloroform",
+        "cas": "67-66-3",
+        "reason": "Carcinogen"
+      },
+      {
+        "ingredient": "Hexachlorophene",
+        "cas": "70-30-4",
+        "reason": "Neurotoxicity"
+      },
+      {
+        "ingredient": "Methanol",
+        "cas": "67-56-1",
+        "reason": "Toxic (as an intentional ingredient; permitted as denaturant trace in ethanol)"
+      },
+      {
+        "ingredient": "Vinyl chloride",
+        "cas": "75-01-4",
+        "reason": "Carcinogen"
+      },
+      {
+        "ingredient": "Zirconium-containing compounds",
+        "reason": "Prohibited in aerosol cosmetics"
+      },
+      {
+        "ingredient": "Chlorofluorocarbon propellants (CFCs)",
+        "reason": "Ozone-depleting substances"
+      },
+      {
+        "ingredient": "Halogenated salicylanilides (di-, tri-, metabromsalan, tribromosalicylanilide)",
+        "reason": "Photosensitizers"
+      },
+      {
+        "ingredient": "Prostaglandins and their analogs",
+        "reason": "Presence on Prescription Drug List; sole therapeutic functions",
+        "date_added": "February 2025"
+      },
+      {
+        "ingredient": "Thioglycolic acid esters",
+        "reason": "Risk of skin sensitization",
+        "date_added": "February 2025"
+      },
+      {
+        "ingredient": "Phenylenediamine (free base) - as direct dye",
+        "notes": "Prohibited as direct dye; restricted when used with oxidizer in hair dye"
+      },
+      {
+        "ingredient": "Methylene chloride (Dichloromethane)",
+        "cas": "75-09-2",
+        "reason": "Carcinogen"
+      },
+      {
+        "ingredient": "Nitrosamines",
+        "reason": "Carcinogens - intentional addition prohibited"
+      },
+      {
+        "ingredient": "Diethylene glycol",
+        "cas": "111-46-6",
+        "reason": "Nephrotoxicity, systemic toxicity"
+      },
+      {
+        "ingredient": "Pyrogallol",
+        "cas": "87-66-1",
+        "reason": "Toxic"
+      },
+      {
+        "ingredient": "Antimony and its compounds",
+        "reason": "Toxic heavy metal"
+      },
+      {
+        "ingredient": "Cadmium and its compounds",
+        "reason": "Toxic heavy metal, carcinogen"
+      },
+      {
+        "ingredient": "Selenium and its compounds",
+        "notes": "Prohibited in cosmetics other than anti-dandruff shampoos (where restricted)"
+      },
+      {
+        "ingredient": "Arsenic and its compounds",
+        "reason": "Toxic, carcinogen"
+      },
+      {
+        "ingredient": "Quinine and its salts",
+        "reason": "Therapeutic agent"
+      },
+      {
+        "ingredient": "Cantharidin",
+        "cas": "56-25-7",
+        "reason": "Vesicant, toxic"
+      },
+      {
+        "ingredient": "Colchicine",
+        "cas": "64-86-8",
+        "reason": "Toxic, therapeutic agent"
+      },
+      {
+        "ingredient": "Strychnine",
+        "reason": "Highly toxic"
+      },
+      {
+        "ingredient": "Acetone peroxide",
+        "cas": "110-05-4",
+        "reason": "Explosive, corrosive"
+      }
+    ],
+
+    "restricted_ingredients": [
+      {
+        "ingredient": "Alpha Hydroxy Acids (AHAs)",
+        "inci_names": ["Glycolic Acid", "Lactic Acid", "Malic Acid", "Citric Acid", "Tartaric Acid"],
+        "restriction_type": "restricted",
+        "max_concentration": "10%",
+        "conditions": "Minimum pH of 3.5 when used as exfoliating agents. Must include sunburn alert cautionary statement.",
+        "product_types": "All cosmetics when used as exfoliants"
+      },
+      {
+        "ingredient": "Polyhydroxy Acids (PHAs)",
+        "inci_names": ["Gluconolactone", "Lactobionic Acid"],
+        "restriction_type": "restricted",
+        "max_concentration": "10%",
+        "conditions": "Minimum pH of 3.5 when used as exfoliating agents"
+      },
+      {
+        "ingredient": "Salicylic Acid",
+        "inci_name": "Salicylic Acid",
+        "cas": "69-72-7",
+        "restriction_type": "restricted",
+        "max_concentration": "2%",
+        "conditions": "Not for use in products for children under 3 years",
+        "product_types": "All cosmetic products"
+      },
+      {
+        "ingredient": "Formaldehyde",
+        "inci_name": "Formaldehyde",
+        "cas": "50-00-0",
+        "restriction_type": "restricted",
+        "max_concentration_details": [
+          {"product_type": "Nail hardeners", "max": "5%", "conditions": "Must carry cautionary labels and directions for safe use"},
+          {"product_type": "Oral cosmetics (preservative)", "max": "0.1%"},
+          {"product_type": "Non-oral cosmetics (preservative)", "max": "0.2%"},
+          {"product_type": "Hair straightening with heat", "max": "0.01%", "conditions": "Products undergoing forced convection (blow-drying) or heating (flat-ironing)"}
+        ],
+        "notes": "Not permitted in aerosol cosmetics"
+      },
+      {
+        "ingredient": "Hydroquinone",
+        "inci_name": "Hydroquinone",
+        "cas": "123-31-9",
+        "restriction_type": "restricted",
+        "max_concentration": "1%",
+        "conditions": "Added to CEPA 1999 Schedule 1. Combined limit applies when both p-hydroxyanisole and hydroquinone used in nail products.",
+        "product_types": "Non-prescription cosmetics"
+      },
+      {
+        "ingredient": "p-Hydroxyanisole (Mequinol)",
+        "inci_name": "p-Hydroxyanisole",
+        "cas": "150-76-5",
+        "restriction_type": "restricted",
+        "max_concentration": "1%",
+        "conditions": "Permitted in fragrances and lotions"
+      },
+      {
+        "ingredient": "Hydrogen Peroxide",
+        "inci_name": "Hydrogen Peroxide",
+        "cas": "7722-84-1",
+        "restriction_type": "restricted",
+        "max_concentration_details": [
+          {"product_type": "Hair products", "max": "12%"},
+          {"product_type": "Skin products", "max": "Varies by use"},
+          {"product_type": "Tooth whitening/oral products", "max": "3%"}
+        ]
+      },
+      {
+        "ingredient": "Benzalkonium Chloride",
+        "inci_name": "Benzalkonium Chloride",
+        "cas": "8001-54-5",
+        "restriction_type": "restricted",
+        "max_concentration_details": [
+          {"product_type": "Preservative (chain lengths <=14 C)", "max": "0.1%"},
+          {"product_type": "Rinse-off hair care, conditioning agent (chain lengths >=16 C)", "max": "3%"}
+        ]
+      },
+      {
+        "ingredient": "Benzethonium Chloride",
+        "inci_name": "Benzethonium Chloride",
+        "cas": "121-54-0",
+        "restriction_type": "restricted",
+        "max_concentration": "0.3%",
+        "conditions": "Rinse-off products only"
+      },
+      {
+        "ingredient": "Boric Acid and Borates",
+        "inci_names": ["Boric Acid", "Sodium Borate"],
+        "restriction_type": "restricted",
+        "max_concentration": "5%",
+        "conditions": "Warning not required when used as pH adjuster at <=0.1%. Not for use in products for children under 3 years."
+      },
+      {
+        "ingredient": "Coal Tar",
+        "inci_name": "Coal Tar",
+        "restriction_type": "restricted",
+        "conditions": "Permitted only in anti-dandruff/anti-seborrheic shampoos and scalp treatments",
+        "product_types": "Anti-dandruff shampoos, scalp treatments only"
+      },
+      {
+        "ingredient": "Fluoride compounds",
+        "inci_names": ["Sodium Fluoride", "Sodium Monofluorophosphate", "Stannous Fluoride"],
+        "restriction_type": "restricted",
+        "max_concentration": "0.254% as fluoride ion (1500 ppm in dentifrices)",
+        "conditions": "Permitted only in dentifrices/oral care products",
+        "product_types": "Oral care only"
+      },
+      {
+        "ingredient": "Methylisothiazolinone (MIT) / Methylchloroisothiazolinone (MCI) combination",
+        "inci_names": ["Methylisothiazolinone", "Methylchloroisothiazolinone"],
+        "restriction_type": "restricted",
+        "max_concentration": "0.0015% (15 ppm) for MCI/MI combination",
+        "conditions": "Prohibited in leave-on cosmetics. Permitted only in rinse-off products.",
+        "product_types": "Rinse-off only"
+      },
+      {
+        "ingredient": "Methylisothiazolinone (MIT) alone",
+        "inci_name": "Methylisothiazolinone",
+        "cas": "2682-20-4",
+        "restriction_type": "restricted",
+        "max_concentration": "0.0015% (15 ppm)",
+        "conditions": "Prohibited in leave-on cosmetics. Permitted only in rinse-off products.",
+        "product_types": "Rinse-off only"
+      },
+      {
+        "ingredient": "p-Phenylenediamine and its salts",
+        "inci_name": "p-Phenylenediamine",
+        "cas": "106-50-3",
+        "restriction_type": "restricted",
+        "max_concentration": "3% (after mixing with oxidizer)",
+        "conditions": "Hair dye use only. Must include warnings about skin sensitization.",
+        "product_types": "Hair dyes only"
+      },
+      {
+        "ingredient": "Resorcinol",
+        "inci_name": "Resorcinol",
+        "cas": "108-46-3",
+        "restriction_type": "restricted",
+        "max_concentration": "5%",
+        "conditions": "Hair dyes and rinse-off hair lotions/shampoos only"
+      },
+      {
+        "ingredient": "Selenium Disulfide",
+        "inci_name": "Selenium Disulfide",
+        "cas": "7488-56-4",
+        "restriction_type": "restricted",
+        "max_concentration": "1%",
+        "conditions": "Anti-dandruff shampoos only",
+        "product_types": "Anti-dandruff shampoos only"
+      },
+      {
+        "ingredient": "Silver and its salts",
+        "restriction_type": "restricted",
+        "max_concentration": "0.04%",
+        "conditions": "Mouthwash only",
+        "product_types": "Mouthwash"
+      },
+      {
+        "ingredient": "Strontium compounds",
+        "restriction_type": "restricted",
+        "max_concentration": "3.5% as strontium",
+        "conditions": "Depilatory products only. Not permitted in aerosol products.",
+        "product_types": "Depilatories only"
+      },
+      {
+        "ingredient": "Alkali earth metal sulfides",
+        "restriction_type": "restricted",
+        "max_concentration": "6% as sulfur",
+        "conditions": "Hair removal (depilatory) products only",
+        "product_types": "Depilatories only"
+      },
+      {
+        "ingredient": "Talc",
+        "inci_name": "Talc",
+        "cas": "14807-96-6",
+        "restriction_type": "restricted",
+        "conditions": "Revised restrictions re: chronic exposure concerns. Must be asbestos-free."
+      },
+      {
+        "ingredient": "Triclosan",
+        "inci_name": "Triclosan",
+        "cas": "3380-34-5",
+        "restriction_type": "restricted",
+        "max_concentration": "0.3%",
+        "conditions": "Not for use in mouthwash/oral products. Not for products for children under 12."
+      },
+      {
+        "ingredient": "Urea",
+        "inci_name": "Urea",
+        "cas": "57-13-6",
+        "restriction_type": "restricted",
+        "max_concentration": "10%",
+        "conditions": "Cosmetics intended to be diluted in bath water may exceed 10%"
+      },
+      {
+        "ingredient": "Retinal (Vitamin A Aldehyde)",
+        "inci_name": "Retinal",
+        "restriction_type": "restricted",
+        "conditions": "Restricted due to therapeutic properties and potential for skin irritation",
+        "date_added": "February 2025"
+      },
+      {
+        "ingredient": "Retinol and retinyl esters",
+        "inci_names": ["Retinol", "Retinyl Palmitate", "Retinyl Acetate"],
+        "restriction_type": "restricted",
+        "conditions": "Must not exceed certain concentrations; not recommended for lip products or products likely to be ingested"
+      },
+      {
+        "ingredient": "Parabens (short-chain)",
+        "inci_names": ["Methylparaben", "Ethylparaben"],
+        "restriction_type": "restricted",
+        "max_concentration": "0.4% individually, 0.8% total parabens",
+        "conditions": "Permitted as preservatives within limits"
+      },
+      {
+        "ingredient": "Parabens (long-chain)",
+        "inci_names": ["Propylparaben", "Butylparaben", "Isopropylparaben", "Isobutylparaben"],
+        "restriction_type": "restricted",
+        "max_concentration": "0.14% individually",
+        "conditions": "Not for use in leave-on products for diaper area of children under 3"
+      },
+      {
+        "ingredient": "Phenoxyethanol",
+        "inci_name": "Phenoxyethanol",
+        "cas": "122-99-6",
+        "restriction_type": "restricted",
+        "max_concentration": "1.0%",
+        "conditions": "As preservative"
+      },
+      {
+        "ingredient": "p-Chloro-m-cresol",
+        "cas": "59-50-7",
+        "restriction_type": "restricted",
+        "max_concentration": "0.1%",
+        "conditions": "Not allowed in products intended for mucous membranes",
+        "date_added": "May 2024"
+      },
+      {
+        "ingredient": "Solvent Violet 13",
+        "restriction_type": "restricted",
+        "max_concentration": "0.3%",
+        "conditions": "In cosmetic products other than nail products",
+        "date_added": "May 2024"
+      },
+      {
+        "ingredient": "Furocoumarins",
+        "restriction_type": "restricted",
+        "max_concentration": "1 ppm",
+        "conditions": "In finished products containing bergamot or other furocoumarin-containing essential oils"
+      },
+      {
+        "ingredient": "Toluene",
+        "inci_name": "Toluene",
+        "cas": "108-88-3",
+        "restriction_type": "restricted",
+        "max_concentration": "25%",
+        "conditions": "Nail products only"
+      },
+      {
+        "ingredient": "Dibutyl Phthalate (DBP)",
+        "inci_name": "Dibutyl Phthalate",
+        "cas": "84-74-2",
+        "restriction_type": "restricted",
+        "conditions": "Restricted use; concerns re: reproductive toxicity"
+      },
+      {
+        "ingredient": "Benzoyl Peroxide",
+        "inci_name": "Benzoyl Peroxide",
+        "cas": "94-36-0",
+        "restriction_type": "restricted",
+        "max_concentration": "5%",
+        "conditions": "Cosmetic use only (higher concentrations = drug)"
+      },
+      {
+        "ingredient": "Zinc Pyrithione",
+        "inci_name": "Zinc Pyrithione",
+        "cas": "13463-41-7",
+        "restriction_type": "restricted",
+        "conditions": "Anti-dandruff products only. Not for use in leave-on products except as anti-dandruff agents.",
+        "product_types": "Anti-dandruff products"
+      },
+      {
+        "ingredient": "Denatonium Benzoate",
+        "restriction_type": "restricted",
+        "conditions": "Required as a denaturant in certain alcohol-containing products"
+      }
+    ],
+
+    "proposed_changes_2026": [
+      {
+        "ingredient": "Basic Violet 4",
+        "proposed_status": "restricted",
+        "details": "Prohibition in leave-on hair products; limited concentrations in hair dyes and rinse-off"
+      },
+      {
+        "ingredient": "Basic Blue 7",
+        "proposed_status": "restricted/prohibited",
+        "details": "Carcinogenicity concerns"
+      },
+      {
+        "ingredient": "PHMB (Polyaminopropyl Biguanide)",
+        "proposed_status": "restricted",
+        "details": "Prohibited in spray/aerosol products; max concentration limits for other topical products. Inhalation and sensitization concerns."
+      },
+      {
+        "ingredient": "Brucine and its salts",
+        "proposed_status": "prohibited",
+        "details": "Moving from restricted to prohibited. High acute toxicity, neurotoxic, significant dermal absorption."
+      },
+      {
+        "ingredient": "Symphytum spp. (Comfrey)",
+        "proposed_status": "revised restriction",
+        "details": "Removing exception for Symphytum officinale due to detection of hepatotoxic alkaloid echimidine"
+      }
+    ]
+  },
+
+  "section2_eu_26_fragrance_allergens": {
+    "description": "EU 26 Fragrance Allergens requiring individual label disclosure per EU Regulation 1223/2009 Annex III",
+    "disclosure_thresholds": {
+      "rinse_off_products": "0.01% (100 ppm)",
+      "leave_on_products": "0.001% (10 ppm)"
+    },
+    "note_canada": "Canada has moved toward requiring disclosure of fragrance allergens on labels, aligning with EU standards. Manufacturers should individually list these allergens in INCI ingredient lists when above threshold concentrations.",
+    "note_eu_expansion": "EU Regulation 2023/1545 expands the list from 26 to 80+ allergens. New EU labelling deadlines: July 31, 2026 (new products) and July 31, 2028 (existing products).",
+
+    "allergens": [
+      {"number": 1, "inci_name": "Amyl Cinnamal", "cas": "122-40-7", "common_name": "alpha-Amylcinnamaldehyde", "found_in": "Jasmine-like fragrances"},
+      {"number": 2, "inci_name": "Amylcinnamyl Alcohol", "cas": "101-85-9", "common_name": "alpha-Amylcinnamyl alcohol", "found_in": "Floral fragrances"},
+      {"number": 3, "inci_name": "Anise Alcohol", "cas": "105-13-5", "common_name": "p-Methoxybenzyl alcohol / Anisyl Alcohol", "found_in": "Anise, vanilla-type fragrances"},
+      {"number": 4, "inci_name": "Benzyl Alcohol", "cas": "100-51-6", "common_name": "Benzyl alcohol", "found_in": "Essential oils (jasmine, hyacinth), preservative"},
+      {"number": 5, "inci_name": "Benzyl Benzoate", "cas": "120-51-4", "common_name": "Benzyl benzoate", "found_in": "Balsams, essential oils"},
+      {"number": 6, "inci_name": "Benzyl Cinnamate", "cas": "103-41-3", "common_name": "Benzyl cinnamate", "found_in": "Balsam of Peru, Tolu balsam"},
+      {"number": 7, "inci_name": "Benzyl Salicylate", "cas": "118-58-1", "common_name": "Benzyl salicylate", "found_in": "Floral fragrances, fixative"},
+      {"number": 8, "inci_name": "Cinnamal", "cas": "104-55-2", "common_name": "Cinnamaldehyde", "found_in": "Cinnamon oil"},
+      {"number": 9, "inci_name": "Cinnamyl Alcohol", "cas": "104-54-1", "common_name": "3-Phenyl-2-propen-1-ol", "found_in": "Cinnamon, storax, balsam of Peru"},
+      {"number": 10, "inci_name": "Citral", "cas": "5392-40-5", "common_name": "Geranial / Neral", "found_in": "Lemon, lemongrass, verbena oils"},
+      {"number": 11, "inci_name": "Citronellol", "cas": "106-22-9", "common_name": "3,7-Dimethyloct-6-en-1-ol", "found_in": "Rose, geranium oils"},
+      {"number": 12, "inci_name": "Coumarin", "cas": "91-64-5", "common_name": "1,2-Benzopyrone", "found_in": "Tonka bean, lavender, synthetic"},
+      {"number": 13, "inci_name": "Eugenol", "cas": "97-53-0", "common_name": "4-Allyl-2-methoxyphenol", "found_in": "Clove oil, cinnamon leaf"},
+      {"number": 14, "inci_name": "Evernia Furfuracea Extract", "cas": "90028-67-4", "common_name": "Treemoss extract", "found_in": "Tree moss absolute"},
+      {"number": 15, "inci_name": "Evernia Prunastri Extract", "cas": "90028-68-5", "common_name": "Oakmoss extract", "found_in": "Oak moss absolute"},
+      {"number": 16, "inci_name": "Farnesol", "cas": "4602-84-0", "common_name": "3,7,11-Trimethyl-2,6,10-dodecatrien-1-ol", "found_in": "Many essential oils, lily of the valley"},
+      {"number": 17, "inci_name": "Geraniol", "cas": "106-24-1", "common_name": "3,7-Dimethyl-2,6-octadien-1-ol", "found_in": "Rose, palmarosa, geranium oils"},
+      {"number": 18, "inci_name": "Hexyl Cinnamal", "cas": "101-86-0", "common_name": "alpha-Hexylcinnamaldehyde", "found_in": "Chamomile-type fragrances"},
+      {"number": 19, "inci_name": "Hydroxycitronellal", "cas": "107-75-5", "common_name": "7-Hydroxy-3,7-dimethyloctanal", "found_in": "Lily of the valley type fragrances"},
+      {"number": 20, "inci_name": "Hydroxyisohexyl 3-Cyclohexene Carboxaldehyde", "cas": "31906-04-4", "common_name": "HICC / Lyral", "found_in": "Lily of the valley type fragrances", "note": "BANNED in EU since 2021 - no longer permitted"},
+      {"number": 21, "inci_name": "Isoeugenol", "cas": "97-54-1", "common_name": "2-Methoxy-4-propenylphenol", "found_in": "Ylang-ylang, clove, nutmeg oils"},
+      {"number": 22, "inci_name": "Alpha-Isomethyl Ionone", "cas": "127-51-5", "common_name": "3-Methyl-4-(2,6,6-trimethyl-2-cyclohexen-1-yl)-3-buten-2-one", "found_in": "Violet/iris fragrances"},
+      {"number": 23, "inci_name": "Butylphenyl Methylpropional", "cas": "80-54-6", "common_name": "Lilial", "found_in": "Lily of the valley fragrances", "note": "BANNED in EU since March 2022"},
+      {"number": 24, "inci_name": "Limonene", "cas": "5989-27-5", "common_name": "d-Limonene / Dipentene", "found_in": "Citrus oils (orange, lemon, grapefruit)"},
+      {"number": 25, "inci_name": "Linalool", "cas": "78-70-6", "common_name": "3,7-Dimethyl-1,6-octadien-3-ol", "found_in": "Lavender, rosewood, coriander oils"},
+      {"number": 26, "inci_name": "Methyl 2-Octynoate", "cas": "111-12-6", "common_name": "Methyl heptin carbonate", "found_in": "Violet leaf fragrances"}
+    ]
+  },
+
+  "section3_ingredient_functions": {
+    "description": "Standard cosmetic ingredient functions/roles used in INCI and cosmetic formulation",
+    "functions": [
+      {"function": "Emollient", "description": "Softens and smooths skin by preventing water loss and filling gaps between skin cells"},
+      {"function": "Humectant", "description": "Attracts and retains moisture from the environment and deeper skin layers"},
+      {"function": "Surfactant", "description": "Reduces surface tension to aid cleansing, foaming, wetting, and emulsifying"},
+      {"function": "Preservative", "description": "Prevents microbial growth (bacteria, yeast, mold) to extend product shelf life"},
+      {"function": "Antioxidant", "description": "Prevents oxidation of product ingredients and/or protects skin from free radical damage"},
+      {"function": "Emulsifier", "description": "Stabilizes mixtures of oil and water phases to form stable emulsions"},
+      {"function": "Thickener / Viscosity Modifier", "description": "Increases product viscosity and modifies flow properties (rheology)"},
+      {"function": "Colorant / Pigment", "description": "Imparts color to the product or provides coverage on skin/hair"},
+      {"function": "UV Filter / Sunscreen Active", "description": "Absorbs, reflects, or scatters UV radiation to protect skin from sun damage"},
+      {"function": "Fragrance", "description": "Imparts scent to the product or masks unpleasant odors of raw materials"},
+      {"function": "pH Adjuster / Buffer", "description": "Adjusts or maintains the pH of the product at a desired level"},
+      {"function": "Film Former", "description": "Forms a continuous film on skin, hair, or nails upon application"},
+      {"function": "Conditioning Agent", "description": "Improves the feel, appearance, and manageability of skin or hair"},
+      {"function": "Solvent", "description": "Dissolves other ingredients; the continuous phase in which other ingredients are dispersed"},
+      {"function": "Chelating Agent / Sequestrant", "description": "Binds metal ions to prevent them from affecting product stability or performance"},
+      {"function": "Exfoliant", "description": "Promotes removal of dead skin cells (chemical or physical)"},
+      {"function": "Opacifier", "description": "Makes a transparent or translucent product opaque or pearly"},
+      {"function": "Skin Protectant / Barrier", "description": "Creates a protective barrier on skin surface to shield from irritants or moisture loss"},
+      {"function": "Abrasive", "description": "Physically scrubs or polishes surfaces (skin, teeth)"},
+      {"function": "Denaturant", "description": "Makes alcohol or other ingredients unpalatable to prevent ingestion"},
+      {"function": "Plasticizer", "description": "Increases flexibility and workability of film-forming polymers"},
+      {"function": "Propellant", "description": "Provides force to expel product from aerosol containers"},
+      {"function": "Astringent", "description": "Contracts or tightens body tissues, often for pore-minimizing effect"},
+      {"function": "Bulking Agent / Filler", "description": "Adds volume and body to a product without contributing active function"},
+      {"function": "Antimicrobial / Antiseptic", "description": "Kills or inhibits growth of microorganisms on the skin"}
+    ]
+  },
+
+  "section4_canadian_suppliers": {
+    "description": "Major Canadian cosmetic ingredient suppliers",
+    "suppliers": [
+      {
+        "name": "Voyageur Soap & Candle Company Ltd.",
+        "website": "https://www.voyageursoapandcandle.com/",
+        "city": "Surrey",
+        "province": "British Columbia",
+        "address": "14-19257 Enterprise Way, Surrey, BC V3S 6J8",
+        "retail_address": "Unit 102 - 19475 Fraser Hwy, Surrey, BC V3S 6K7",
+        "phone": "(604) 530-8979",
+        "toll_free": "1-800-758-7773",
+        "email": "sales@voyageursoapandcandle.com",
+        "specialties": ["Soap making supplies", "Cosmetic packaging", "Aromatherapy ingredients", "Mineral makeup supplies", "Skin care ingredients", "Classes/workshops"]
+      },
+      {
+        "name": "New Directions Aromatics Inc.",
+        "website": "https://www.newdirectionsaromatics.ca/",
+        "website_international": "https://www.newdirectionsaromatics.com/",
+        "city": "Mississauga",
+        "province": "Ontario",
+        "address": "6781 Columbus Rd, Mississauga, ON",
+        "phone": "+1 905-362-1915",
+        "email": "support@NewDirectionsAromatics.com",
+        "founded": 1998,
+        "specialties": ["Bulk essential oils (225+ varieties)", "Carrier oils (115+)", "Butters (50+)", "Cosmetic bases (25+)", "Natural raw materials", "Wholesale/B2B"]
+      },
+      {
+        "name": "Saffire Blue Inc.",
+        "website": "https://saffireblue.ca/",
+        "city": "Woodstock",
+        "province": "Ontario",
+        "address": "344 Dundas Street, Woodstock, ON N4S 1B4",
+        "phone": "519-286-0295",
+        "toll_free": "1-877-248-1115",
+        "notes": "Headquarters listed as Courtland, ON on some sources. Previously associated with Barrie, ON but current address is Woodstock.",
+        "specialties": ["Soap making supplies", "Exotic butters", "Carrier oils", "Fragrance oils", "Cosmetic packaging", "Colorants/micas/oxides"]
+      },
+      {
+        "name": "Windy Point Soap Making Supplies Inc.",
+        "website": "https://www.windypointsoap.com/",
+        "city": "Calgary",
+        "province": "Alberta",
+        "address": "14, 6125 12 Street SE, Calgary, AB T2H 2K1",
+        "phone": "587-318-6678",
+        "toll_free": "1-877-257-0030",
+        "email": "info@windypointsoap.com",
+        "notes": "Based in Calgary, AB (not Edmonton as originally noted)",
+        "specialties": ["Soap making supplies", "Candle making supplies", "Fragrance oils (400+)", "Bath and body supplies", "Molds and packaging", "Kits and sample packs"]
+      },
+      {
+        "name": "Canwax Inc.",
+        "website": "https://www.canwax.com/",
+        "city": "Huntsville",
+        "province": "Ontario",
+        "warehouse_size": "6,000 sq ft",
+        "notes": "Canada's largest wick supplier. Also carries soap making and personal care supplies. No showroom; pickup by advance order only.",
+        "specialties": ["Candle making supplies", "Wicks (Canada's largest supplier)", "Fragrances (300+, paraben-free, phthalate-free, vegan)", "Waxes (vegetable and paraffin)", "Cosmetic packaging (amber glass, lip balm tubes)", "Soap making supplies"]
+      }
+    ]
+  },
+
+  "section5_common_cosmetic_ingredients": {
+    "description": "200+ common cosmetic ingredients organized by category with INCI names, CAS numbers, functions, typical usage rates, and Health Canada hotlist status",
+
+    "emollients_and_oils": [
+      {"inci_name": "Butyrospermum Parkii (Shea) Butter", "common_name": "Shea Butter", "cas": "194043-92-0", "functions": ["Emollient", "Skin Conditioning"], "usage_rate_pct": {"min": 1, "max": 100}, "hotlist_status": "not_listed"},
+      {"inci_name": "Cocos Nucifera (Coconut) Oil", "common_name": "Coconut Oil", "cas": "8001-31-8", "functions": ["Emollient", "Skin Conditioning", "Hair Conditioning"], "usage_rate_pct": {"min": 1, "max": 100}, "hotlist_status": "not_listed"},
+      {"inci_name": "Simmondsia Chinensis (Jojoba) Seed Oil", "common_name": "Jojoba Oil", "cas": "61789-91-1", "functions": ["Emollient", "Skin Conditioning"], "usage_rate_pct": {"min": 1, "max": 25}, "hotlist_status": "not_listed"},
+      {"inci_name": "Argania Spinosa Kernel Oil", "common_name": "Argan Oil", "cas": "223747-87-1", "functions": ["Emollient", "Skin Conditioning", "Hair Conditioning"], "usage_rate_pct": {"min": 0.5, "max": 15}, "hotlist_status": "not_listed"},
+      {"inci_name": "Persea Gratissima (Avocado) Oil", "common_name": "Avocado Oil", "cas": "8024-32-6", "functions": ["Emollient", "Skin Conditioning"], "usage_rate_pct": {"min": 1, "max": 25}, "hotlist_status": "not_listed"},
+      {"inci_name": "Prunus Amygdalus Dulcis (Sweet Almond) Oil", "common_name": "Sweet Almond Oil", "cas": "8007-69-0", "functions": ["Emollient", "Skin Conditioning"], "usage_rate_pct": {"min": 1, "max": 50}, "hotlist_status": "not_listed"},
+      {"inci_name": "Olea Europaea (Olive) Fruit Oil", "common_name": "Olive Oil", "cas": "8001-25-0", "functions": ["Emollient", "Skin Conditioning"], "usage_rate_pct": {"min": 1, "max": 100}, "hotlist_status": "not_listed"},
+      {"inci_name": "Helianthus Annuus (Sunflower) Seed Oil", "common_name": "Sunflower Seed Oil", "cas": "8001-21-6", "functions": ["Emollient", "Skin Conditioning"], "usage_rate_pct": {"min": 1, "max": 50}, "hotlist_status": "not_listed"},
+      {"inci_name": "Rosa Canina Fruit Oil", "common_name": "Rosehip Seed Oil", "cas": "84603-93-0", "functions": ["Emollient", "Skin Conditioning", "Antioxidant"], "usage_rate_pct": {"min": 0.5, "max": 10}, "hotlist_status": "not_listed"},
+      {"inci_name": "Vitis Vinifera (Grape) Seed Oil", "common_name": "Grapeseed Oil", "cas": "8024-22-4", "functions": ["Emollient", "Skin Conditioning"], "usage_rate_pct": {"min": 1, "max": 30}, "hotlist_status": "not_listed"},
+      {"inci_name": "Theobroma Cacao (Cocoa) Seed Butter", "common_name": "Cocoa Butter", "cas": "8002-31-1", "functions": ["Emollient", "Skin Conditioning"], "usage_rate_pct": {"min": 1, "max": 50}, "hotlist_status": "not_listed"},
+      {"inci_name": "Mangifera Indica (Mango) Seed Butter", "common_name": "Mango Butter", "cas": "90063-86-8", "functions": ["Emollient", "Skin Conditioning"], "usage_rate_pct": {"min": 1, "max": 30}, "hotlist_status": "not_listed"},
+      {"inci_name": "Cannabis Sativa Seed Oil", "common_name": "Hemp Seed Oil", "cas": "89958-21-4", "functions": ["Emollient", "Skin Conditioning"], "usage_rate_pct": {"min": 0.5, "max": 15}, "hotlist_status": "not_listed"},
+      {"inci_name": "Ricinus Communis (Castor) Seed Oil", "common_name": "Castor Oil", "cas": "8001-79-4", "functions": ["Emollient", "Humectant", "Film Former"], "usage_rate_pct": {"min": 1, "max": 50}, "hotlist_status": "not_listed"},
+      {"inci_name": "Oenothera Biennis (Evening Primrose) Oil", "common_name": "Evening Primrose Oil", "cas": "90028-66-3", "functions": ["Emollient", "Skin Conditioning"], "usage_rate_pct": {"min": 0.5, "max": 10}, "hotlist_status": "not_listed"},
+      {"inci_name": "Sesamum Indicum (Sesame) Seed Oil", "common_name": "Sesame Seed Oil", "cas": "8008-74-0", "functions": ["Emollient", "Skin Conditioning"], "usage_rate_pct": {"min": 1, "max": 25}, "hotlist_status": "not_listed"},
+      {"inci_name": "Squalane", "common_name": "Squalane", "cas": "111-01-3", "functions": ["Emollient", "Skin Conditioning"], "usage_rate_pct": {"min": 0.5, "max": 15}, "hotlist_status": "not_listed"},
+      {"inci_name": "Caprylic/Capric Triglyceride", "common_name": "MCT Oil / Fractionated Coconut Oil", "cas": "65381-09-1", "functions": ["Emollient", "Solvent"], "usage_rate_pct": {"min": 1, "max": 30}, "hotlist_status": "not_listed"},
+      {"inci_name": "Isopropyl Myristate", "common_name": "Isopropyl Myristate", "cas": "110-27-0", "functions": ["Emollient", "Solvent", "Skin Conditioning"], "usage_rate_pct": {"min": 1, "max": 20}, "hotlist_status": "not_listed"},
+      {"inci_name": "Cetyl Alcohol", "common_name": "Cetyl Alcohol", "cas": "36653-82-4", "functions": ["Emollient", "Emulsifier", "Thickener"], "usage_rate_pct": {"min": 0.5, "max": 6}, "hotlist_status": "not_listed"},
+      {"inci_name": "Cetearyl Alcohol", "common_name": "Cetearyl Alcohol", "cas": "67762-27-0", "functions": ["Emollient", "Emulsifier", "Thickener"], "usage_rate_pct": {"min": 0.5, "max": 8}, "hotlist_status": "not_listed"},
+      {"inci_name": "Dimethicone", "common_name": "Dimethicone (Polydimethylsiloxane)", "cas": "9006-65-9", "functions": ["Emollient", "Skin Conditioning", "Hair Conditioning"], "usage_rate_pct": {"min": 0.5, "max": 10}, "hotlist_status": "not_listed"},
+      {"inci_name": "Cyclomethicone", "common_name": "Cyclomethicone", "cas": "69430-24-6", "functions": ["Emollient", "Solvent", "Hair Conditioning"], "usage_rate_pct": {"min": 1, "max": 50}, "hotlist_status": "not_listed"},
+      {"inci_name": "Mineral Oil (Paraffinum Liquidum)", "common_name": "Mineral Oil", "cas": "8012-95-1", "functions": ["Emollient", "Skin Conditioning", "Solvent"], "usage_rate_pct": {"min": 1, "max": 97}, "hotlist_status": "not_listed"},
+      {"inci_name": "Petrolatum", "common_name": "Petroleum Jelly", "cas": "8009-03-8", "functions": ["Emollient", "Skin Protectant", "Occlusive"], "usage_rate_pct": {"min": 0.5, "max": 100}, "hotlist_status": "not_listed"},
+      {"inci_name": "Lanolin", "common_name": "Lanolin (Wool Wax)", "cas": "8006-54-0", "functions": ["Emollient", "Skin Conditioning"], "usage_rate_pct": {"min": 0.5, "max": 15}, "hotlist_status": "not_listed"},
+      {"inci_name": "Cera Alba", "common_name": "Beeswax", "cas": "8012-89-3", "functions": ["Emollient", "Emulsifier", "Thickener"], "usage_rate_pct": {"min": 0.5, "max": 25}, "hotlist_status": "not_listed"},
+      {"inci_name": "Marula Oil (Sclerocarya Birrea Seed Oil)", "common_name": "Marula Oil", "cas": "225234-03-7", "functions": ["Emollient", "Skin Conditioning", "Antioxidant"], "usage_rate_pct": {"min": 0.5, "max": 10}, "hotlist_status": "not_listed"}
+    ],
+
+    "surfactants_and_cleansing": [
+      {"inci_name": "Sodium Lauryl Sulfate", "common_name": "SLS", "cas": "151-21-3", "functions": ["Surfactant", "Cleansing Agent", "Foaming Agent"], "usage_rate_pct": {"min": 1, "max": 30}, "hotlist_status": "not_listed"},
+      {"inci_name": "Sodium Laureth Sulfate", "common_name": "SLES", "cas": "9004-82-4", "functions": ["Surfactant", "Cleansing Agent", "Foaming Agent"], "usage_rate_pct": {"min": 1, "max": 30}, "hotlist_status": "not_listed"},
+      {"inci_name": "Cocamidopropyl Betaine", "common_name": "Cocamidopropyl Betaine", "cas": "61789-40-0", "functions": ["Surfactant", "Foam Booster", "Conditioning Agent"], "usage_rate_pct": {"min": 2, "max": 30}, "hotlist_status": "not_listed"},
+      {"inci_name": "Sodium Cocoyl Isethionate", "common_name": "SCI", "cas": "61789-32-0", "functions": ["Surfactant", "Cleansing Agent"], "usage_rate_pct": {"min": 5, "max": 50}, "hotlist_status": "not_listed"},
+      {"inci_name": "Decyl Glucoside", "common_name": "Decyl Glucoside", "cas": "68515-73-1", "functions": ["Surfactant", "Cleansing Agent"], "usage_rate_pct": {"min": 2, "max": 15}, "hotlist_status": "not_listed"},
+      {"inci_name": "Coco-Glucoside", "common_name": "Coco-Glucoside", "cas": "110615-47-9", "functions": ["Surfactant", "Cleansing Agent"], "usage_rate_pct": {"min": 2, "max": 15}, "hotlist_status": "not_listed"},
+      {"inci_name": "Lauryl Glucoside", "common_name": "Lauryl Glucoside", "cas": "110615-47-9", "functions": ["Surfactant", "Cleansing Agent"], "usage_rate_pct": {"min": 2, "max": 15}, "hotlist_status": "not_listed"},
+      {"inci_name": "Sodium Cocoyl Glutamate", "common_name": "Sodium Cocoyl Glutamate", "cas": "68187-32-6", "functions": ["Surfactant", "Cleansing Agent"], "usage_rate_pct": {"min": 3, "max": 20}, "hotlist_status": "not_listed"},
+      {"inci_name": "Disodium Laureth Sulfosuccinate", "common_name": "DLS", "cas": "39354-45-5", "functions": ["Surfactant", "Cleansing Agent"], "usage_rate_pct": {"min": 2, "max": 15}, "hotlist_status": "not_listed"},
+      {"inci_name": "Sodium Lauroyl Sarcosinate", "common_name": "Sodium Lauroyl Sarcosinate", "cas": "137-16-6", "functions": ["Surfactant", "Cleansing Agent", "Foaming Agent"], "usage_rate_pct": {"min": 1, "max": 10}, "hotlist_status": "not_listed"},
+      {"inci_name": "Caprylyl/Capryl Glucoside", "common_name": "Caprylyl/Capryl Glucoside", "cas": "68515-73-1", "functions": ["Surfactant", "Cleansing Agent"], "usage_rate_pct": {"min": 2, "max": 10}, "hotlist_status": "not_listed"},
+      {"inci_name": "Sodium C14-16 Olefin Sulfonate", "common_name": "Alpha Olefin Sulfonate", "cas": "68439-57-6", "functions": ["Surfactant", "Cleansing Agent", "Foaming Agent"], "usage_rate_pct": {"min": 2, "max": 25}, "hotlist_status": "not_listed"},
+      {"inci_name": "Cocamide DEA", "common_name": "Cocamide DEA", "cas": "68603-42-9", "functions": ["Surfactant", "Foam Booster", "Thickener"], "usage_rate_pct": {"min": 1, "max": 10}, "hotlist_status": "not_listed"},
+      {"inci_name": "Cocamide MEA", "common_name": "Cocamide MEA", "cas": "68140-00-1", "functions": ["Surfactant", "Foam Booster", "Thickener"], "usage_rate_pct": {"min": 1, "max": 10}, "hotlist_status": "not_listed"},
+      {"inci_name": "PEG-80 Sorbitan Laurate", "common_name": "Polysorbate 80 derivative", "cas": "9005-64-5", "functions": ["Surfactant", "Emulsifier", "Solubilizer"], "usage_rate_pct": {"min": 0.5, "max": 5}, "hotlist_status": "not_listed"},
+      {"inci_name": "Sodium Methyl Cocoyl Taurate", "common_name": "Sodium Methyl Cocoyl Taurate", "cas": "12765-39-8", "functions": ["Surfactant", "Cleansing Agent", "Foaming Agent"], "usage_rate_pct": {"min": 2, "max": 20}, "hotlist_status": "not_listed"}
+    ],
+
+    "humectants": [
+      {"inci_name": "Glycerin", "common_name": "Glycerine / Glycerol", "cas": "56-81-5", "functions": ["Humectant", "Skin Conditioning", "Solvent"], "usage_rate_pct": {"min": 1, "max": 30}, "hotlist_status": "not_listed"},
+      {"inci_name": "Hyaluronic Acid", "common_name": "Hyaluronic Acid (HA)", "cas": "9004-61-9", "functions": ["Humectant", "Skin Conditioning"], "usage_rate_pct": {"min": 0.01, "max": 2}, "hotlist_status": "not_listed"},
+      {"inci_name": "Sodium Hyaluronate", "common_name": "Sodium Hyaluronate", "cas": "9067-32-7", "functions": ["Humectant", "Skin Conditioning"], "usage_rate_pct": {"min": 0.01, "max": 1}, "hotlist_status": "not_listed"},
+      {"inci_name": "Propylene Glycol", "common_name": "Propylene Glycol", "cas": "57-55-6", "functions": ["Humectant", "Solvent", "Skin Conditioning"], "usage_rate_pct": {"min": 1, "max": 50}, "hotlist_status": "not_listed"},
+      {"inci_name": "Butylene Glycol", "common_name": "1,3-Butylene Glycol", "cas": "107-88-0", "functions": ["Humectant", "Solvent", "Skin Conditioning"], "usage_rate_pct": {"min": 0.5, "max": 10}, "hotlist_status": "not_listed"},
+      {"inci_name": "Sorbitol", "common_name": "Sorbitol", "cas": "50-70-4", "functions": ["Humectant", "Skin Conditioning"], "usage_rate_pct": {"min": 1, "max": 15}, "hotlist_status": "not_listed"},
+      {"inci_name": "Panthenol", "common_name": "Pro-Vitamin B5 / D-Panthenol", "cas": "81-13-0", "functions": ["Humectant", "Hair Conditioning", "Skin Conditioning"], "usage_rate_pct": {"min": 0.5, "max": 5}, "hotlist_status": "not_listed"},
+      {"inci_name": "Sodium PCA", "common_name": "Sodium PCA", "cas": "28874-51-3", "functions": ["Humectant", "Skin Conditioning"], "usage_rate_pct": {"min": 0.5, "max": 5}, "hotlist_status": "not_listed"},
+      {"inci_name": "Betaine", "common_name": "Trimethylglycine (TMG)", "cas": "107-43-7", "functions": ["Humectant", "Skin Conditioning"], "usage_rate_pct": {"min": 0.5, "max": 5}, "hotlist_status": "not_listed"},
+      {"inci_name": "Aloe Barbadensis Leaf Juice", "common_name": "Aloe Vera Juice", "cas": "85507-69-3", "functions": ["Humectant", "Skin Conditioning", "Soothing Agent"], "usage_rate_pct": {"min": 1, "max": 99}, "hotlist_status": "not_listed"},
+      {"inci_name": "Honey (Mel)", "common_name": "Honey", "cas": "8028-66-8", "functions": ["Humectant", "Emollient", "Antimicrobial"], "usage_rate_pct": {"min": 0.5, "max": 10}, "hotlist_status": "not_listed"},
+      {"inci_name": "Urea", "common_name": "Urea", "cas": "57-13-6", "functions": ["Humectant", "Skin Conditioning", "Exfoliant"], "usage_rate_pct": {"min": 1, "max": 10}, "hotlist_status": "restricted", "hotlist_note": "Max 10%. Bath products may exceed 10%."},
+      {"inci_name": "Pentylene Glycol", "common_name": "1,2-Pentanediol", "cas": "5343-92-0", "functions": ["Humectant", "Solvent", "Antimicrobial Booster"], "usage_rate_pct": {"min": 0.5, "max": 5}, "hotlist_status": "not_listed"}
+    ],
+
+    "preservatives": [
+      {"inci_name": "Phenoxyethanol", "common_name": "Phenoxyethanol", "cas": "122-99-6", "functions": ["Preservative"], "usage_rate_pct": {"min": 0.5, "max": 1.0}, "hotlist_status": "restricted", "hotlist_note": "Max 1.0%"},
+      {"inci_name": "Methylparaben", "common_name": "Methylparaben", "cas": "99-76-3", "functions": ["Preservative"], "usage_rate_pct": {"min": 0.1, "max": 0.4}, "hotlist_status": "restricted", "hotlist_note": "Max 0.4% individually, 0.8% total parabens"},
+      {"inci_name": "Ethylparaben", "common_name": "Ethylparaben", "cas": "120-47-8", "functions": ["Preservative"], "usage_rate_pct": {"min": 0.1, "max": 0.4}, "hotlist_status": "restricted", "hotlist_note": "Max 0.4% individually, 0.8% total parabens"},
+      {"inci_name": "Propylparaben", "common_name": "Propylparaben", "cas": "94-13-3", "functions": ["Preservative"], "usage_rate_pct": {"min": 0.01, "max": 0.14}, "hotlist_status": "restricted", "hotlist_note": "Max 0.14% individually. Not for leave-on products for diaper area of children under 3."},
+      {"inci_name": "Butylparaben", "common_name": "Butylparaben", "cas": "94-26-8", "functions": ["Preservative"], "usage_rate_pct": {"min": 0.01, "max": 0.14}, "hotlist_status": "restricted", "hotlist_note": "Max 0.14% individually. Not for leave-on products for diaper area of children under 3."},
+      {"inci_name": "Potassium Sorbate", "common_name": "Potassium Sorbate", "cas": "24634-61-5", "functions": ["Preservative"], "usage_rate_pct": {"min": 0.1, "max": 0.6}, "hotlist_status": "not_listed"},
+      {"inci_name": "Sodium Benzoate", "common_name": "Sodium Benzoate", "cas": "532-32-1", "functions": ["Preservative"], "usage_rate_pct": {"min": 0.1, "max": 0.5}, "hotlist_status": "not_listed"},
+      {"inci_name": "Benzyl Alcohol", "common_name": "Benzyl Alcohol", "cas": "100-51-6", "functions": ["Preservative", "Solvent", "Fragrance"], "usage_rate_pct": {"min": 0.5, "max": 1.0}, "hotlist_status": "not_listed", "note": "EU fragrance allergen - must declare above threshold"},
+      {"inci_name": "Ethylhexylglycerin", "common_name": "Ethylhexylglycerin (Octoxyglycerin)", "cas": "70445-33-9", "functions": ["Preservative Booster", "Skin Conditioning"], "usage_rate_pct": {"min": 0.3, "max": 1.0}, "hotlist_status": "not_listed"},
+      {"inci_name": "Dehydroacetic Acid", "common_name": "Dehydroacetic Acid", "cas": "520-45-6", "functions": ["Preservative"], "usage_rate_pct": {"min": 0.05, "max": 0.6}, "hotlist_status": "not_listed"},
+      {"inci_name": "Sorbic Acid", "common_name": "Sorbic Acid", "cas": "110-44-1", "functions": ["Preservative"], "usage_rate_pct": {"min": 0.1, "max": 0.6}, "hotlist_status": "not_listed"},
+      {"inci_name": "DMDM Hydantoin", "common_name": "DMDM Hydantoin", "cas": "6440-58-0", "functions": ["Preservative (formaldehyde releaser)"], "usage_rate_pct": {"min": 0.1, "max": 0.6}, "hotlist_status": "restricted", "hotlist_note": "Formaldehyde releaser - subject to formaldehyde limits"},
+      {"inci_name": "Imidazolidinyl Urea", "common_name": "Germall 115", "cas": "39236-46-9", "functions": ["Preservative (formaldehyde releaser)"], "usage_rate_pct": {"min": 0.1, "max": 0.6}, "hotlist_status": "restricted", "hotlist_note": "Formaldehyde releaser - subject to formaldehyde limits"},
+      {"inci_name": "Diazolidinyl Urea", "common_name": "Germall II", "cas": "78491-02-8", "functions": ["Preservative (formaldehyde releaser)"], "usage_rate_pct": {"min": 0.1, "max": 0.5}, "hotlist_status": "restricted", "hotlist_note": "Formaldehyde releaser - subject to formaldehyde limits"},
+      {"inci_name": "Methylisothiazolinone", "common_name": "MIT", "cas": "2682-20-4", "functions": ["Preservative"], "usage_rate_pct": {"min": 0, "max": 0.0015}, "hotlist_status": "restricted", "hotlist_note": "Max 0.0015% (15 ppm). Rinse-off only. PROHIBITED in leave-on."},
+      {"inci_name": "Chlorphenesin", "common_name": "Chlorphenesin", "cas": "104-29-0", "functions": ["Preservative"], "usage_rate_pct": {"min": 0.1, "max": 0.3}, "hotlist_status": "not_listed"},
+      {"inci_name": "Caprylhydroxamic Acid", "common_name": "Caprylhydroxamic Acid", "cas": "7377-03-9", "functions": ["Preservative Booster", "Chelating Agent"], "usage_rate_pct": {"min": 0.1, "max": 0.5}, "hotlist_status": "not_listed"}
+    ],
+
+    "emulsifiers": [
+      {"inci_name": "Cetearyl Olivate (and) Sorbitan Olivate", "common_name": "Olivem 1000", "functions": ["Emulsifier (O/W)"], "usage_rate_pct": {"min": 2, "max": 8}, "hotlist_status": "not_listed"},
+      {"inci_name": "Polysorbate 20", "common_name": "Polysorbate 20 / Tween 20", "cas": "9005-64-5", "functions": ["Emulsifier", "Solubilizer"], "usage_rate_pct": {"min": 0.5, "max": 5}, "hotlist_status": "not_listed"},
+      {"inci_name": "Polysorbate 80", "common_name": "Polysorbate 80 / Tween 80", "cas": "9005-65-6", "functions": ["Emulsifier", "Solubilizer"], "usage_rate_pct": {"min": 0.5, "max": 5}, "hotlist_status": "not_listed"},
+      {"inci_name": "Glyceryl Stearate", "common_name": "Glyceryl Monostearate (GMS)", "cas": "31566-31-1", "functions": ["Emulsifier (O/W)", "Thickener"], "usage_rate_pct": {"min": 1, "max": 10}, "hotlist_status": "not_listed"},
+      {"inci_name": "Glyceryl Stearate (and) PEG-100 Stearate", "common_name": "Glyceryl Stearate SE", "functions": ["Emulsifier (O/W)"], "usage_rate_pct": {"min": 2, "max": 8}, "hotlist_status": "not_listed"},
+      {"inci_name": "Ceteareth-20", "common_name": "Ceteareth-20", "cas": "68439-49-6", "functions": ["Emulsifier (O/W)"], "usage_rate_pct": {"min": 0.5, "max": 5}, "hotlist_status": "not_listed"},
+      {"inci_name": "Sorbitan Stearate", "common_name": "Span 60", "cas": "1338-41-6", "functions": ["Emulsifier (W/O)"], "usage_rate_pct": {"min": 1, "max": 5}, "hotlist_status": "not_listed"},
+      {"inci_name": "Lecithin", "common_name": "Soy Lecithin / Phosphatidylcholine", "cas": "8002-43-5", "functions": ["Emulsifier", "Skin Conditioning"], "usage_rate_pct": {"min": 0.5, "max": 5}, "hotlist_status": "not_listed"},
+      {"inci_name": "Stearic Acid", "common_name": "Stearic Acid", "cas": "57-11-4", "functions": ["Emulsifier", "Thickener", "Cleansing Agent"], "usage_rate_pct": {"min": 0.5, "max": 15}, "hotlist_status": "not_listed"},
+      {"inci_name": "Cetearyl Glucoside", "common_name": "Cetearyl Glucoside", "cas": "110615-47-9", "functions": ["Emulsifier (O/W)"], "usage_rate_pct": {"min": 1, "max": 5}, "hotlist_status": "not_listed"},
+      {"inci_name": "Sorbitan Oleate", "common_name": "Span 80", "cas": "1338-43-8", "functions": ["Emulsifier (W/O)"], "usage_rate_pct": {"min": 1, "max": 5}, "hotlist_status": "not_listed"},
+      {"inci_name": "PEG-40 Hydrogenated Castor Oil", "common_name": "Cremophor RH 40", "cas": "61788-85-0", "functions": ["Emulsifier", "Solubilizer"], "usage_rate_pct": {"min": 0.5, "max": 5}, "hotlist_status": "not_listed"}
+    ],
+
+    "thickeners_and_rheology_modifiers": [
+      {"inci_name": "Xanthan Gum", "common_name": "Xanthan Gum", "cas": "11138-66-2", "functions": ["Thickener", "Stabilizer"], "usage_rate_pct": {"min": 0.1, "max": 2}, "hotlist_status": "not_listed"},
+      {"inci_name": "Carbomer", "common_name": "Carbomer / Carbopol", "cas": "9003-01-4", "functions": ["Thickener", "Stabilizer", "Gel Former"], "usage_rate_pct": {"min": 0.1, "max": 1}, "hotlist_status": "not_listed"},
+      {"inci_name": "Hydroxyethylcellulose", "common_name": "HEC", "cas": "9004-62-0", "functions": ["Thickener", "Film Former"], "usage_rate_pct": {"min": 0.2, "max": 2}, "hotlist_status": "not_listed"},
+      {"inci_name": "Hydroxypropyl Methylcellulose", "common_name": "HPMC / Hypromellose", "cas": "9004-65-3", "functions": ["Thickener", "Film Former"], "usage_rate_pct": {"min": 0.2, "max": 3}, "hotlist_status": "not_listed"},
+      {"inci_name": "Sodium Carboxymethyl Cellulose", "common_name": "CMC", "cas": "9004-32-4", "functions": ["Thickener", "Stabilizer"], "usage_rate_pct": {"min": 0.2, "max": 2}, "hotlist_status": "not_listed"},
+      {"inci_name": "Guar Gum (Cyamopsis Tetragonoloba Gum)", "common_name": "Guar Gum", "cas": "9000-30-0", "functions": ["Thickener", "Conditioning Agent"], "usage_rate_pct": {"min": 0.1, "max": 2}, "hotlist_status": "not_listed"},
+      {"inci_name": "Acrylates/C10-30 Alkyl Acrylate Crosspolymer", "common_name": "Pemulen / Carbomer variant", "cas": "N/A", "functions": ["Thickener", "Emulsifier", "Stabilizer"], "usage_rate_pct": {"min": 0.1, "max": 0.5}, "hotlist_status": "not_listed"},
+      {"inci_name": "Cellulose Gum", "common_name": "Carboxymethyl Cellulose", "cas": "9004-32-4", "functions": ["Thickener", "Stabilizer"], "usage_rate_pct": {"min": 0.2, "max": 2}, "hotlist_status": "not_listed"},
+      {"inci_name": "Sclerotium Gum", "common_name": "Sclerotium Gum", "cas": "39464-87-4", "functions": ["Thickener", "Stabilizer"], "usage_rate_pct": {"min": 0.2, "max": 2}, "hotlist_status": "not_listed"},
+      {"inci_name": "Sodium Polyacrylate", "common_name": "Sodium Polyacrylate", "cas": "9003-04-7", "functions": ["Thickener", "Film Former"], "usage_rate_pct": {"min": 0.2, "max": 3}, "hotlist_status": "not_listed"},
+      {"inci_name": "Bentonite", "common_name": "Bentonite Clay", "cas": "1302-78-9", "functions": ["Thickener", "Absorbent", "Bulking Agent"], "usage_rate_pct": {"min": 0.5, "max": 15}, "hotlist_status": "not_listed"}
+    ],
+
+    "colorants": [
+      {"inci_name": "CI 77891 (Titanium Dioxide)", "common_name": "Titanium Dioxide", "cas": "13463-67-7", "functions": ["Colorant", "UV Filter", "Opacifier"], "usage_rate_pct": {"min": 0.5, "max": 25}, "hotlist_status": "not_listed", "note": "Also used as physical sunscreen active"},
+      {"inci_name": "CI 77491 (Iron Oxide Red)", "common_name": "Red Iron Oxide", "cas": "1309-37-1", "functions": ["Colorant"], "usage_rate_pct": {"min": 0.1, "max": 10}, "hotlist_status": "not_listed"},
+      {"inci_name": "CI 77492 (Iron Oxide Yellow)", "common_name": "Yellow Iron Oxide", "cas": "51274-00-1", "functions": ["Colorant"], "usage_rate_pct": {"min": 0.1, "max": 10}, "hotlist_status": "not_listed"},
+      {"inci_name": "CI 77499 (Iron Oxide Black)", "common_name": "Black Iron Oxide", "cas": "1317-61-9", "functions": ["Colorant"], "usage_rate_pct": {"min": 0.1, "max": 10}, "hotlist_status": "not_listed"},
+      {"inci_name": "CI 77007 (Ultramarines)", "common_name": "Ultramarine Blue / Violet / Pink", "cas": "57455-37-5", "functions": ["Colorant"], "usage_rate_pct": {"min": 0.1, "max": 5}, "hotlist_status": "not_listed"},
+      {"inci_name": "CI 77742 (Manganese Violet)", "common_name": "Manganese Violet", "cas": "10101-66-3", "functions": ["Colorant"], "usage_rate_pct": {"min": 0.1, "max": 5}, "hotlist_status": "not_listed"},
+      {"inci_name": "CI 77019 (Mica)", "common_name": "Mica", "cas": "12001-26-2", "functions": ["Colorant", "Bulking Agent", "Opacifier"], "usage_rate_pct": {"min": 0.5, "max": 25}, "hotlist_status": "not_listed"},
+      {"inci_name": "CI 77163 (Bismuth Oxychloride)", "common_name": "Bismuth Oxychloride", "cas": "7787-59-9", "functions": ["Colorant", "Skin Conditioning"], "usage_rate_pct": {"min": 0.5, "max": 15}, "hotlist_status": "not_listed"},
+      {"inci_name": "CI 75810 (Chlorophyllin-Copper Complex)", "common_name": "Chlorophyllin Copper", "cas": "11006-34-1", "functions": ["Colorant"], "usage_rate_pct": {"min": 0.01, "max": 0.5}, "hotlist_status": "not_listed"},
+      {"inci_name": "CI 77288 (Chromium Oxide Greens)", "common_name": "Chromium Oxide Green", "cas": "1308-38-9", "functions": ["Colorant"], "usage_rate_pct": {"min": 0.1, "max": 5}, "hotlist_status": "not_listed"},
+      {"inci_name": "CI 15985 (FD&C Yellow No. 6)", "common_name": "Sunset Yellow", "cas": "2783-94-0", "functions": ["Colorant"], "usage_rate_pct": {"min": 0.01, "max": 1}, "hotlist_status": "not_listed"},
+      {"inci_name": "CI 19140 (FD&C Yellow No. 5)", "common_name": "Tartrazine", "cas": "1934-21-0", "functions": ["Colorant"], "usage_rate_pct": {"min": 0.01, "max": 1}, "hotlist_status": "not_listed"},
+      {"inci_name": "CI 16035 (FD&C Red No. 40)", "common_name": "Allura Red", "cas": "25956-17-6", "functions": ["Colorant"], "usage_rate_pct": {"min": 0.01, "max": 1}, "hotlist_status": "not_listed"},
+      {"inci_name": "CI 42090 (FD&C Blue No. 1)", "common_name": "Brilliant Blue", "cas": "3844-45-9", "functions": ["Colorant"], "usage_rate_pct": {"min": 0.01, "max": 0.5}, "hotlist_status": "not_listed"},
+      {"inci_name": "CI 77947 (Zinc Oxide)", "common_name": "Zinc Oxide", "cas": "1314-13-2", "functions": ["Colorant", "UV Filter", "Skin Protectant"], "usage_rate_pct": {"min": 0.5, "max": 25}, "hotlist_status": "not_listed"},
+      {"inci_name": "Carmine (CI 75470)", "common_name": "Carmine / Cochineal", "cas": "1390-65-4", "functions": ["Colorant"], "usage_rate_pct": {"min": 0.01, "max": 3}, "hotlist_status": "not_listed"},
+      {"inci_name": "CI 77266 (Carbon Black)", "common_name": "Carbon Black", "cas": "1333-86-4", "functions": ["Colorant"], "usage_rate_pct": {"min": 0.01, "max": 3}, "hotlist_status": "not_listed"}
+    ],
+
+    "uv_filters_sunscreen_actives": [
+      {"inci_name": "Titanium Dioxide", "common_name": "Titanium Dioxide", "cas": "13463-67-7", "functions": ["UV Filter (Physical/Mineral)", "Colorant"], "usage_rate_pct": {"min": 2, "max": 25}, "hotlist_status": "not_listed", "note": "Physical/mineral UV filter. Broad spectrum UVA+UVB."},
+      {"inci_name": "Zinc Oxide", "common_name": "Zinc Oxide", "cas": "1314-13-2", "functions": ["UV Filter (Physical/Mineral)", "Skin Protectant"], "usage_rate_pct": {"min": 2, "max": 25}, "hotlist_status": "not_listed", "note": "Physical/mineral UV filter. Broad spectrum UVA+UVB."},
+      {"inci_name": "Avobenzone (Butyl Methoxydibenzoylmethane)", "common_name": "Avobenzone / Parsol 1789", "cas": "70356-09-1", "functions": ["UV Filter (Chemical)"], "usage_rate_pct": {"min": 1, "max": 3}, "hotlist_status": "not_listed", "note": "UVA filter"},
+      {"inci_name": "Homosalate", "common_name": "Homosalate", "cas": "118-56-9", "functions": ["UV Filter (Chemical)"], "usage_rate_pct": {"min": 1, "max": 15}, "hotlist_status": "not_listed", "note": "UVB filter"},
+      {"inci_name": "Octisalate (Ethylhexyl Salicylate)", "common_name": "Octisalate", "cas": "118-60-5", "functions": ["UV Filter (Chemical)"], "usage_rate_pct": {"min": 1, "max": 5}, "hotlist_status": "not_listed", "note": "UVB filter"},
+      {"inci_name": "Octocrylene", "common_name": "Octocrylene", "cas": "6197-30-4", "functions": ["UV Filter (Chemical)"], "usage_rate_pct": {"min": 1, "max": 10}, "hotlist_status": "not_listed", "note": "UVB filter, photostabilizer for avobenzone"},
+      {"inci_name": "Octinoxate (Ethylhexyl Methoxycinnamate)", "common_name": "Octinoxate / OMC", "cas": "5466-77-3", "functions": ["UV Filter (Chemical)"], "usage_rate_pct": {"min": 1, "max": 7.5}, "hotlist_status": "not_listed", "note": "UVB filter. Restricted in some jurisdictions (Hawaii)."},
+      {"inci_name": "Oxybenzone (Benzophenone-3)", "common_name": "Oxybenzone", "cas": "131-57-7", "functions": ["UV Filter (Chemical)"], "usage_rate_pct": {"min": 1, "max": 6}, "hotlist_status": "not_listed", "note": "UVA/UVB filter. Environmental concerns."},
+      {"inci_name": "Ecamsule (Terephthalylidene Dicamphor Sulfonic Acid)", "common_name": "Mexoryl SX", "cas": "92761-26-7", "functions": ["UV Filter (Chemical)"], "usage_rate_pct": {"min": 1, "max": 10}, "hotlist_status": "not_listed", "note": "UVA filter"},
+      {"inci_name": "Ensulizole (Phenylbenzimidazole Sulfonic Acid)", "common_name": "Ensulizole", "cas": "27503-81-7", "functions": ["UV Filter (Chemical)"], "usage_rate_pct": {"min": 1, "max": 4}, "hotlist_status": "not_listed", "note": "UVB filter"},
+      {"inci_name": "Drometrizole Trisiloxane", "common_name": "Mexoryl XL", "cas": "155633-54-8", "functions": ["UV Filter (Chemical)"], "usage_rate_pct": {"min": 1, "max": 15}, "hotlist_status": "not_listed", "note": "Broad spectrum UVA/UVB"},
+      {"inci_name": "Bis-Ethylhexyloxyphenol Methoxyphenyl Triazine", "common_name": "Tinosorb S", "cas": "187393-00-6", "functions": ["UV Filter (Chemical)"], "usage_rate_pct": {"min": 1, "max": 10}, "hotlist_status": "not_listed", "note": "Broad spectrum UVA/UVB"}
+    ],
+
+    "fragrances_and_essential_oils": [
+      {"inci_name": "Parfum (Fragrance)", "common_name": "Fragrance", "cas": "N/A", "functions": ["Fragrance"], "usage_rate_pct": {"min": 0.1, "max": 5}, "hotlist_status": "not_listed", "note": "Must individually list EU 26 allergens if above thresholds"},
+      {"inci_name": "Lavandula Angustifolia (Lavender) Oil", "common_name": "Lavender Essential Oil", "cas": "8000-28-0", "functions": ["Fragrance", "Skin Conditioning"], "usage_rate_pct": {"min": 0.1, "max": 3}, "hotlist_status": "not_listed"},
+      {"inci_name": "Melaleuca Alternifolia (Tea Tree) Leaf Oil", "common_name": "Tea Tree Oil", "cas": "85085-48-9", "functions": ["Fragrance", "Antimicrobial", "Skin Conditioning"], "usage_rate_pct": {"min": 0.1, "max": 5}, "hotlist_status": "not_listed"},
+      {"inci_name": "Mentha Piperita (Peppermint) Oil", "common_name": "Peppermint Oil", "cas": "8006-90-4", "functions": ["Fragrance", "Skin Conditioning"], "usage_rate_pct": {"min": 0.1, "max": 2}, "hotlist_status": "not_listed"},
+      {"inci_name": "Eucalyptus Globulus Leaf Oil", "common_name": "Eucalyptus Oil", "cas": "8000-48-4", "functions": ["Fragrance", "Skin Conditioning"], "usage_rate_pct": {"min": 0.1, "max": 2}, "hotlist_status": "not_listed"},
+      {"inci_name": "Citrus Limon (Lemon) Peel Oil", "common_name": "Lemon Essential Oil", "cas": "8008-56-8", "functions": ["Fragrance"], "usage_rate_pct": {"min": 0.1, "max": 2}, "hotlist_status": "not_listed", "note": "Contains limonene and citral (EU allergens). Furocoumarins restricted to 1 ppm in finished product."},
+      {"inci_name": "Citrus Sinensis (Orange) Peel Oil", "common_name": "Sweet Orange Oil", "cas": "8028-48-6", "functions": ["Fragrance"], "usage_rate_pct": {"min": 0.1, "max": 3}, "hotlist_status": "not_listed"},
+      {"inci_name": "Rosmarinus Officinalis (Rosemary) Leaf Oil", "common_name": "Rosemary Oil", "cas": "8000-25-7", "functions": ["Fragrance", "Antioxidant"], "usage_rate_pct": {"min": 0.1, "max": 2}, "hotlist_status": "not_listed"},
+      {"inci_name": "Chamomilla Recutita (Matricaria) Flower Oil", "common_name": "German Chamomile Oil", "cas": "8002-66-2", "functions": ["Fragrance", "Skin Conditioning"], "usage_rate_pct": {"min": 0.1, "max": 2}, "hotlist_status": "not_listed"},
+      {"inci_name": "Cinnamomum Zeylanicum Bark Oil", "common_name": "Cinnamon Bark Oil", "cas": "8015-91-6", "functions": ["Fragrance"], "usage_rate_pct": {"min": 0.01, "max": 0.5}, "hotlist_status": "not_listed", "note": "Contains cinnamal and eugenol (EU allergens). Skin sensitizer at higher concentrations."},
+      {"inci_name": "Citrus Aurantium Bergamia (Bergamot) Fruit Oil", "common_name": "Bergamot Oil", "cas": "8007-75-8", "functions": ["Fragrance"], "usage_rate_pct": {"min": 0.1, "max": 1}, "hotlist_status": "restricted", "hotlist_note": "Must be FCF (furocoumarin-free). Furocoumarins restricted to 1 ppm in finished product."},
+      {"inci_name": "Pogostemon Cablin Oil", "common_name": "Patchouli Oil", "cas": "8014-09-3", "functions": ["Fragrance"], "usage_rate_pct": {"min": 0.1, "max": 3}, "hotlist_status": "not_listed"},
+      {"inci_name": "Cananga Odorata Flower Oil", "common_name": "Ylang Ylang Oil", "cas": "8006-81-3", "functions": ["Fragrance"], "usage_rate_pct": {"min": 0.1, "max": 2}, "hotlist_status": "not_listed"},
+      {"inci_name": "Boswellia Carterii Oil", "common_name": "Frankincense Oil", "cas": "8016-36-2", "functions": ["Fragrance", "Skin Conditioning"], "usage_rate_pct": {"min": 0.1, "max": 3}, "hotlist_status": "not_listed"},
+      {"inci_name": "Cedrus Atlantica Bark Oil", "common_name": "Cedarwood Oil", "cas": "8000-27-9", "functions": ["Fragrance"], "usage_rate_pct": {"min": 0.1, "max": 3}, "hotlist_status": "not_listed"},
+      {"inci_name": "Pelargonium Graveolens Oil", "common_name": "Geranium Oil", "cas": "8000-46-2", "functions": ["Fragrance"], "usage_rate_pct": {"min": 0.1, "max": 2}, "hotlist_status": "not_listed", "note": "Contains geraniol and citronellol (EU allergens)"}
+    ],
+
+    "active_and_functional_ingredients": [
+      {"inci_name": "Niacinamide", "common_name": "Vitamin B3 / Nicotinamide", "cas": "98-92-0", "functions": ["Skin Conditioning", "Antioxidant"], "usage_rate_pct": {"min": 2, "max": 10}, "hotlist_status": "not_listed"},
+      {"inci_name": "Retinol", "common_name": "Vitamin A", "cas": "68-26-8", "functions": ["Skin Conditioning", "Antioxidant"], "usage_rate_pct": {"min": 0.01, "max": 1}, "hotlist_status": "restricted", "hotlist_note": "Concentration limits apply. Not recommended for lip products."},
+      {"inci_name": "Ascorbic Acid", "common_name": "Vitamin C", "cas": "50-81-7", "functions": ["Antioxidant", "Skin Conditioning"], "usage_rate_pct": {"min": 0.5, "max": 20}, "hotlist_status": "not_listed"},
+      {"inci_name": "Sodium Ascorbyl Phosphate", "common_name": "Stabilized Vitamin C (SAP)", "cas": "66170-10-3", "functions": ["Antioxidant", "Skin Conditioning"], "usage_rate_pct": {"min": 0.5, "max": 5}, "hotlist_status": "not_listed"},
+      {"inci_name": "Salicylic Acid", "common_name": "Salicylic Acid (BHA)", "cas": "69-72-7", "functions": ["Exfoliant", "Antimicrobial", "Preservative"], "usage_rate_pct": {"min": 0.5, "max": 2}, "hotlist_status": "restricted", "hotlist_note": "Max 2%. Not for children under 3 years."},
+      {"inci_name": "Glycolic Acid", "common_name": "Glycolic Acid (AHA)", "cas": "79-14-1", "functions": ["Exfoliant", "Humectant"], "usage_rate_pct": {"min": 0.5, "max": 10}, "hotlist_status": "restricted", "hotlist_note": "Max 10% as exfoliant, min pH 3.5. Sunburn alert required."},
+      {"inci_name": "Lactic Acid", "common_name": "Lactic Acid (AHA)", "cas": "50-21-5", "functions": ["Exfoliant", "Humectant", "pH Adjuster"], "usage_rate_pct": {"min": 0.5, "max": 10}, "hotlist_status": "restricted", "hotlist_note": "Max 10% as exfoliant, min pH 3.5."},
+      {"inci_name": "Benzoyl Peroxide", "common_name": "Benzoyl Peroxide (BPO)", "cas": "94-36-0", "functions": ["Antimicrobial", "Exfoliant"], "usage_rate_pct": {"min": 0.5, "max": 5}, "hotlist_status": "restricted", "hotlist_note": "Max 5% for cosmetic use (higher = drug)"},
+      {"inci_name": "Allantoin", "common_name": "Allantoin", "cas": "97-59-6", "functions": ["Skin Conditioning", "Skin Protectant"], "usage_rate_pct": {"min": 0.1, "max": 2}, "hotlist_status": "not_listed"},
+      {"inci_name": "Centella Asiatica Extract", "common_name": "Centella / Cica Extract", "cas": "84696-21-9", "functions": ["Skin Conditioning"], "usage_rate_pct": {"min": 0.1, "max": 5}, "hotlist_status": "not_listed"},
+      {"inci_name": "Arbutin", "common_name": "Alpha-Arbutin", "cas": "497-76-7", "functions": ["Skin Conditioning"], "usage_rate_pct": {"min": 0.5, "max": 2}, "hotlist_status": "not_listed"},
+      {"inci_name": "Tranexamic Acid", "common_name": "Tranexamic Acid", "cas": "1197-18-8", "functions": ["Skin Conditioning"], "usage_rate_pct": {"min": 0.5, "max": 3}, "hotlist_status": "not_listed"},
+      {"inci_name": "Azelaic Acid", "common_name": "Azelaic Acid", "cas": "123-99-9", "functions": ["Skin Conditioning", "Antimicrobial"], "usage_rate_pct": {"min": 1, "max": 10}, "hotlist_status": "not_listed", "note": "Higher concentrations (15-20%) = drug"},
+      {"inci_name": "Bakuchiol", "common_name": "Bakuchiol", "cas": "10309-37-2", "functions": ["Skin Conditioning", "Antioxidant"], "usage_rate_pct": {"min": 0.5, "max": 2}, "hotlist_status": "not_listed"},
+      {"inci_name": "Ceramide NP", "common_name": "Ceramide 3", "cas": "100403-19-8", "functions": ["Skin Conditioning", "Skin Protectant"], "usage_rate_pct": {"min": 0.01, "max": 1}, "hotlist_status": "not_listed"},
+      {"inci_name": "Peptides (various)", "common_name": "Matrixyl, Argireline, etc.", "functions": ["Skin Conditioning"], "usage_rate_pct": {"min": 0.001, "max": 5}, "hotlist_status": "not_listed"},
+      {"inci_name": "Kojic Acid", "common_name": "Kojic Acid", "cas": "501-30-4", "functions": ["Skin Conditioning"], "usage_rate_pct": {"min": 0.5, "max": 2}, "hotlist_status": "not_listed"},
+      {"inci_name": "Caffeine", "common_name": "Caffeine", "cas": "58-08-2", "functions": ["Skin Conditioning"], "usage_rate_pct": {"min": 0.5, "max": 5}, "hotlist_status": "not_listed"}
+    ],
+
+    "antioxidants": [
+      {"inci_name": "Tocopherol", "common_name": "Vitamin E (natural)", "cas": "59-02-9", "functions": ["Antioxidant", "Skin Conditioning"], "usage_rate_pct": {"min": 0.05, "max": 2}, "hotlist_status": "not_listed"},
+      {"inci_name": "Tocopheryl Acetate", "common_name": "Vitamin E Acetate", "cas": "7695-91-2", "functions": ["Antioxidant", "Skin Conditioning"], "usage_rate_pct": {"min": 0.1, "max": 5}, "hotlist_status": "not_listed"},
+      {"inci_name": "Ascorbyl Palmitate", "common_name": "Vitamin C Palmitate", "cas": "137-66-6", "functions": ["Antioxidant"], "usage_rate_pct": {"min": 0.01, "max": 1}, "hotlist_status": "not_listed"},
+      {"inci_name": "Ferulic Acid", "common_name": "Ferulic Acid", "cas": "1135-24-6", "functions": ["Antioxidant"], "usage_rate_pct": {"min": 0.1, "max": 1}, "hotlist_status": "not_listed"},
+      {"inci_name": "Resveratrol", "common_name": "Resveratrol", "cas": "501-36-0", "functions": ["Antioxidant", "Skin Conditioning"], "usage_rate_pct": {"min": 0.1, "max": 1}, "hotlist_status": "not_listed"},
+      {"inci_name": "Ubiquinone", "common_name": "Coenzyme Q10 (CoQ10)", "cas": "303-98-0", "functions": ["Antioxidant", "Skin Conditioning"], "usage_rate_pct": {"min": 0.01, "max": 1}, "hotlist_status": "not_listed"},
+      {"inci_name": "Camellia Sinensis Leaf Extract", "common_name": "Green Tea Extract", "cas": "84650-60-2", "functions": ["Antioxidant", "Skin Conditioning"], "usage_rate_pct": {"min": 0.1, "max": 5}, "hotlist_status": "not_listed"},
+      {"inci_name": "Rosmarinus Officinalis (Rosemary) Leaf Extract", "common_name": "Rosemary Extract (ROE)", "cas": "84604-14-8", "functions": ["Antioxidant"], "usage_rate_pct": {"min": 0.02, "max": 1}, "hotlist_status": "not_listed"},
+      {"inci_name": "BHT (Butylated Hydroxytoluene)", "common_name": "BHT", "cas": "128-37-0", "functions": ["Antioxidant"], "usage_rate_pct": {"min": 0.01, "max": 0.5}, "hotlist_status": "not_listed"},
+      {"inci_name": "BHA (Butylated Hydroxyanisole)", "common_name": "BHA", "cas": "25013-16-5", "functions": ["Antioxidant"], "usage_rate_pct": {"min": 0.01, "max": 0.5}, "hotlist_status": "not_listed"},
+      {"inci_name": "Astaxanthin", "common_name": "Astaxanthin", "cas": "472-61-7", "functions": ["Antioxidant", "Skin Conditioning"], "usage_rate_pct": {"min": 0.001, "max": 0.1}, "hotlist_status": "not_listed"},
+      {"inci_name": "Superoxide Dismutase", "common_name": "SOD Enzyme", "cas": "9054-89-1", "functions": ["Antioxidant"], "usage_rate_pct": {"min": 0.001, "max": 0.5}, "hotlist_status": "not_listed"}
+    ],
+
+    "ph_adjusters": [
+      {"inci_name": "Citric Acid", "common_name": "Citric Acid", "cas": "77-92-9", "functions": ["pH Adjuster", "Chelating Agent"], "usage_rate_pct": {"min": 0.1, "max": 3}, "hotlist_status": "not_listed", "note": "Also an AHA at higher concentrations - subject to AHA restrictions as exfoliant"},
+      {"inci_name": "Sodium Hydroxide", "common_name": "Lye / Caustic Soda", "cas": "1310-73-2", "functions": ["pH Adjuster"], "usage_rate_pct": {"min": 0.01, "max": 5}, "hotlist_status": "not_listed", "note": "Used in small amounts for pH adjustment; larger amounts for soap making (saponification)"},
+      {"inci_name": "Triethanolamine", "common_name": "TEA", "cas": "102-71-6", "functions": ["pH Adjuster", "Emulsifier"], "usage_rate_pct": {"min": 0.5, "max": 5}, "hotlist_status": "not_listed"},
+      {"inci_name": "Potassium Hydroxide", "common_name": "Potash / KOH", "cas": "1310-58-3", "functions": ["pH Adjuster"], "usage_rate_pct": {"min": 0.01, "max": 5}, "hotlist_status": "not_listed"},
+      {"inci_name": "Aminomethyl Propanol", "common_name": "AMP", "cas": "124-68-5", "functions": ["pH Adjuster"], "usage_rate_pct": {"min": 0.1, "max": 2}, "hotlist_status": "not_listed"},
+      {"inci_name": "Sodium Bicarbonate", "common_name": "Baking Soda", "cas": "144-55-8", "functions": ["pH Adjuster", "Abrasive", "Bulking Agent"], "usage_rate_pct": {"min": 0.5, "max": 50}, "hotlist_status": "not_listed"},
+      {"inci_name": "Lactic Acid", "common_name": "Lactic Acid", "cas": "50-21-5", "functions": ["pH Adjuster", "Exfoliant", "Humectant"], "usage_rate_pct": {"min": 0.1, "max": 2}, "hotlist_status": "restricted", "hotlist_note": "As exfoliant: max 10%, min pH 3.5. No restriction as pH adjuster at low levels."}
+    ],
+
+    "film_formers_and_polymers": [
+      {"inci_name": "PVP (Polyvinylpyrrolidone)", "common_name": "PVP", "cas": "9003-39-8", "functions": ["Film Former", "Hair Fixative"], "usage_rate_pct": {"min": 0.5, "max": 10}, "hotlist_status": "not_listed"},
+      {"inci_name": "VP/VA Copolymer", "common_name": "PVP/VA Copolymer", "cas": "25086-89-9", "functions": ["Film Former", "Hair Fixative"], "usage_rate_pct": {"min": 1, "max": 10}, "hotlist_status": "not_listed"},
+      {"inci_name": "Acrylates Copolymer", "common_name": "Acrylates Copolymer", "cas": "25133-97-5", "functions": ["Film Former", "Thickener"], "usage_rate_pct": {"min": 0.5, "max": 5}, "hotlist_status": "not_listed"},
+      {"inci_name": "Hydroxypropyltrimonium Hyaluronate", "common_name": "Cationic HA", "functions": ["Film Former", "Humectant"], "usage_rate_pct": {"min": 0.01, "max": 0.5}, "hotlist_status": "not_listed"},
+      {"inci_name": "Polyquaternium-7", "common_name": "Polyquat-7", "cas": "26590-05-6", "functions": ["Film Former", "Conditioning Agent"], "usage_rate_pct": {"min": 0.1, "max": 3}, "hotlist_status": "not_listed"},
+      {"inci_name": "Shellac", "common_name": "Shellac", "cas": "9000-59-3", "functions": ["Film Former"], "usage_rate_pct": {"min": 1, "max": 20}, "hotlist_status": "not_listed"},
+      {"inci_name": "Nitrocellulose", "common_name": "Nitrocellulose", "cas": "9004-70-0", "functions": ["Film Former"], "usage_rate_pct": {"min": 5, "max": 25}, "hotlist_status": "not_listed", "note": "Primary film former in nail polish"}
+    ],
+
+    "hair_care_specifics": [
+      {"inci_name": "Hydrolyzed Keratin", "common_name": "Keratin Protein", "cas": "69430-36-0", "functions": ["Hair Conditioning", "Film Former"], "usage_rate_pct": {"min": 0.1, "max": 5}, "hotlist_status": "not_listed"},
+      {"inci_name": "Panthenol", "common_name": "Pro-Vitamin B5", "cas": "81-13-0", "functions": ["Hair Conditioning", "Humectant"], "usage_rate_pct": {"min": 0.5, "max": 5}, "hotlist_status": "not_listed"},
+      {"inci_name": "Cetrimonium Chloride", "common_name": "Cetrimonium Chloride", "cas": "112-02-7", "functions": ["Hair Conditioning", "Antistatic"], "usage_rate_pct": {"min": 0.5, "max": 5}, "hotlist_status": "not_listed"},
+      {"inci_name": "Behentrimonium Methosulfate", "common_name": "BTMS / Incroquat", "cas": "81646-13-1", "functions": ["Hair Conditioning", "Emulsifier"], "usage_rate_pct": {"min": 1, "max": 8}, "hotlist_status": "not_listed"},
+      {"inci_name": "Polyquaternium-10", "common_name": "Polyquat-10", "cas": "68610-92-4", "functions": ["Hair Conditioning", "Film Former", "Antistatic"], "usage_rate_pct": {"min": 0.1, "max": 2}, "hotlist_status": "not_listed"},
+      {"inci_name": "Hydrolyzed Wheat Protein", "common_name": "Wheat Protein", "cas": "94350-06-8", "functions": ["Hair Conditioning", "Film Former"], "usage_rate_pct": {"min": 0.1, "max": 5}, "hotlist_status": "not_listed"},
+      {"inci_name": "Hydrolyzed Silk", "common_name": "Silk Protein", "cas": "96690-41-4", "functions": ["Hair Conditioning", "Skin Conditioning"], "usage_rate_pct": {"min": 0.1, "max": 3}, "hotlist_status": "not_listed"},
+      {"inci_name": "Biotin", "common_name": "Vitamin B7 / Vitamin H", "cas": "58-85-5", "functions": ["Hair Conditioning"], "usage_rate_pct": {"min": 0.01, "max": 1}, "hotlist_status": "not_listed"},
+      {"inci_name": "Menthol", "common_name": "Menthol", "cas": "2216-51-5", "functions": ["Hair Conditioning", "Denaturant", "Fragrance"], "usage_rate_pct": {"min": 0.1, "max": 3}, "hotlist_status": "not_listed"},
+      {"inci_name": "Amodimethicone", "common_name": "Amodimethicone", "cas": "110779-05-8", "functions": ["Hair Conditioning"], "usage_rate_pct": {"min": 0.5, "max": 5}, "hotlist_status": "not_listed"},
+      {"inci_name": "Guar Hydroxypropyltrimonium Chloride", "common_name": "Cationic Guar", "cas": "65497-29-2", "functions": ["Hair Conditioning", "Thickener"], "usage_rate_pct": {"min": 0.1, "max": 2}, "hotlist_status": "not_listed"},
+      {"inci_name": "Inositol", "common_name": "Inositol / Vitamin B8", "cas": "87-89-8", "functions": ["Hair Conditioning", "Humectant"], "usage_rate_pct": {"min": 0.1, "max": 2}, "hotlist_status": "not_listed"}
+    ],
+
+    "oral_care_specifics": [
+      {"inci_name": "Sodium Fluoride", "common_name": "Sodium Fluoride", "cas": "7681-49-4", "functions": ["Oral Care Active"], "usage_rate_pct": {"min": 0.05, "max": 0.254}, "hotlist_status": "restricted", "hotlist_note": "Max 0.254% as fluoride ion (approx 1500 ppm F) in dentifrices"},
+      {"inci_name": "Sodium Monofluorophosphate", "common_name": "MFP", "cas": "10163-15-2", "functions": ["Oral Care Active"], "usage_rate_pct": {"min": 0.1, "max": 0.76}, "hotlist_status": "restricted", "hotlist_note": "Max fluoride ion concentration 0.254%"},
+      {"inci_name": "Sorbitol", "common_name": "Sorbitol", "cas": "50-70-4", "functions": ["Humectant", "Sweetener"], "usage_rate_pct": {"min": 5, "max": 70}, "hotlist_status": "not_listed"},
+      {"inci_name": "Xylitol", "common_name": "Xylitol", "cas": "87-99-0", "functions": ["Humectant", "Sweetener", "Antimicrobial"], "usage_rate_pct": {"min": 1, "max": 25}, "hotlist_status": "not_listed"},
+      {"inci_name": "Sodium Saccharin", "common_name": "Saccharin", "cas": "128-44-9", "functions": ["Sweetener"], "usage_rate_pct": {"min": 0.01, "max": 0.5}, "hotlist_status": "not_listed"},
+      {"inci_name": "Hydrated Silica", "common_name": "Silica", "cas": "7631-86-9", "functions": ["Abrasive", "Thickener"], "usage_rate_pct": {"min": 5, "max": 30}, "hotlist_status": "not_listed"},
+      {"inci_name": "Calcium Carbonate", "common_name": "Chalk", "cas": "471-34-1", "functions": ["Abrasive", "Opacifier"], "usage_rate_pct": {"min": 5, "max": 50}, "hotlist_status": "not_listed"},
+      {"inci_name": "Stannous Fluoride", "common_name": "Tin Fluoride", "cas": "7783-47-3", "functions": ["Oral Care Active", "Antimicrobial"], "usage_rate_pct": {"min": 0.1, "max": 0.454}, "hotlist_status": "restricted", "hotlist_note": "Max fluoride ion 0.254%"},
+      {"inci_name": "Cetylpyridinium Chloride", "common_name": "CPC", "cas": "123-03-5", "functions": ["Antimicrobial", "Oral Care Active"], "usage_rate_pct": {"min": 0.01, "max": 0.1}, "hotlist_status": "not_listed"}
+    ],
+
+    "makeup_specifics": [
+      {"inci_name": "Talc", "common_name": "Talcum Powder", "cas": "14807-96-6", "functions": ["Absorbent", "Bulking Agent", "Opacifier"], "usage_rate_pct": {"min": 5, "max": 80}, "hotlist_status": "restricted", "hotlist_note": "Must be asbestos-free. Revised restrictions re: chronic exposure."},
+      {"inci_name": "Mica (CI 77019)", "common_name": "Mica", "cas": "12001-26-2", "functions": ["Colorant", "Bulking Agent"], "usage_rate_pct": {"min": 1, "max": 50}, "hotlist_status": "not_listed"},
+      {"inci_name": "Dimethicone", "common_name": "Dimethicone", "cas": "9006-65-9", "functions": ["Emollient", "Skin Conditioning"], "usage_rate_pct": {"min": 1, "max": 30}, "hotlist_status": "not_listed"},
+      {"inci_name": "Cyclopentasiloxane", "common_name": "D5 Silicone", "cas": "541-02-6", "functions": ["Emollient", "Solvent", "Hair Conditioning"], "usage_rate_pct": {"min": 1, "max": 50}, "hotlist_status": "not_listed"},
+      {"inci_name": "Phenyl Trimethicone", "common_name": "Phenyl Trimethicone", "cas": "2116-84-9", "functions": ["Emollient", "Skin Conditioning"], "usage_rate_pct": {"min": 1, "max": 15}, "hotlist_status": "not_listed"},
+      {"inci_name": "Kaolin", "common_name": "China Clay / White Clay", "cas": "1332-58-7", "functions": ["Absorbent", "Bulking Agent", "Opacifier"], "usage_rate_pct": {"min": 1, "max": 50}, "hotlist_status": "not_listed"},
+      {"inci_name": "Silica", "common_name": "Silicon Dioxide", "cas": "7631-86-9", "functions": ["Absorbent", "Bulking Agent", "Opacifier"], "usage_rate_pct": {"min": 1, "max": 15}, "hotlist_status": "not_listed"},
+      {"inci_name": "Boron Nitride", "common_name": "Boron Nitride", "cas": "10043-11-5", "functions": ["Bulking Agent", "Skin Conditioning"], "usage_rate_pct": {"min": 1, "max": 10}, "hotlist_status": "not_listed"},
+      {"inci_name": "Nylon-12", "common_name": "Nylon Powder", "cas": "24937-16-4", "functions": ["Bulking Agent", "Absorbent"], "usage_rate_pct": {"min": 1, "max": 15}, "hotlist_status": "not_listed"},
+      {"inci_name": "Polymethyl Methacrylate", "common_name": "PMMA Microspheres", "cas": "9011-14-7", "functions": ["Film Former", "Bulking Agent"], "usage_rate_pct": {"min": 1, "max": 10}, "hotlist_status": "not_listed"},
+      {"inci_name": "Isododecane", "common_name": "Isododecane", "cas": "31807-55-3", "functions": ["Solvent", "Emollient"], "usage_rate_pct": {"min": 5, "max": 40}, "hotlist_status": "not_listed"},
+      {"inci_name": "Trimethylsiloxysilicate", "common_name": "MQ Resin", "cas": "56275-01-5", "functions": ["Film Former"], "usage_rate_pct": {"min": 1, "max": 10}, "hotlist_status": "not_listed"},
+      {"inci_name": "Candelilla Cera", "common_name": "Candelilla Wax", "cas": "8006-44-8", "functions": ["Emollient", "Thickener", "Film Former"], "usage_rate_pct": {"min": 1, "max": 20}, "hotlist_status": "not_listed"},
+      {"inci_name": "Copernicia Cerifera (Carnauba) Wax", "common_name": "Carnauba Wax", "cas": "8015-86-9", "functions": ["Emollient", "Thickener", "Film Former"], "usage_rate_pct": {"min": 0.5, "max": 10}, "hotlist_status": "not_listed"}
+    ],
+
+    "chelating_agents": [
+      {"inci_name": "Disodium EDTA", "common_name": "EDTA", "cas": "139-33-3", "functions": ["Chelating Agent"], "usage_rate_pct": {"min": 0.01, "max": 0.5}, "hotlist_status": "not_listed"},
+      {"inci_name": "Tetrasodium EDTA", "common_name": "EDTA (tetrasodium)", "cas": "64-02-8", "functions": ["Chelating Agent"], "usage_rate_pct": {"min": 0.01, "max": 0.5}, "hotlist_status": "not_listed"},
+      {"inci_name": "Phytic Acid", "common_name": "Phytic Acid (IP6)", "cas": "83-86-3", "functions": ["Chelating Agent"], "usage_rate_pct": {"min": 0.05, "max": 0.5}, "hotlist_status": "not_listed"},
+      {"inci_name": "Sodium Phytate", "common_name": "Sodium Phytate", "cas": "14306-25-3", "functions": ["Chelating Agent"], "usage_rate_pct": {"min": 0.05, "max": 0.5}, "hotlist_status": "not_listed"},
+      {"inci_name": "Trisodium Ethylenediamine Disuccinate", "common_name": "EDDS", "cas": "178949-82-1", "functions": ["Chelating Agent"], "usage_rate_pct": {"min": 0.05, "max": 0.5}, "hotlist_status": "not_listed"}
+    ],
+
+    "solvents_and_carriers": [
+      {"inci_name": "Aqua (Water)", "common_name": "Water", "cas": "7732-18-5", "functions": ["Solvent"], "usage_rate_pct": {"min": 1, "max": 99}, "hotlist_status": "not_listed"},
+      {"inci_name": "Alcohol Denat.", "common_name": "Denatured Alcohol / SD Alcohol", "cas": "64-17-5", "functions": ["Solvent", "Antimicrobial", "Astringent"], "usage_rate_pct": {"min": 1, "max": 80}, "hotlist_status": "not_listed"},
+      {"inci_name": "Isopropyl Alcohol", "common_name": "Rubbing Alcohol / IPA", "cas": "67-63-0", "functions": ["Solvent", "Antimicrobial"], "usage_rate_pct": {"min": 1, "max": 70}, "hotlist_status": "not_listed"},
+      {"inci_name": "Ethoxydiglycol", "common_name": "Transcutol / DEGEE", "cas": "111-90-0", "functions": ["Solvent", "Humectant"], "usage_rate_pct": {"min": 1, "max": 15}, "hotlist_status": "not_listed"},
+      {"inci_name": "Ethyl Acetate", "common_name": "Ethyl Acetate", "cas": "141-78-6", "functions": ["Solvent"], "usage_rate_pct": {"min": 5, "max": 85}, "hotlist_status": "not_listed", "note": "Primary solvent in nail polish"},
+      {"inci_name": "Butyl Acetate", "common_name": "Butyl Acetate", "cas": "123-86-4", "functions": ["Solvent"], "usage_rate_pct": {"min": 5, "max": 50}, "hotlist_status": "not_listed", "note": "Co-solvent in nail polish"}
+    ]
+  }
+}
