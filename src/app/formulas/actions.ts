@@ -218,3 +218,97 @@ export async function archiveFormulaAction(formulaId: string) {
   revalidatePath("/formulas");
   redirect("/formulas");
 }
+
+export async function duplicateFormulaAction(formulaId: string): Promise<void> {
+  const user = await requireAuth();
+  const supabase = await createClient();
+
+  // Get original formula + current version + ingredients
+  const { data: original } = await supabase
+    .from("formulas")
+    .select("*")
+    .eq("id", formulaId)
+    .single();
+
+  if (!original) {
+    throw new Error("Original formula not found");
+  }
+
+  const { data: currentVersion } = await supabase
+    .from("formula_versions")
+    .select("*, formula_ingredients(*)")
+    .eq("formula_id", formulaId)
+    .eq("is_current", true)
+    .single();
+
+  if (!currentVersion) {
+    throw new Error("Current version not found");
+  }
+
+  // Create new formula
+  const { data: newFormula, error: formulaError } = await supabase
+    .from("formulas")
+    .insert({
+      user_id: user.id,
+      name: `${original.name} (copy)`,
+      description: original.description,
+      product_category: original.product_category,
+      usage_type: original.usage_type,
+      target_batch_size_g: original.target_batch_size_g,
+    })
+    .select()
+    .single();
+
+  if (formulaError || !newFormula) {
+    throw new Error(formulaError?.message ?? "Failed to duplicate formula");
+  }
+
+  // Create initial version
+  const { data: newVersion, error: versionError } = await supabase
+    .from("formula_versions")
+    .insert({
+      formula_id: newFormula.id,
+      version_number: 1,
+      is_current: true,
+      notes: `Duplicated from "${original.name}" v${currentVersion.version_number}`,
+    })
+    .select()
+    .single();
+
+  if (versionError || !newVersion) {
+    throw new Error(versionError?.message ?? "Failed to create version");
+  }
+
+  // Copy ingredients
+  const ingredients = currentVersion.formula_ingredients as Array<{
+    ingredient_id: string;
+    percentage: number;
+    phase: string;
+    role_override: string | null;
+    sort_order: number;
+    notes: string | null;
+  }>;
+
+  if (ingredients.length > 0) {
+    await supabase.from("formula_ingredients").insert(
+      ingredients.map((ing) => ({
+        formula_version_id: newVersion.id,
+        ingredient_id: ing.ingredient_id,
+        percentage: ing.percentage,
+        phase: ing.phase,
+        role_override: ing.role_override,
+        sort_order: ing.sort_order,
+        notes: ing.notes,
+      }))
+    );
+  }
+
+  await logActivity(
+    newFormula.id,
+    "formula_created",
+    `Duplicated from "${original.name}"`
+  );
+
+  revalidatePath("/formulas");
+  redirect(`/formulas/${newFormula.id}`);
+}

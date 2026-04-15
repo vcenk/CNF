@@ -13,6 +13,7 @@ import { FormulaHeader } from "@/features/formulas/builder/formula-header";
 import { IngredientTable } from "@/features/formulas/builder/ingredient-table";
 import { FormulaSummary } from "@/features/formulas/builder/formula-summary";
 import { VersionHistory } from "@/features/formulas/builder/version-history";
+import { BatchScaler } from "@/features/formulas/builder/batch-scaler";
 import { CostingTab } from "@/features/formulas/costing/costing-tab";
 import { LabelTab } from "@/features/formulas/label/label-tab";
 import { ExportTab } from "@/features/formulas/export/export-tab";
@@ -153,6 +154,18 @@ export default async function FormulaBuilderPage({ params }: PageProps) {
                 warnings={warnings}
                 infos={infos}
                 batchSizeG={Number(formula.target_batch_size_g)}
+              />
+              <BatchScaler
+                currentBatchSizeG={Number(formula.target_batch_size_g)}
+                ingredients={ingredients.map((ing) => {
+                  const d = ing.ingredients as Record<string, unknown>;
+                  return {
+                    id: ing.id,
+                    inciName: (d?.inci_name as string) ?? "",
+                    commonName: (d?.common_name as string) ?? null,
+                    percentage: Number(ing.percentage),
+                  };
+                })}
               />
               <VersionHistory
                 formulaId={formula.id}

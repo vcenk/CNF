@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { requireAuth } from "@/lib/auth/require-auth";
 import { getUserFormulas } from "@/lib/supabase/queries/formulas";
-import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { createFormulaAction } from "./actions";
+import { FormulaSearch } from "@/features/formulas/formula-search";
 import { FlaskConical, Plus } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -12,18 +10,38 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
+interface RawFormula {
+  id: string;
+  name: string;
+  product_category: string | null;
+  usage_type: string | null;
+  target_batch_size_g: number;
+  updated_at: string;
+  formula_versions?: Array<{ version_number: number; is_current: boolean }>;
+}
+
 export default async function FormulasPage() {
   const user = await requireAuth();
-  const formulas = await getUserFormulas(user.id);
+  const raw = await getUserFormulas(user.id);
+
+  const formulas = (raw as RawFormula[]).map((f) => ({
+    id: f.id,
+    name: f.name,
+    product_category: f.product_category,
+    usage_type: f.usage_type,
+    target_batch_size_g: Number(f.target_batch_size_g),
+    updated_at: f.updated_at,
+    formula_versions: f.formula_versions,
+  }));
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+    <div className="p-6 lg:p-8">
       <div className="mb-8 flex items-center justify-between">
         <div>
-          <h1 className="font-display text-3xl font-bold tracking-tight">
+          <h1 className="font-display text-2xl font-bold tracking-tight">
             My Formulas
           </h1>
-          <p className="mt-1 text-muted-foreground">
+          <p className="mt-1 text-sm text-muted-foreground">
             {formulas.length} formula{formulas.length !== 1 ? "s" : ""}
           </p>
         </div>
@@ -62,46 +80,7 @@ export default async function FormulasPage() {
           </form>
         </div>
       ) : (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {formulas.map((formula) => {
-            const currentVersion = (formula.formula_versions as Array<{
-              version_number: number;
-              is_current: boolean;
-            }>)?.find((v) => v.is_current);
-
-            return (
-              <Link key={formula.id} href={`/formulas/${formula.id}`}>
-                <Card className="h-full transition-shadow hover:shadow-md">
-                  <CardHeader>
-                    <div className="flex items-start justify-between">
-                      <CardTitle className="text-base">{formula.name}</CardTitle>
-                      {formula.product_category && (
-                        <Badge variant="outline" className="text-xs">
-                          {(formula.product_category as string).replace("_", " ")}
-                        </Badge>
-                      )}
-                    </div>
-                    <CardDescription className="space-y-1">
-                      {formula.usage_type && (
-                        <span className="block text-xs">
-                          {formula.usage_type === "rinse-off" ? "Rinse-off" : "Leave-on"}
-                        </span>
-                      )}
-                      <span className="block text-xs">
-                        v{currentVersion?.version_number ?? 1} &middot;{" "}
-                        {formula.target_batch_size_g}g batch
-                      </span>
-                      <span className="block text-xs text-muted-foreground">
-                        Updated{" "}
-                        {new Date(formula.updated_at).toLocaleDateString("en-CA")}
-                      </span>
-                    </CardDescription>
-                  </CardHeader>
-                </Card>
-              </Link>
-            );
-          })}
-        </div>
+        <FormulaSearch formulas={formulas} />
       )}
     </div>
   );

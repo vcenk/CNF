@@ -3,9 +3,14 @@
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { updateFormulaAction } from "@/app/formulas/actions";
+import { toast } from "sonner";
+import {
+  updateFormulaAction,
+  duplicateFormulaAction,
+  archiveFormulaAction,
+} from "@/app/formulas/actions";
 import { Input } from "@/components/ui/input";
-import { ArrowLeft, Save } from "lucide-react";
+import { ArrowLeft, Save, Copy, Archive } from "lucide-react";
 
 interface FormulaHeaderProps {
   formula: {
@@ -43,8 +48,40 @@ export function FormulaHeader({ formula }: FormulaHeaderProps) {
     formData.set("batchSize", batchSize);
 
     startTransition(async () => {
-      await updateFormulaAction(formula.id, formData);
-      router.refresh();
+      const result = await updateFormulaAction(formula.id, formData);
+      if (result.success) {
+        toast.success("Formula saved");
+        router.refresh();
+      } else if (result.error) {
+        toast.error("Failed to save", { description: result.error });
+      }
+    });
+  }
+
+  function handleDuplicate() {
+    startTransition(async () => {
+      try {
+        await duplicateFormulaAction(formula.id);
+      } catch (err) {
+        toast.error("Failed to duplicate", {
+          description: err instanceof Error ? err.message : "Unknown error",
+        });
+      }
+    });
+  }
+
+  function handleArchive() {
+    if (!confirm("Archive this formula? You can still access it later.")) return;
+    startTransition(async () => {
+      try {
+        await archiveFormulaAction(formula.id);
+      } catch (err) {
+        // redirect() throws NEXT_REDIRECT internally — let it propagate
+        if (err instanceof Error && err.message.includes("NEXT_REDIRECT")) {
+          throw err;
+        }
+        toast.error("Failed to archive");
+      }
     });
   }
 
@@ -101,14 +138,34 @@ export function FormulaHeader({ formula }: FormulaHeaderProps) {
           <span className="text-sm text-muted-foreground">g batch</span>
         </div>
 
-        <button
-          onClick={handleSave}
-          disabled={isPending}
-          className="ml-auto flex items-center gap-1.5 rounded-md bg-primary px-3 py-1.5 text-sm font-medium text-primary-foreground hover:bg-brand-dark disabled:opacity-50"
-        >
-          <Save className="h-3.5 w-3.5" />
-          {isPending ? "Saving..." : "Save"}
-        </button>
+        <div className="ml-auto flex items-center gap-2">
+          <button
+            onClick={handleDuplicate}
+            disabled={isPending}
+            className="flex items-center gap-1.5 rounded-md border border-border bg-card px-3 py-1.5 text-sm font-medium transition-colors hover:bg-muted disabled:opacity-50"
+            title="Duplicate this formula"
+          >
+            <Copy className="h-3.5 w-3.5" />
+            Duplicate
+          </button>
+          <button
+            onClick={handleArchive}
+            disabled={isPending}
+            className="flex items-center gap-1.5 rounded-md border border-border bg-card px-3 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive disabled:opacity-50"
+            title="Archive this formula"
+          >
+            <Archive className="h-3.5 w-3.5" />
+            Archive
+          </button>
+          <button
+            onClick={handleSave}
+            disabled={isPending}
+            className="flex items-center gap-1.5 rounded-md bg-primary px-3 py-1.5 text-sm font-medium text-primary-foreground hover:bg-brand-dark disabled:opacity-50"
+          >
+            <Save className="h-3.5 w-3.5" />
+            {isPending ? "Saving..." : "Save"}
+          </button>
+        </div>
       </div>
     </div>
   );

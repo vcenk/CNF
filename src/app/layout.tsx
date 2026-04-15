@@ -4,6 +4,7 @@ import "./globals.css";
 import { siteConfig } from "@/lib/site-config";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
+import { Toaster } from "@/components/ui/sonner";
 
 const fraunces = Fraunces({
   subsets: ["latin"],
@@ -76,6 +77,7 @@ export default function RootLayout({
         <SiteHeader />
         <main className="min-h-[calc(100vh-8rem)]">{children}</main>
         <SiteFooter />
+        <Toaster position="top-right" richColors />
       </body>
     </html>
   );

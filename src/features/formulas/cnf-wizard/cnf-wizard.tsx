@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 import {
   saveCnfWizardAction,
   recordCnfSubmissionAction,
@@ -83,7 +84,10 @@ export function CnfWizard({
       if (result.success) {
         setSaved(true);
         setTimeout(() => setSaved(false), 2000);
+        toast.success("Draft saved");
         router.refresh();
+      } else {
+        toast.error(result.error ?? "Failed to save draft");
       }
     });
   }
@@ -123,7 +127,14 @@ export function CnfWizard({
       URL.revokeObjectURL(url);
 
       await recordCnfSubmissionAction(formulaId, formulaVersionId);
+      toast.success(".hcxs file downloaded", {
+        description: `Ready for Health Canada portal upload as ${file.filename}`,
+      });
       router.refresh();
+    } catch (err) {
+      toast.error("Failed to generate .hcxs", {
+        description: err instanceof Error ? err.message : "Unknown error",
+      });
     } finally {
       setDownloading(false);
     }
@@ -162,6 +173,11 @@ export function CnfWizard({
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
+      toast.success("PDF summary downloaded");
+    } catch (err) {
+      toast.error("Failed to generate PDF", {
+        description: err instanceof Error ? err.message : "Unknown error",
+      });
     } finally {
       setDownloading(false);
     }
@@ -214,7 +230,12 @@ export function CnfWizard({
                         }),
                       });
                       const json = await res.json();
-                      if (json.translated) update("productNameFr", json.translated);
+                      if (json.translated) {
+                        update("productNameFr", json.translated);
+                        toast.success("Translated", { description: json.translated });
+                      } else {
+                        toast.error("Translation failed", { description: json.error });
+                      }
                     }}
                   />
                 </div>
@@ -245,8 +266,15 @@ export function CnfWizard({
                         }),
                       });
                       const json = await res.json();
-                      if (json.category) update("productCategory", json.category);
-                      if (json.usageType) update("usageType", json.usageType);
+                      if (json.category) {
+                        update("productCategory", json.category);
+                        if (json.usageType) update("usageType", json.usageType);
+                        toast.success("AI suggestion applied", {
+                          description: json.reasoning,
+                        });
+                      } else {
+                        toast.error("AI suggestion failed", { description: json.error });
+                      }
                     }}
                   />
                 </div>

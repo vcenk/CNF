@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 import { createClient } from "@/lib/supabase/client";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -33,7 +34,7 @@ export function ProfileForm({ profile }: ProfileFormProps) {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) return;
 
-      await supabase
+      const { error } = await supabase
         .from("profiles")
         .update({
           display_name: displayName,
@@ -42,8 +43,14 @@ export function ProfileForm({ profile }: ProfileFormProps) {
         })
         .eq("id", user.id);
 
+      if (error) {
+        toast.error("Failed to save profile", { description: error.message });
+        return;
+      }
+
       setSaved(true);
       setTimeout(() => setSaved(false), 2000);
+      toast.success("Profile saved");
       router.refresh();
     });
   }
