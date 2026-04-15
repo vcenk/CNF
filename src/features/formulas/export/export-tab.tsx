@@ -3,6 +3,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import type { ValidationIssue } from "@/domain/validation";
+import Link from "next/link";
 import {
   CheckCircle,
   XCircle,
@@ -10,6 +11,8 @@ import {
   Info,
   FileOutput,
   ClipboardCheck,
+  Sparkles,
+  ArrowRight,
 } from "lucide-react";
 
 interface ExportIngredient {
@@ -49,7 +52,7 @@ const checklistItems = [
   { code: "CNF_NO_LABEL", label: "Label template created" },
 ];
 
-export function ExportTab({ issues, exportData }: ExportTabProps) {
+export function ExportTab({ formulaId, issues, exportData }: ExportTabProps) {
   const errors = issues.filter((i) => i.severity === "error");
   const warnings = issues.filter((i) => i.severity === "warning");
   const infos = issues.filter((i) => i.severity === "info");
@@ -76,6 +79,27 @@ export function ExportTab({ issues, exportData }: ExportTabProps) {
   }
 
   return (
+    <div className="space-y-6">
+      {/* CNF Wizard CTA */}
+      <Link
+        href={`/formulas/${formulaId}/cnf`}
+        className="flex items-center justify-between rounded-xl border border-brand/30 bg-brand-soft/20 p-5 transition-colors hover:border-brand hover:bg-brand-soft/30"
+      >
+        <div className="flex items-center gap-3">
+          <div className="rounded-lg bg-brand/10 p-2">
+            <Sparkles className="h-5 w-5 text-brand" />
+          </div>
+          <div>
+            <p className="font-semibold">Open CNF Wizard</p>
+            <p className="text-sm text-muted-foreground">
+              Fill your CNF in one place with AI assistance — category
+              suggestion, French translation, and compliance review.
+            </p>
+          </div>
+        </div>
+        <ArrowRight className="h-5 w-5 text-brand" />
+      </Link>
+
     <div className="grid gap-6 lg:grid-cols-3">
       <div className="lg:col-span-2 space-y-6">
         {/* Checklist */}
@@ -214,6 +238,7 @@ export function ExportTab({ issues, exportData }: ExportTabProps) {
           </CardContent>
         </Card>
       </div>
+    </div>
     </div>
   );
 }
