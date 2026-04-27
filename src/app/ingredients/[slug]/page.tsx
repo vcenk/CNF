@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { HotlistBadge } from "@/features/ingredients/hotlist-badge";
+import { DisclaimerCallout } from "@/components/marketing/disclaimer-callout";
 import { siteConfig } from "@/lib/site-config";
 import {
   getIngredientBySlug,
@@ -16,6 +17,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { dataSourcesLastReviewed } from "@/lib/legal";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -29,10 +31,10 @@ export async function generateMetadata({
   if (!ingredient) return { title: "Not Found" };
 
   const name = ingredient.common_name || ingredient.inci_name;
-  const title = `${name} (${ingredient.inci_name}) | INCI Name, Uses & Canadian Suppliers`;
+  const title = `${name} (${ingredient.inci_name}) — INCI, Hotlist Status & Canadian Suppliers`;
   const description =
     ingredient.description ||
-    `${name} is a cosmetic ingredient with INCI name ${ingredient.inci_name}. Find usage rates, Health Canada hotlist status, and Canadian suppliers.`;
+    `${name} is a cosmetic ingredient with INCI name ${ingredient.inci_name}. See Health Canada Hotlist status, typical use level, and Canadian supplier availability.`;
 
   return {
     title,
@@ -44,6 +46,12 @@ export async function generateMetadata({
       url: `${siteConfig.url}/ingredients/${slug}`,
       siteName: siteConfig.name,
       type: "article",
+      locale: siteConfig.locale,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: name,
+      description: description.slice(0, 160),
     },
   };
 }
@@ -86,6 +94,7 @@ export default async function IngredientDetailPage({ params }: PageProps) {
   const functionIds = functions.map((fn) => fn.id);
   const related = await getRelatedIngredients(ingredient.id, functionIds, 6);
   const name = ingredient.common_name || ingredient.inci_name;
+  const url = `${siteConfig.url}/ingredients/${slug}`;
 
   const structuredData = [
     {
@@ -95,6 +104,7 @@ export default async function IngredientDetailPage({ params }: PageProps) {
       alternateName: ingredient.common_name,
       description: ingredient.description,
       category: "Cosmetic Ingredient",
+      url,
       additionalProperty: [
         ingredient.cas_number && {
           "@type": "PropertyValue",
@@ -131,11 +141,15 @@ export default async function IngredientDetailPage({ params }: PageProps) {
           "@type": "ListItem",
           position: 3,
           name,
-          item: `${siteConfig.url}/ingredients/${slug}`,
+          item: url,
         },
       ],
     },
   ];
+
+  const isRestricted =
+    ingredient.hotlist_status === "restricted" ||
+    ingredient.hotlist_status === "prohibited";
 
   return (
     <>
@@ -176,6 +190,10 @@ export default async function IngredientDetailPage({ params }: PageProps) {
               {ingredient.description}
             </p>
           )}
+          <p className="mt-3 text-xs text-muted-foreground">
+            Last reviewed {dataSourcesLastReviewed} · Always verify against the
+            current Health Canada Cosmetic Ingredient Hotlist before use.
+          </p>
         </header>
 
         <div className="mb-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -230,10 +248,10 @@ export default async function IngredientDetailPage({ params }: PageProps) {
           )}
         </div>
 
-        {ingredient.hotlist_status !== "not_listed" && (
+        {isRestricted && (
           <section className="mb-8 rounded-xl border border-warning/30 bg-warning-soft/30 p-5">
             <h2 className="font-display text-lg font-semibold text-warning">
-              Health Canada Hotlist |{" "}
+              Health Canada Hotlist —{" "}
               {ingredient.hotlist_status === "restricted"
                 ? "Restricted"
                 : "Prohibited"}
@@ -259,34 +277,48 @@ export default async function IngredientDetailPage({ params }: PageProps) {
                     : "Both types"}
               </p>
             )}
+            <p className="mt-3 text-sm">
+              <Link
+                href="/health-canada-cosmetic-hotlist"
+                className="text-brand underline hover:text-brand-dark"
+              >
+                Read the Hotlist guide →
+              </Link>
+            </p>
           </section>
         )}
 
         {ingredient.is_fragrance_allergen && (
           <section className="mb-8 rounded-xl border border-brand/20 bg-brand-soft/20 p-5">
             <h2 className="font-display text-lg font-semibold text-brand">
-              Fragrance Allergen | Disclosure Required
+              Fragrance allergen — disclosure threshold applies
             </h2>
             <p className="mt-2 text-sm text-muted-foreground">
-              This ingredient is one of the 26 fragrance allergens that must be
-              individually disclosed on Canadian cosmetic labels as of April
-              2026. Disclosure thresholds: &gt;0.01% in rinse-off products and
-              &gt;0.001% in leave-on products.
+              This ingredient is recognized as a fragrance allergen. When
+              present above the disclosure threshold (0.001% in leave-on
+              products, 0.01% in rinse-off products), it should be named
+              individually on the Canadian cosmetic label.
             </p>
-            <Link
-              href="/guides/fragrance-allergen-disclosure-2026"
-              className="mt-2 inline-block text-sm text-brand underline"
-            >
-              Learn more about the 2026 disclosure rule
-            </Link>
+            <p className="mt-2 text-sm">
+              <Link
+                href="/cosmetic-label-requirements-canada"
+                className="text-brand underline hover:text-brand-dark"
+              >
+                Read the Canadian labelling guide →
+              </Link>
+            </p>
           </section>
         )}
 
         {supplierPrices.length > 0 && (
           <section className="mb-8">
             <h2 className="font-display text-xl font-semibold">
-              Canadian Suppliers
+              Canadian suppliers
             </h2>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Pricing is for reference. Always confirm current price, lead
+              time, and Certificate of Analysis directly with the supplier.
+            </p>
             <Table className="mt-4">
               <TableHeader>
                 <TableRow>
@@ -332,7 +364,7 @@ export default async function IngredientDetailPage({ params }: PageProps) {
         {related.length > 0 && (
           <section className="mb-8">
             <h2 className="font-display text-xl font-semibold">
-              Related Ingredients
+              Related ingredients
             </h2>
             <div className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
               {related.map((item: Record<string, unknown>) => (
@@ -353,21 +385,65 @@ export default async function IngredientDetailPage({ params }: PageProps) {
           </section>
         )}
 
-        <div className="rounded-xl border border-brand/20 bg-brand-soft/20 p-6 text-center">
+        <section className="mb-8">
+          <h2 className="font-display text-xl font-semibold">
+            Plan with this ingredient
+          </h2>
+          <ul className="mt-4 grid gap-3 sm:grid-cols-2">
+            {[
+              {
+                href: "/tools/cnf-readiness-checker",
+                label: "CNF Readiness Checker",
+                detail: "Check a product including this ingredient before notification.",
+              },
+              {
+                href: "/tools/inci-list-formatter",
+                label: "INCI List Formatter",
+                detail: "Build a clean ingredient list with correct ordering.",
+              },
+              {
+                href: "/inci-name-lookup-canada",
+                label: "INCI Name Lookup Canada",
+                detail: "Confirm INCI naming for Canadian cosmetic labels.",
+              },
+              {
+                href: "/cosmetic-label-requirements-canada",
+                label: "Cosmetic Label Requirements in Canada",
+                detail: "Bilingual content, ordering rules, and warnings.",
+              },
+            ].map((link) => (
+              <li key={link.href}>
+                <Link
+                  href={link.href}
+                  className="block rounded-lg border border-border bg-card p-4 transition-colors hover:bg-muted"
+                >
+                  <p className="text-sm font-semibold">{link.label}</p>
+                  <p className="mt-1 text-sm text-muted-foreground">
+                    {link.detail}
+                  </p>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <div className="mb-8 rounded-xl border border-brand/20 bg-brand-soft/20 p-6 text-center">
           <p className="font-display text-lg font-semibold">
             Use {name} in a formula
           </p>
           <p className="mt-1 text-sm text-muted-foreground">
-            Build formulas with auto-calculated COGS, bilingual labels, and CNF
-            preparation support from your ingredient list.
+            Build formulas with INCI lookups, hotlist checks, batch scaling,
+            costing, and CNF preparation in one workspace.
           </p>
           <Link
-            href="/formulas"
+            href="/auth/signup"
             className="mt-4 inline-block rounded-lg bg-primary px-6 py-2.5 text-sm font-medium text-primary-foreground hover:bg-brand-dark"
           >
-            Start building formulas
+            Create a free account
           </Link>
         </div>
+
+        <DisclaimerCallout compact />
       </div>
     </>
   );

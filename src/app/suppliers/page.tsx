@@ -54,8 +54,18 @@ export default async function SuppliersPage() {
             Canadian cosmetic ingredient suppliers
           </h1>
           <p className="mt-3 max-w-2xl text-muted-foreground">
-            Find trusted Canadian suppliers for your cosmetic ingredients.
-            Each supplier page lists their available ingredients with pricing.
+            Browse Canadian suppliers for cosmetic ingredients. Each supplier
+            page lists available ingredients, INCI names, Health Canada
+            Hotlist status, and reference pricing. Confirm pricing and lead
+            time directly with the supplier.
+          </p>
+          <p className="mt-3 max-w-2xl text-sm">
+            <Link
+              href="/cosmetic-ingredient-suppliers-canada"
+              className="text-brand underline hover:text-brand-dark"
+            >
+              How to choose a Canadian cosmetic ingredient supplier →
+            </Link>
           </p>
         </div>
 
@@ -79,6 +89,36 @@ export default async function SuppliersPage() {
               </Card>
             </Link>
           ))}
+        </div>
+
+        <div className="mt-12 border-t border-border/40 pt-8">
+          <h2 className="text-lg font-semibold">Related on FormulaNorth</h2>
+          <div className="mt-4 flex flex-wrap gap-4">
+            <Link
+              href="/cosmetic-ingredient-suppliers-canada"
+              className="text-sm font-medium text-brand underline hover:text-brand-dark"
+            >
+              Suppliers guide
+            </Link>
+            <Link
+              href="/inci-name-lookup-canada"
+              className="text-sm font-medium text-brand underline hover:text-brand-dark"
+            >
+              INCI Name Lookup
+            </Link>
+            <Link
+              href="/health-canada-cosmetic-hotlist"
+              className="text-sm font-medium text-brand underline hover:text-brand-dark"
+            >
+              Cosmetic Ingredient Hotlist
+            </Link>
+            <Link
+              href="/tools/cosmetic-cost-calculator"
+              className="text-sm font-medium text-brand underline hover:text-brand-dark"
+            >
+              Cost Calculator
+            </Link>
+          </div>
         </div>
       </div>
     </>

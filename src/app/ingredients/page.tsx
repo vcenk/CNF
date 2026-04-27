@@ -166,7 +166,7 @@ export default async function IngredientsPage({ searchParams }: PageProps) {
               </Link>
             ))}
           </div>
-          <div className="mt-4 flex gap-4">
+          <div className="mt-4 flex flex-wrap gap-4">
             <Link
               href="/ingredients/hotlist"
               className="text-sm font-medium text-brand underline hover:text-brand-dark"
@@ -178,6 +178,18 @@ export default async function IngredientsPage({ searchParams }: PageProps) {
               className="text-sm font-medium text-brand underline hover:text-brand-dark"
             >
               Canadian Suppliers
+            </Link>
+            <Link
+              href="/inci-name-lookup-canada"
+              className="text-sm font-medium text-brand underline hover:text-brand-dark"
+            >
+              INCI Name Lookup guide
+            </Link>
+            <Link
+              href="/tools/cnf-readiness-checker"
+              className="text-sm font-medium text-brand underline hover:text-brand-dark"
+            >
+              CNF Readiness Checker
             </Link>
           </div>
         </div>
