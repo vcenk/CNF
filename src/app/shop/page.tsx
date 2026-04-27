@@ -7,12 +7,12 @@ import { siteConfig } from "@/lib/site-config";
 import { categoryLabels } from "@/domain/shop";
 
 export const metadata: Metadata = {
-  title: "Shop — Digital Products for Canadian Cosmetic Makers",
+  title: "Shop - Digital Products for Canadian Cosmetic Makers",
   description:
-    "Formula packs, compliance templates, ingredient guides, and business kits for indie cosmetic makers in Canada. Instant digital download.",
+    "Formula packs, readiness templates, ingredient guides, and business kits for indie cosmetic makers in Canada. Instant digital download.",
   alternates: { canonical: "/shop" },
   openGraph: {
-    title: "Shop — FormulaNorth",
+    title: "Shop - FormulaNorth",
     description: "Digital products for Canadian cosmetic makers.",
     url: `${siteConfig.url}/shop`,
     siteName: siteConfig.name,
@@ -53,17 +53,18 @@ export default async function ShopPage({ searchParams }: PageProps) {
             Digital products for makers
           </h1>
           <p className="mt-3 max-w-2xl text-muted-foreground">
-            Formula packs, compliance templates, ingredient guides, and business
+            Formula packs, readiness templates, ingredient guides, and business
             kits. Instant download after purchase.
           </p>
         </div>
 
-        {/* Category filters */}
         <div className="mb-8 flex flex-wrap gap-2">
           <Link
             href="/shop"
             className={`rounded-full border px-3 py-1 text-sm transition-colors ${
-              !category ? "border-brand bg-brand text-white" : "border-border hover:border-brand"
+              !category
+                ? "border-brand bg-brand text-white"
+                : "border-border hover:border-brand"
             }`}
           >
             All
@@ -73,7 +74,9 @@ export default async function ShopPage({ searchParams }: PageProps) {
               key={key}
               href={`/shop?category=${key}`}
               className={`rounded-full border px-3 py-1 text-sm transition-colors ${
-                category === key ? "border-brand bg-brand text-white" : "border-border hover:border-brand"
+                category === key
+                  ? "border-brand bg-brand text-white"
+                  : "border-border hover:border-brand"
               }`}
             >
               {label}
@@ -81,7 +84,6 @@ export default async function ShopPage({ searchParams }: PageProps) {
           ))}
         </div>
 
-        {/* Products */}
         <Suspense>
           {products.length === 0 ? (
             <div className="py-16 text-center">
@@ -106,14 +108,13 @@ export default async function ShopPage({ searchParams }: PageProps) {
           )}
         </Suspense>
 
-        {/* Cross-sell */}
         <div className="mt-16 rounded-xl border border-brand/20 bg-brand-soft/20 p-6 text-center">
           <p className="font-display text-lg font-semibold">
             Need more than templates?
           </p>
           <p className="mt-1 text-sm text-muted-foreground">
-            Build your own formulas with auto-generated labels, costing, and CNF
-            exports.
+            Build your own formulas with label drafting, costing, and CNF
+            preparation tools.
           </p>
           <Link
             href="/pricing"

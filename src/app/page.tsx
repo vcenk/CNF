@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
+import { DisclaimerCallout } from "@/components/marketing/disclaimer-callout";
 import {
   Card,
+  CardDescription,
   CardHeader,
   CardTitle,
-  CardDescription,
 } from "@/components/ui/card";
 import {
   Search,
@@ -20,7 +21,7 @@ const features = [
     icon: Search,
     title: "Ingredient Database",
     description:
-      "250+ cosmetic ingredients with INCI names, CAS numbers, Health Canada hotlist status, and Canadian supplier pricing.",
+      "250+ cosmetic ingredients with INCI names, CAS numbers, hotlist references, and Canadian supplier pricing.",
     href: "/ingredients",
     badge: "Free",
   },
@@ -36,7 +37,7 @@ const features = [
     icon: FlaskConical,
     title: "Formula Management",
     description:
-      "Build and version your recipes with INCI lookups, phase grouping, batch scaling, and real-time compliance checks.",
+      "Build and version your recipes with INCI lookups, phase grouping, batch scaling, and readiness checks for common ingredient and labeling issues.",
     href: "/formulas",
     badge: "Maker",
   },
@@ -44,7 +45,7 @@ const features = [
     icon: DollarSign,
     title: "Product Costing",
     description:
-      "Auto-calculate COGS from your formula, factor in labour and packaging, and set profitable wholesale and retail prices.",
+      "Calculate COGS from your formula, factor in labor and packaging, and set clearer wholesale and retail pricing targets.",
     href: "/formulas",
     badge: "Maker",
   },
@@ -52,15 +53,15 @@ const features = [
     icon: Tag,
     title: "Label Generator",
     description:
-      "Generate compliant bilingual EN/FR cosmetic labels with INCI list, mandatory warnings, and fragrance allergen disclosure.",
+      "Draft bilingual EN/FR cosmetic label content with INCI lists, warning reminders, and fragrance allergen support.",
     href: "/formulas",
     badge: "Maker",
   },
   {
     icon: FileOutput,
-    title: "CNF Export",
+    title: "CNF Preparation",
     description:
-      "Export .hcxs files for Health Canada portal upload with pre-submission validation and filing status tracking.",
+      "Prepare structured CNF information packages with validation support, filing notes, and reusable company details.",
     href: "/formulas",
     badge: "Studio",
   },
@@ -84,8 +85,8 @@ const tiers = [
     description: "For active makers",
     features: [
       "10 formulas with version control",
-      "Batch scaling & COGS calculator",
-      "Bilingual label generator",
+      "Batch scaling and COGS calculator",
+      "Bilingual label drafting",
     ],
     highlighted: true,
   },
@@ -96,7 +97,7 @@ const tiers = [
     description: "For growing brands",
     features: [
       "50 formulas",
-      "CNF export & .hcxs generation",
+      "CNF preparation workflow",
       "May-contain variants",
     ],
   },
@@ -151,25 +152,30 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
 
-      {/* Hero */}
       <section className="mx-auto max-w-6xl px-4 pb-20 pt-24 text-center sm:px-6">
         <p className="text-sm font-semibold uppercase tracking-wider text-brand">
-          For Canadian cosmetic makers
+          For Canadian indie cosmetic makers
         </p>
         <h1 className="mx-auto mt-4 max-w-3xl font-display text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
           Formulate. Comply. Sell.
         </h1>
         <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
-          The all-in-one platform for indie cosmetic makers in Canada. Manage
-          ingredients, build formulas, calculate costs, generate bilingual
-          labels, and export CNF filings — all from one place.
+          FormulaNorth helps Canadian indie cosmetic makers organize
+          ingredients, build formulas, calculate costs, draft bilingual labels,
+          and prepare CNF information with less confusion.
         </p>
-        <div className="mt-8 flex items-center justify-center gap-3">
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
           <Link
-            href="/ingredients"
+            href="/tools/cnf-readiness-checker"
             className="rounded-lg bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-colors hover:bg-brand-dark"
           >
-            Browse ingredients — free
+            Try the free CNF Readiness Checker
+          </Link>
+          <Link
+            href="/ingredients"
+            className="rounded-lg border border-border px-6 py-3 text-sm font-medium transition-colors hover:bg-muted"
+          >
+            Browse ingredients
           </Link>
           <Link
             href="/pricing"
@@ -180,14 +186,13 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Features */}
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <h2 className="text-center font-display text-2xl font-bold sm:text-3xl">
           Everything a Canadian maker needs
         </h2>
         <p className="mx-auto mt-3 max-w-xl text-center text-muted-foreground">
-          One source of truth — your formula drives labels, costing, and CNF
-          exports automatically.
+          One source of truth for formula data, label drafting, costing, and
+          CNF preparation support.
         </p>
 
         <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -212,7 +217,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* How it works */}
       <section className="border-y border-border/40 bg-surface/50 py-16">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <h2 className="text-center font-display text-2xl font-bold sm:text-3xl">
@@ -223,22 +227,22 @@ export default function HomePage() {
               {
                 step: "1",
                 title: "Search ingredients",
-                text: "Look up INCI names, check hotlist status, find Canadian suppliers.",
+                text: "Look up INCI names, review hotlist notes, and compare Canadian suppliers.",
               },
               {
                 step: "2",
                 title: "Build your formula",
-                text: "Add ingredients, set percentages, organize by phase, validate compliance.",
+                text: "Add ingredients, set percentages, organize by phase, and review restrictions and usage notes.",
               },
               {
                 step: "3",
-                title: "Generate labels & costs",
-                text: "Auto-create bilingual labels and calculate your true COGS per unit.",
+                title: "Draft labels and costs",
+                text: "Create bilingual label content and calculate your estimated COGS per unit.",
               },
               {
                 step: "4",
-                title: "Export your CNF",
-                text: "Generate .hcxs files ready for Health Canada portal upload.",
+                title: "Prepare your CNF package",
+                text: "Assemble structured CNF details and review them before manual submission or portal entry.",
               },
             ].map((item) => (
               <div key={item.step} className="text-center">
@@ -255,14 +259,13 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Pricing preview */}
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6" id="pricing">
         <h2 className="text-center font-display text-2xl font-bold sm:text-3xl">
           Simple pricing that scales with you
         </h2>
         <p className="mx-auto mt-3 max-w-xl text-center text-muted-foreground">
           Start free with the ingredient database. Upgrade when you need
-          formulas, labels, and exports.
+          formulas, labels, and CNF preparation workflows.
         </p>
 
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -296,10 +299,10 @@ export default function HomePage() {
               </p>
               <div className="my-5 h-px bg-border" />
               <ul className="flex-1 space-y-2.5 text-sm">
-                {tier.features.map((f) => (
-                  <li key={f} className="flex items-start gap-2">
+                {tier.features.map((feature) => (
+                  <li key={feature} className="flex items-start gap-2">
                     <span className="mt-0.5 text-brand">&#10003;</span>
-                    <span className="text-muted-foreground">{f}</span>
+                    <span className="text-muted-foreground">{feature}</span>
                   </li>
                 ))}
               </ul>
@@ -317,21 +320,25 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Bottom CTA */}
       <section className="border-t border-border/40 bg-surface/50 py-16 text-center">
-        <h2 className="font-display text-2xl font-bold sm:text-3xl">
-          Start exploring for free
-        </h2>
-        <p className="mx-auto mt-3 max-w-md text-muted-foreground">
-          The ingredient database and supplier directory are completely free. No
-          account required.
-        </p>
-        <Link
-          href="/ingredients"
-          className="mt-6 inline-block rounded-lg bg-primary px-8 py-3 text-sm font-medium text-primary-foreground transition-colors hover:bg-brand-dark"
-        >
-          Browse the ingredient database
-        </Link>
+        <div className="mx-auto max-w-4xl px-4 sm:px-6">
+          <h2 className="font-display text-2xl font-bold sm:text-3xl">
+            Start exploring for free
+          </h2>
+          <p className="mx-auto mt-3 max-w-md text-muted-foreground">
+            The ingredient database and supplier directory are completely free.
+            No account required.
+          </p>
+          <div className="mx-auto mt-8 max-w-3xl">
+            <DisclaimerCallout compact />
+          </div>
+          <Link
+            href="/ingredients"
+            className="mt-6 inline-block rounded-lg bg-primary px-8 py-3 text-sm font-medium text-primary-foreground transition-colors hover:bg-brand-dark"
+          >
+            Browse the ingredient database
+          </Link>
+        </div>
       </section>
     </>
   );

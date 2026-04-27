@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getIngredientBySlug, getRelatedIngredients } from "@/lib/supabase/queries/ingredients";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { HotlistBadge } from "@/features/ingredients/hotlist-badge";
 import { siteConfig } from "@/lib/site-config";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import {
+  getIngredientBySlug,
+  getRelatedIngredients,
+} from "@/lib/supabase/queries/ingredients";
 import {
   Table,
   TableBody,
@@ -18,15 +21,18 @@ interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const ingredient = await getIngredientBySlug(slug);
   if (!ingredient) return { title: "Not Found" };
 
   const name = ingredient.common_name || ingredient.inci_name;
-  const title = `${name} (${ingredient.inci_name}) — INCI Name, Uses & Canadian Suppliers`;
-  const description = ingredient.description
-    || `${name} is a cosmetic ingredient with INCI name ${ingredient.inci_name}. Find usage rates, Health Canada hotlist status, and Canadian suppliers.`;
+  const title = `${name} (${ingredient.inci_name}) | INCI Name, Uses & Canadian Suppliers`;
+  const description =
+    ingredient.description ||
+    `${name} is a cosmetic ingredient with INCI name ${ingredient.inci_name}. Find usage rates, Health Canada hotlist status, and Canadian suppliers.`;
 
   return {
     title,
@@ -47,26 +53,38 @@ export default async function IngredientDetailPage({ params }: PageProps) {
   const ingredient = await getIngredientBySlug(slug);
   if (!ingredient) notFound();
 
-  const fnMap = (ingredient.ingredient_function_map ?? []) as Array<{
+  const functionMap = (ingredient.ingredient_function_map ?? []) as Array<{
     is_primary: boolean;
-    ingredient_functions: { id: string; name: string; slug: string; description: string | null } | null;
+    ingredient_functions: {
+      id: string;
+      name: string;
+      slug: string;
+      description: string | null;
+    } | null;
   }>;
-  const functions = fnMap.filter((m) => m.ingredient_functions).map((m) => ({
-    ...m.ingredient_functions!,
-    isPrimary: m.is_primary,
-  }));
+  const functions = functionMap
+    .filter((item) => item.ingredient_functions)
+    .map((item) => ({
+      ...item.ingredient_functions!,
+      isPrimary: item.is_primary,
+    }));
 
   const supplierPrices = (ingredient.ingredient_supplier_prices ?? []) as Array<{
     id: string;
     price_per_kg: number | null;
     currency: string;
     min_order_kg: number | null;
-    suppliers: { id: string; name: string; slug: string; website: string | null; location: string | null } | null;
+    suppliers: {
+      id: string;
+      name: string;
+      slug: string;
+      website: string | null;
+      location: string | null;
+    } | null;
   }>;
 
-  const functionIds = functions.map((f) => f.id);
+  const functionIds = functions.map((fn) => fn.id);
   const related = await getRelatedIngredients(ingredient.id, functionIds, 6);
-
   const name = ingredient.common_name || ingredient.inci_name;
 
   const structuredData = [
@@ -91,7 +109,10 @@ export default async function IngredientDetailPage({ params }: PageProps) {
         {
           "@type": "PropertyValue",
           name: "Health Canada Status",
-          value: ingredient.hotlist_status === "not_listed" ? "Not Listed (Safe)" : ingredient.hotlist_status,
+          value:
+            ingredient.hotlist_status === "not_listed"
+              ? "Not listed"
+              : ingredient.hotlist_status,
         },
       ].filter(Boolean),
     },
@@ -100,8 +121,18 @@ export default async function IngredientDetailPage({ params }: PageProps) {
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: siteConfig.url },
-        { "@type": "ListItem", position: 2, name: "Ingredients", item: `${siteConfig.url}/ingredients` },
-        { "@type": "ListItem", position: 3, name, item: `${siteConfig.url}/ingredients/${slug}` },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Ingredients",
+          item: `${siteConfig.url}/ingredients`,
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name,
+          item: `${siteConfig.url}/ingredients/${slug}`,
+        },
       ],
     },
   ];
@@ -114,16 +145,18 @@ export default async function IngredientDetailPage({ params }: PageProps) {
       />
 
       <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6">
-        {/* Breadcrumb */}
         <nav className="mb-6 text-sm text-muted-foreground">
-          <Link href="/" className="hover:text-foreground">Home</Link>
+          <Link href="/" className="hover:text-foreground">
+            Home
+          </Link>
           <span className="mx-2">/</span>
-          <Link href="/ingredients" className="hover:text-foreground">Ingredients</Link>
+          <Link href="/ingredients" className="hover:text-foreground">
+            Ingredients
+          </Link>
           <span className="mx-2">/</span>
           <span className="text-foreground">{name}</span>
         </nav>
 
-        {/* Header */}
         <header className="mb-8">
           <div className="flex items-start gap-3">
             <div className="flex-1">
@@ -131,7 +164,9 @@ export default async function IngredientDetailPage({ params }: PageProps) {
                 {name}
               </h1>
               {ingredient.common_name && (
-                <p className="mt-1 text-lg text-muted-foreground">{ingredient.inci_name}</p>
+                <p className="mt-1 text-lg text-muted-foreground">
+                  {ingredient.inci_name}
+                </p>
               )}
             </div>
             <HotlistBadge status={ingredient.hotlist_status} />
@@ -143,12 +178,13 @@ export default async function IngredientDetailPage({ params }: PageProps) {
           )}
         </header>
 
-        {/* Key Facts */}
         <div className="mb-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {ingredient.cas_number && (
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle className="text-xs font-medium uppercase text-muted-foreground">CAS Number</CardTitle>
+                <CardTitle className="text-xs font-medium uppercase text-muted-foreground">
+                  CAS Number
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="font-mono text-sm">{ingredient.cas_number}</p>
@@ -157,7 +193,9 @@ export default async function IngredientDetailPage({ params }: PageProps) {
           )}
           <Card>
             <CardHeader className="pb-2">
-              <CardTitle className="text-xs font-medium uppercase text-muted-foreground">Functions</CardTitle>
+              <CardTitle className="text-xs font-medium uppercase text-muted-foreground">
+                Functions
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="flex flex-wrap gap-1">
@@ -174,29 +212,36 @@ export default async function IngredientDetailPage({ params }: PageProps) {
               </div>
             </CardContent>
           </Card>
-          {(ingredient.typical_use_level_min != null || ingredient.typical_use_level_max != null) && (
+          {(ingredient.typical_use_level_min != null ||
+            ingredient.typical_use_level_max != null) && (
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle className="text-xs font-medium uppercase text-muted-foreground">Typical Usage Rate</CardTitle>
+                <CardTitle className="text-xs font-medium uppercase text-muted-foreground">
+                  Typical Usage Rate
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-sm">
-                  {ingredient.typical_use_level_min}% — {ingredient.typical_use_level_max}%
+                  {ingredient.typical_use_level_min}% -{" "}
+                  {ingredient.typical_use_level_max}%
                 </p>
               </CardContent>
             </Card>
           )}
         </div>
 
-        {/* Health Canada Status */}
         {ingredient.hotlist_status !== "not_listed" && (
           <section className="mb-8 rounded-xl border border-warning/30 bg-warning-soft/30 p-5">
             <h2 className="font-display text-lg font-semibold text-warning">
-              Health Canada Hotlist — {ingredient.hotlist_status === "restricted" ? "Restricted" : "Prohibited"}
+              Health Canada Hotlist |{" "}
+              {ingredient.hotlist_status === "restricted"
+                ? "Restricted"
+                : "Prohibited"}
             </h2>
             {ingredient.hotlist_max_concentration != null && (
               <p className="mt-2 text-sm">
-                <strong>Max concentration:</strong> {ingredient.hotlist_max_concentration}%
+                <strong>Max concentration:</strong>{" "}
+                {ingredient.hotlist_max_concentration}%
               </p>
             )}
             {ingredient.hotlist_conditions && (
@@ -217,17 +262,16 @@ export default async function IngredientDetailPage({ params }: PageProps) {
           </section>
         )}
 
-        {/* Fragrance Allergen */}
         {ingredient.is_fragrance_allergen && (
           <section className="mb-8 rounded-xl border border-brand/20 bg-brand-soft/20 p-5">
             <h2 className="font-display text-lg font-semibold text-brand">
-              Fragrance Allergen — Disclosure Required
+              Fragrance Allergen | Disclosure Required
             </h2>
             <p className="mt-2 text-sm text-muted-foreground">
               This ingredient is one of the 26 fragrance allergens that must be
-              individually disclosed on Canadian cosmetic labels as of April 2026.
-              Disclosure thresholds: &gt;0.01% in rinse-off products, &gt;0.001%
-              in leave-on products.
+              individually disclosed on Canadian cosmetic labels as of April
+              2026. Disclosure thresholds: &gt;0.01% in rinse-off products and
+              &gt;0.001% in leave-on products.
             </p>
             <Link
               href="/guides/fragrance-allergen-disclosure-2026"
@@ -238,10 +282,11 @@ export default async function IngredientDetailPage({ params }: PageProps) {
           </section>
         )}
 
-        {/* Canadian Suppliers */}
         {supplierPrices.length > 0 && (
           <section className="mb-8">
-            <h2 className="font-display text-xl font-semibold">Canadian Suppliers</h2>
+            <h2 className="font-display text-xl font-semibold">
+              Canadian Suppliers
+            </h2>
             <Table className="mt-4">
               <TableHeader>
                 <TableRow>
@@ -252,25 +297,29 @@ export default async function IngredientDetailPage({ params }: PageProps) {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {supplierPrices.map((sp) =>
-                  sp.suppliers ? (
-                    <TableRow key={sp.id}>
+                {supplierPrices.map((supplierPrice) =>
+                  supplierPrice.suppliers ? (
+                    <TableRow key={supplierPrice.id}>
                       <TableCell>
                         <Link
-                          href={`/suppliers/${sp.suppliers.slug}`}
+                          href={`/suppliers/${supplierPrice.suppliers.slug}`}
                           className="font-medium text-brand hover:underline"
                         >
-                          {sp.suppliers.name}
+                          {supplierPrice.suppliers.name}
                         </Link>
                       </TableCell>
                       <TableCell className="text-sm text-muted-foreground">
-                        {sp.suppliers.location}
+                        {supplierPrice.suppliers.location}
                       </TableCell>
                       <TableCell className="text-right text-sm">
-                        {sp.price_per_kg ? `$${sp.price_per_kg} ${sp.currency}` : "—"}
+                        {supplierPrice.price_per_kg
+                          ? `$${supplierPrice.price_per_kg} ${supplierPrice.currency}`
+                          : "-"}
                       </TableCell>
                       <TableCell className="text-right text-sm">
-                        {sp.min_order_kg ? `${sp.min_order_kg} kg` : "—"}
+                        {supplierPrice.min_order_kg
+                          ? `${supplierPrice.min_order_kg} kg`
+                          : "-"}
                       </TableCell>
                     </TableRow>
                   ) : null
@@ -280,33 +329,37 @@ export default async function IngredientDetailPage({ params }: PageProps) {
           </section>
         )}
 
-        {/* Related Ingredients */}
         {related.length > 0 && (
           <section className="mb-8">
-            <h2 className="font-display text-xl font-semibold">Related Ingredients</h2>
+            <h2 className="font-display text-xl font-semibold">
+              Related Ingredients
+            </h2>
             <div className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-              {related.map((rel: Record<string, unknown>) => (
+              {related.map((item: Record<string, unknown>) => (
                 <Link
-                  key={rel.id as string}
-                  href={`/ingredients/${rel.slug}`}
+                  key={item.id as string}
+                  href={`/ingredients/${item.slug}`}
                   className="rounded-lg border border-border bg-card p-3 text-sm transition-colors hover:border-brand"
                 >
-                  <p className="font-medium">{(rel.common_name as string) || (rel.inci_name as string)}</p>
-                  <p className="text-xs text-muted-foreground">{rel.inci_name as string}</p>
+                  <p className="font-medium">
+                    {(item.common_name as string) || (item.inci_name as string)}
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    {item.inci_name as string}
+                  </p>
                 </Link>
               ))}
             </div>
           </section>
         )}
 
-        {/* CTA */}
         <div className="rounded-xl border border-brand/20 bg-brand-soft/20 p-6 text-center">
           <p className="font-display text-lg font-semibold">
             Use {name} in a formula
           </p>
           <p className="mt-1 text-sm text-muted-foreground">
             Build formulas with auto-calculated COGS, bilingual labels, and CNF
-            export — all from your ingredient list.
+            preparation support from your ingredient list.
           </p>
           <Link
             href="/formulas"

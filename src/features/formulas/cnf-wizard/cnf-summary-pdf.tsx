@@ -120,9 +120,9 @@ interface CnfSummaryPdfProps {
 
 export function CnfSummaryPdf({ data, ingredients }: CnfSummaryPdfProps) {
   const sortedIngredients = [...ingredients].sort(
-    (a, b) => b.percentage - a.percentage
+    (first, second) => second.percentage - first.percentage
   );
-  const allergens = ingredients.filter((i) => i.isFragranceAllergen);
+  const allergens = ingredients.filter((ingredient) => ingredient.isFragranceAllergen);
   const generatedAt = new Date().toLocaleDateString("en-CA", {
     year: "numeric",
     month: "long",
@@ -132,34 +132,32 @@ export function CnfSummaryPdf({ data, ingredients }: CnfSummaryPdfProps) {
   return (
     <Document>
       <Page size="A4" style={styles.page}>
-        {/* Header */}
         <View style={styles.header}>
-          <Text style={styles.title}>Cosmetic Notification Form Summary</Text>
+          <Text style={styles.title}>Cosmetic Notification Preparation Summary</Text>
           <Text style={styles.subtitle}>
-            FormulaNorth — Generated {generatedAt}
+            FormulaNorth | Generated {generatedAt}
           </Text>
         </View>
 
-        {/* Product details */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Product Details</Text>
           <View style={styles.row}>
             <Text style={styles.label}>Product name (EN):</Text>
-            <Text style={styles.value}>{data.productNameEn || "—"}</Text>
+            <Text style={styles.value}>{data.productNameEn || "-"}</Text>
           </View>
           <View style={styles.row}>
             <Text style={styles.label}>Product name (FR):</Text>
-            <Text style={styles.value}>{data.productNameFr || "—"}</Text>
+            <Text style={styles.value}>{data.productNameFr || "-"}</Text>
           </View>
           <View style={styles.row}>
             <Text style={styles.label}>Category:</Text>
             <Text style={styles.value}>
-              {data.productCategory.replace("_", " ") || "—"}
+              {data.productCategory.replace("_", " ") || "-"}
             </Text>
           </View>
           <View style={styles.row}>
             <Text style={styles.label}>Usage type:</Text>
-            <Text style={styles.value}>{data.usageType || "—"}</Text>
+            <Text style={styles.value}>{data.usageType || "-"}</Text>
           </View>
           <View style={styles.row}>
             <Text style={styles.label}>Net quantity:</Text>
@@ -168,25 +166,23 @@ export function CnfSummaryPdf({ data, ingredients }: CnfSummaryPdfProps) {
                 ? `${data.netWeightG} g`
                 : data.netVolumeMl
                   ? `${data.netVolumeMl} mL`
-                  : "—"}
+                  : "-"}
             </Text>
           </View>
         </View>
 
-        {/* Responsible person */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Responsible Person</Text>
           <View style={styles.row}>
             <Text style={styles.label}>Company:</Text>
-            <Text style={styles.value}>{data.companyName || "—"}</Text>
+            <Text style={styles.value}>{data.companyName || "-"}</Text>
           </View>
           <View style={styles.row}>
             <Text style={styles.label}>Address:</Text>
-            <Text style={styles.value}>{data.companyAddress || "—"}</Text>
+            <Text style={styles.value}>{data.companyAddress || "-"}</Text>
           </View>
         </View>
 
-        {/* Ingredient list */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>
             Ingredient List ({ingredients.length})
@@ -200,41 +196,40 @@ export function CnfSummaryPdf({ data, ingredients }: CnfSummaryPdfProps) {
               <Text style={[styles.tableHeaderCell, styles.col3]}>Phase</Text>
               <Text style={[styles.tableHeaderCell, styles.col4]}>%</Text>
             </View>
-            {sortedIngredients.map((ing, i) => (
-              <View key={i} style={styles.tableRow}>
+            {sortedIngredients.map((ingredient, index) => (
+              <View key={index} style={styles.tableRow}>
                 <Text style={[styles.tableCell, styles.col1]}>
-                  {ing.inciName}
+                  {ingredient.inciName}
                 </Text>
                 <Text style={[styles.tableCell, styles.col2]}>
-                  {ing.casNumber ?? "—"}
+                  {ingredient.casNumber ?? "-"}
                 </Text>
                 <Text style={[styles.tableCell, styles.col3]}>
-                  {ing.phase}
+                  {ingredient.phase}
                 </Text>
                 <Text style={[styles.tableCell, styles.col4]}>
-                  {ing.percentage}%
+                  {ingredient.percentage}%
                 </Text>
               </View>
             ))}
           </View>
         </View>
 
-        {/* Fragrance allergens */}
         {allergens.length > 0 && (
           <View style={styles.allergenNote}>
             <Text>
               Fragrance allergens present ({allergens.length}):{" "}
-              {allergens.map((a) => a.inciName).join(", ")}. These must be
-              individually disclosed on the product label per the April 2026
-              Health Canada rule.
+              {allergens.map((allergen) => allergen.inciName).join(", ")}.
+              These may require individual disclosure depending on the product
+              and current Health Canada guidance.
             </Text>
           </View>
         )}
 
-        {/* Footer */}
         <Text style={styles.footer}>
-          This is a human-readable summary of your Cosmetic Notification Form
-          data. Use the .hcxs file for portal upload. Generated by FormulaNorth.
+          This summary is provided for preparation and review only. It is not
+          legal advice, regulatory approval, or confirmation of submission
+          acceptance.
         </Text>
       </Page>
     </Document>

@@ -25,6 +25,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteConfig.url}/pricing`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
     { url: `${siteConfig.url}/guides`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
     { url: `${siteConfig.url}/guides/health-canada-cosmetic-notification`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
+    { url: `${siteConfig.url}/cosmetic-notification-form-canada`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
+    { url: `${siteConfig.url}/cosmetic-label-requirements-canada`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
+    { url: `${siteConfig.url}/health-canada-cosmetic-hotlist`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
+    { url: `${siteConfig.url}/inci-name-lookup-canada`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
+    { url: `${siteConfig.url}/cosmetic-ingredient-suppliers-canada`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
+    { url: `${siteConfig.url}/how-to-sell-handmade-soap-in-canada`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
+    { url: `${siteConfig.url}/handmade-skincare-business-canada`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
+    { url: `${siteConfig.url}/sell-body-butter-canada`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
+    { url: `${siteConfig.url}/sell-sugar-scrub-canada`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
+    { url: `${siteConfig.url}/sell-bath-bombs-canada`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
+    { url: `${siteConfig.url}/tools`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
+    { url: `${siteConfig.url}/tools/cnf-readiness-checker`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
+    { url: `${siteConfig.url}/tools/inci-list-formatter`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
+    { url: `${siteConfig.url}/tools/cosmetic-cost-calculator`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
+    { url: `${siteConfig.url}/tools/cosmetic-label-checklist`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
   ];
 
   const ingredientPages: MetadataRoute.Sitemap = ingredientSlugs.map((slug) => ({

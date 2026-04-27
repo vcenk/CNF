@@ -142,7 +142,6 @@ export default async function FormulaBuilderPage({ params }: PageProps) {
           <div className="grid gap-6 lg:grid-cols-3">
             <div className="lg:col-span-2 space-y-6">
               <IngredientTable
-                formulaId={formula.id}
                 versionId={currentVersion.id}
                 ingredients={ingredients}
               />

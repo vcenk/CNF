@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ArrowLeft } from "lucide-react";
 import { requireAuth } from "@/lib/auth/require-auth";
 import { createClient } from "@/lib/supabase/server";
 import {
@@ -11,7 +12,6 @@ import {
 import { getLabelTemplate } from "@/app/formulas/[id]/label-actions";
 import { CnfWizard } from "@/features/formulas/cnf-wizard/cnf-wizard";
 import { validateForCnfSubmission } from "@/services/cnf-validation";
-import { ArrowLeft } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "CNF Wizard",
@@ -39,22 +39,24 @@ export default async function CnfWizardPage({ params }: PageProps) {
     supabase.from("profiles").select("*").eq("id", user.id).single(),
   ]);
 
-  // Normalize ingredients with full details
-  const ingredients = rawIngredients.map((ing) => {
-    const d = ing.ingredients as Record<string, unknown>;
+  const ingredients = rawIngredients.map((ingredient) => {
+    const details = ingredient.ingredients as Record<string, unknown>;
     return {
-      id: ing.id,
-      ingredientId: ing.ingredient_id,
-      inciName: (d?.inci_name as string) ?? "",
-      commonName: (d?.common_name as string) ?? null,
-      casNumber: (d?.cas_number as string) ?? null,
-      percentage: Number(ing.percentage),
-      phase: ing.phase,
-      hotlistStatus: (d?.hotlist_status as string) ?? "not_listed",
-      hotlistMaxConcentration: d?.hotlist_max_concentration as number | null,
-      hotlistConditions: (d?.hotlist_conditions as string) ?? null,
-      usageTypeRestriction: (d?.usage_type_restriction as string) ?? null,
-      isFragranceAllergen: (d?.is_fragrance_allergen as boolean) ?? false,
+      id: ingredient.id,
+      ingredientId: ingredient.ingredient_id,
+      inciName: (details?.inci_name as string) ?? "",
+      commonName: (details?.common_name as string) ?? null,
+      casNumber: (details?.cas_number as string) ?? null,
+      percentage: Number(ingredient.percentage),
+      phase: ingredient.phase,
+      hotlistStatus: (details?.hotlist_status as string) ?? "not_listed",
+      hotlistMaxConcentration:
+        (details?.hotlist_max_concentration as number) ?? null,
+      hotlistConditions: (details?.hotlist_conditions as string) ?? null,
+      usageTypeRestriction:
+        (details?.usage_type_restriction as string) ?? null,
+      isFragranceAllergen:
+        (details?.is_fragrance_allergen as boolean) ?? false,
     };
   });
 
@@ -88,8 +90,9 @@ export default async function CnfWizardPage({ params }: PageProps) {
         </Link>
         <h1 className="mt-3 font-display text-2xl font-bold">CNF Wizard</h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          Fill out your Health Canada Cosmetic Notification Form in one place.
-          AI can help suggest categories, translate, and review compliance.
+          Gather the product, company, and ingredient details needed for CNF
+          preparation in one place. AI can help suggest categories, translate,
+          and review your draft.
         </p>
       </div>
 

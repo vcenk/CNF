@@ -37,7 +37,8 @@
       "Bash(git rm:*)",
       "Bash(git commit -m ':*)",
       "mcp__f64c22b5-093f-4c37-a0b7-f121c5bf0833__list_tables",
-      "mcp__f64c22b5-093f-4c37-a0b7-f121c5bf0833__get_advisors"
+      "mcp__f64c22b5-093f-4c37-a0b7-f121c5bf0833__get_advisors",
+      "Bash(git push:*)"
     ]
   }
 }

@@ -4,18 +4,6 @@ import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import {
-  saveCnfWizardAction,
-  recordCnfSubmissionAction,
-  type CnfWizardData,
-} from "@/app/formulas/[id]/cnf/actions";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Badge } from "@/components/ui/badge";
-import { AiAssistButton } from "./ai-assist-button";
-import { AiComplianceReview } from "./ai-compliance-review";
-import type { ValidationIssue } from "@/domain/validation";
-import {
   Save,
   Download,
   FileText,
@@ -23,6 +11,18 @@ import {
   AlertCircle,
   Sparkles,
 } from "lucide-react";
+import {
+  saveCnfWizardAction,
+  recordCnfSubmissionAction,
+  type CnfWizardData,
+} from "@/app/formulas/[id]/cnf/actions";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { AiAssistButton } from "./ai-assist-button";
+import { AiComplianceReview } from "./ai-compliance-review";
+import type { ValidationIssue } from "@/domain/validation";
 
 interface Ingredient {
   id: string;
@@ -70,12 +70,12 @@ export function CnfWizard({
   const [saved, setSaved] = useState(false);
   const [downloading, setDownloading] = useState(false);
 
-  const errors = issues.filter((i) => i.severity === "error");
-  const warnings = issues.filter((i) => i.severity === "warning");
+  const errors = issues.filter((issue) => issue.severity === "error");
+  const warnings = issues.filter((issue) => issue.severity === "warning");
   const isReady = errors.length === 0 && data.productNameEn && data.companyName;
 
   function update<K extends keyof CnfWizardData>(key: K, value: CnfWizardData[K]) {
-    setData((prev) => ({ ...prev, [key]: value }));
+    setData((previous) => ({ ...previous, [key]: value }));
   }
 
   function handleSave() {
@@ -97,7 +97,6 @@ export function CnfWizard({
     setDownloading(true);
 
     try {
-      // Save first to persist
       await saveCnfWizardAction(formulaId, data);
 
       const { generateHcxsFile } = await import("@/services/hcxs-export");
@@ -108,32 +107,33 @@ export function CnfWizard({
         companyAddress: data.companyAddress,
         productCategory: data.productCategory,
         usageType: data.usageType,
-        ingredients: ingredients.map((i) => ({
-          inciName: i.inciName,
-          percentage: i.percentage,
-          casNumber: i.casNumber,
-          isFragranceAllergen: i.isFragranceAllergen,
+        ingredients: ingredients.map((ingredient) => ({
+          inciName: ingredient.inciName,
+          percentage: ingredient.percentage,
+          casNumber: ingredient.casNumber,
+          isFragranceAllergen: ingredient.isFragranceAllergen,
         })),
       });
 
       const blob = new Blob([file.content], { type: file.mimeType });
       const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = file.filename;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
+      const anchor = document.createElement("a");
+      anchor.href = url;
+      anchor.download = file.filename;
+      document.body.appendChild(anchor);
+      anchor.click();
+      document.body.removeChild(anchor);
       URL.revokeObjectURL(url);
 
       await recordCnfSubmissionAction(formulaId, formulaVersionId);
-      toast.success(".hcxs file downloaded", {
-        description: `Ready for Health Canada portal upload as ${file.filename}`,
+      toast.success("Structured CNF file downloaded", {
+        description:
+          "Review the file carefully before relying on it for manual portal entry or submission.",
       });
       router.refresh();
-    } catch (err) {
-      toast.error("Failed to generate .hcxs", {
-        description: err instanceof Error ? err.message : "Unknown error",
+    } catch (error) {
+      toast.error("Failed to generate structured CNF file", {
+        description: error instanceof Error ? error.message : "Unknown error",
       });
     } finally {
       setDownloading(false);
@@ -151,32 +151,32 @@ export function CnfWizard({
       const blob = await pdf(
         <CnfSummaryPdf
           data={data}
-          ingredients={ingredients.map((i) => ({
-            inciName: i.inciName,
-            commonName: i.commonName,
-            casNumber: i.casNumber,
-            percentage: i.percentage,
-            phase: i.phase,
-            isFragranceAllergen: i.isFragranceAllergen,
+          ingredients={ingredients.map((ingredient) => ({
+            inciName: ingredient.inciName,
+            commonName: ingredient.commonName,
+            casNumber: ingredient.casNumber,
+            percentage: ingredient.percentage,
+            phase: ingredient.phase,
+            isFragranceAllergen: ingredient.isFragranceAllergen,
           }))}
         />
       ).toBlob();
 
       const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `${data.productNameEn || "cnf"}-summary.pdf`.replace(
+      const anchor = document.createElement("a");
+      anchor.href = url;
+      anchor.download = `${data.productNameEn || "cnf"}-summary.pdf`.replace(
         /[^a-zA-Z0-9-_.]/g,
         "-"
       );
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
+      document.body.appendChild(anchor);
+      anchor.click();
+      document.body.removeChild(anchor);
       URL.revokeObjectURL(url);
       toast.success("PDF summary downloaded");
-    } catch (err) {
+    } catch (error) {
       toast.error("Failed to generate PDF", {
-        description: err instanceof Error ? err.message : "Unknown error",
+        description: error instanceof Error ? error.message : "Unknown error",
       });
     } finally {
       setDownloading(false);
@@ -185,9 +185,7 @@ export function CnfWizard({
 
   return (
     <div className="grid gap-6 lg:grid-cols-3">
-      {/* Left: form */}
       <div className="space-y-6 lg:col-span-2">
-        {/* Product details */}
         <Card>
           <CardHeader>
             <CardTitle className="text-sm">1. Product Details</CardTitle>
@@ -197,7 +195,7 @@ export function CnfWizard({
               <Label className="text-xs">Formula name</Label>
               <Input
                 value={data.formulaName}
-                onChange={(e) => update("formulaName", e.target.value)}
+                onChange={(event) => update("formulaName", event.target.value)}
                 placeholder="Internal name for this formula"
               />
             </div>
@@ -209,7 +207,7 @@ export function CnfWizard({
                 </div>
                 <Input
                   value={data.productNameEn}
-                  onChange={(e) => update("productNameEn", e.target.value)}
+                  onChange={(event) => update("productNameEn", event.target.value)}
                   placeholder="Body Lotion"
                 />
               </div>
@@ -220,7 +218,7 @@ export function CnfWizard({
                     label="Translate"
                     disabled={!data.productNameEn}
                     onClick={async () => {
-                      const res = await fetch("/api/ai/translate", {
+                      const response = await fetch("/api/ai/translate", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({
@@ -229,19 +227,23 @@ export function CnfWizard({
                           to: "fr",
                         }),
                       });
-                      const json = await res.json();
-                      if (json.translated) {
-                        update("productNameFr", json.translated);
-                        toast.success("Translated", { description: json.translated });
+                      const payload = await response.json();
+                      if (payload.translated) {
+                        update("productNameFr", payload.translated);
+                        toast.success("Translated", {
+                          description: payload.translated,
+                        });
                       } else {
-                        toast.error("Translation failed", { description: json.error });
+                        toast.error("Translation failed", {
+                          description: payload.error,
+                        });
                       }
                     }}
                   />
                 </div>
                 <Input
                   value={data.productNameFr}
-                  onChange={(e) => update("productNameFr", e.target.value)}
+                  onChange={(event) => update("productNameFr", event.target.value)}
                   placeholder="Lotion pour le corps"
                 />
               </div>
@@ -255,37 +257,41 @@ export function CnfWizard({
                     label="AI suggest"
                     disabled={ingredients.length === 0}
                     onClick={async () => {
-                      const res = await fetch("/api/ai/suggest-category", {
+                      const response = await fetch("/api/ai/suggest-category", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({
-                          ingredients: ingredients.map((i) => ({
-                            inciName: i.inciName,
-                            percentage: i.percentage,
+                          ingredients: ingredients.map((ingredient) => ({
+                            inciName: ingredient.inciName,
+                            percentage: ingredient.percentage,
                           })),
                         }),
                       });
-                      const json = await res.json();
-                      if (json.category) {
-                        update("productCategory", json.category);
-                        if (json.usageType) update("usageType", json.usageType);
+                      const payload = await response.json();
+                      if (payload.category) {
+                        update("productCategory", payload.category);
+                        if (payload.usageType) {
+                          update("usageType", payload.usageType);
+                        }
                         toast.success("AI suggestion applied", {
-                          description: json.reasoning,
+                          description: payload.reasoning,
                         });
                       } else {
-                        toast.error("AI suggestion failed", { description: json.error });
+                        toast.error("AI suggestion failed", {
+                          description: payload.error,
+                        });
                       }
                     }}
                   />
                 </div>
                 <select
                   value={data.productCategory}
-                  onChange={(e) => update("productCategory", e.target.value)}
+                  onChange={(event) => update("productCategory", event.target.value)}
                   className="w-full rounded-md border border-border bg-card px-3 py-2 text-sm"
                 >
-                  {categories.map((c) => (
-                    <option key={c.value} value={c.value}>
-                      {c.label}
+                  {categories.map((category) => (
+                    <option key={category.value} value={category.value}>
+                      {category.label}
                     </option>
                   ))}
                 </select>
@@ -294,7 +300,7 @@ export function CnfWizard({
                 <Label className="text-xs">Usage type</Label>
                 <select
                   value={data.usageType}
-                  onChange={(e) => update("usageType", e.target.value)}
+                  onChange={(event) => update("usageType", event.target.value)}
                   className="w-full rounded-md border border-border bg-card px-3 py-2 text-sm"
                 >
                   <option value="">Select...</option>
@@ -310,8 +316,11 @@ export function CnfWizard({
                 <Input
                   type="number"
                   value={data.netWeightG ?? ""}
-                  onChange={(e) =>
-                    update("netWeightG", e.target.value ? Number(e.target.value) : null)
+                  onChange={(event) =>
+                    update(
+                      "netWeightG",
+                      event.target.value ? Number(event.target.value) : null
+                    )
                   }
                   placeholder="100"
                 />
@@ -321,8 +330,11 @@ export function CnfWizard({
                 <Input
                   type="number"
                   value={data.netVolumeMl ?? ""}
-                  onChange={(e) =>
-                    update("netVolumeMl", e.target.value ? Number(e.target.value) : null)
+                  onChange={(event) =>
+                    update(
+                      "netVolumeMl",
+                      event.target.value ? Number(event.target.value) : null
+                    )
                   }
                   placeholder="100"
                 />
@@ -331,13 +343,12 @@ export function CnfWizard({
           </CardContent>
         </Card>
 
-        {/* Responsible person */}
         <Card>
           <CardHeader>
             <CardTitle className="text-sm">2. Responsible Person</CardTitle>
             <p className="text-xs text-muted-foreground">
               Required by Health Canada. Must be a Canadian company or importer.
-              Saved to your profile for future CNFs.
+              Saved to your profile for future CNF drafts.
             </p>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -345,7 +356,7 @@ export function CnfWizard({
               <Label className="text-xs">Company name</Label>
               <Input
                 value={data.companyName}
-                onChange={(e) => update("companyName", e.target.value)}
+                onChange={(event) => update("companyName", event.target.value)}
                 placeholder="Your Cosmetics Inc."
               />
             </div>
@@ -353,14 +364,13 @@ export function CnfWizard({
               <Label className="text-xs">Canadian address</Label>
               <Input
                 value={data.companyAddress}
-                onChange={(e) => update("companyAddress", e.target.value)}
+                onChange={(event) => update("companyAddress", event.target.value)}
                 placeholder="123 Main St, Toronto, ON M5V 1A1, Canada"
               />
             </div>
           </CardContent>
         </Card>
 
-        {/* Ingredient list (read-only summary) */}
         <Card>
           <CardHeader>
             <div className="flex items-center justify-between">
@@ -371,42 +381,51 @@ export function CnfWizard({
                 href={`/formulas/${formulaId}`}
                 className="text-xs text-brand hover:underline"
               >
-                Edit in Builder →
+                Edit in Builder {"->"}
               </a>
             </div>
           </CardHeader>
           <CardContent>
             {ingredients.length === 0 ? (
               <p className="text-sm text-muted-foreground">
-                No ingredients yet. Add them in the formula Builder.
+                No ingredients yet. Add them in the formula builder.
               </p>
             ) : (
               <div className="space-y-1.5 text-xs">
-                {ingredients.map((ing) => (
+                {ingredients.map((ingredient) => (
                   <div
-                    key={ing.id}
+                    key={ingredient.id}
                     className="flex items-center justify-between rounded px-2 py-1 hover:bg-muted/50"
                   >
                     <span className="flex items-center gap-2">
-                      <span>{ing.inciName}</span>
-                      {ing.hotlistStatus === "restricted" && (
-                        <Badge variant="outline" className="border-warning/30 text-warning text-[10px]">
+                      <span>{ingredient.inciName}</span>
+                      {ingredient.hotlistStatus === "restricted" && (
+                        <Badge
+                          variant="outline"
+                          className="border-warning/30 text-[10px] text-warning"
+                        >
                           Restricted
                         </Badge>
                       )}
-                      {ing.hotlistStatus === "prohibited" && (
-                        <Badge variant="outline" className="border-destructive/30 text-destructive text-[10px]">
+                      {ingredient.hotlistStatus === "prohibited" && (
+                        <Badge
+                          variant="outline"
+                          className="border-destructive/30 text-[10px] text-destructive"
+                        >
                           Prohibited
                         </Badge>
                       )}
-                      {ing.isFragranceAllergen && (
-                        <Badge variant="outline" className="border-brand/30 text-brand text-[10px]">
+                      {ingredient.isFragranceAllergen && (
+                        <Badge
+                          variant="outline"
+                          className="border-brand/30 text-[10px] text-brand"
+                        >
                           Allergen
                         </Badge>
                       )}
                     </span>
                     <span className="font-mono text-muted-foreground">
-                      {ing.percentage}%
+                      {ingredient.percentage}%
                     </span>
                   </div>
                 ))}
@@ -415,7 +434,6 @@ export function CnfWizard({
           </CardContent>
         </Card>
 
-        {/* AI Compliance Review */}
         <AiComplianceReview
           ingredients={ingredients}
           category={data.productCategory}
@@ -423,7 +441,6 @@ export function CnfWizard({
         />
       </div>
 
-      {/* Right: Status + actions */}
       <div className="space-y-4">
         <Card>
           <CardHeader className="pb-3">
@@ -433,7 +450,7 @@ export function CnfWizard({
               ) : (
                 <AlertCircle className="h-4 w-4 text-destructive" />
               )}
-              Submission Status
+              Preparation Status
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
@@ -460,9 +477,9 @@ export function CnfWizard({
 
             {errors.length > 0 && (
               <div className="space-y-1">
-                {errors.slice(0, 5).map((e, i) => (
-                  <p key={i} className="text-xs text-destructive">
-                    • {e.message}
+                {errors.slice(0, 5).map((error, index) => (
+                  <p key={index} className="text-xs text-destructive">
+                    - {error.message}
                   </p>
                 ))}
               </div>
@@ -483,7 +500,7 @@ export function CnfWizard({
               className="flex w-full items-center justify-center gap-2 rounded-lg bg-brand px-4 py-2.5 text-sm font-semibold text-white hover:bg-brand-dark disabled:cursor-not-allowed disabled:opacity-50"
             >
               <Download className="h-4 w-4" />
-              {downloading ? "Generating..." : "Download .hcxs"}
+              {downloading ? "Generating..." : "Download structured CNF file"}
             </button>
 
             <button
@@ -494,6 +511,11 @@ export function CnfWizard({
               <FileText className="h-4 w-4" />
               Download PDF summary
             </button>
+
+            <p className="text-xs leading-5 text-muted-foreground">
+              Review all generated outputs against official Health Canada
+              guidance before relying on them for sale or submission.
+            </p>
           </CardContent>
         </Card>
 

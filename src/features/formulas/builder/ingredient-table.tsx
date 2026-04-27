@@ -31,7 +31,6 @@ interface IngredientRow {
 }
 
 interface IngredientTableProps {
-  formulaId: string;
   versionId: string;
   ingredients: IngredientRow[];
 }
@@ -47,7 +46,7 @@ const phases = [
   { value: "main", label: "Main" },
 ];
 
-export function IngredientTable({ formulaId, versionId, ingredients }: IngredientTableProps) {
+export function IngredientTable({ versionId, ingredients }: IngredientTableProps) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [showSearch, setShowSearch] = useState(false);

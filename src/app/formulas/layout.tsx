@@ -1,5 +1,10 @@
+import type { Metadata } from "next";
 import { requireAuth } from "@/lib/auth/require-auth";
 import { DashboardSidebar } from "@/components/layout/dashboard-sidebar";
+
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+};
 
 export default async function FormulasLayout({
   children,

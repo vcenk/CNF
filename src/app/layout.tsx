@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Fraunces, Manrope } from "next/font/google";
 import "./globals.css";
-import { siteConfig } from "@/lib/site-config";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { Toaster } from "@/components/ui/sonner";
+import { siteConfig } from "@/lib/site-config";
 
 const fraunces = Fraunces({
   subsets: ["latin"],
@@ -19,7 +19,7 @@ const manrope = Manrope({
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: `${siteConfig.name} — ${siteConfig.tagline}`,
+    default: `${siteConfig.name} | ${siteConfig.tagline}`,
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
@@ -28,10 +28,10 @@ export const metadata: Metadata = {
     "cosmetic formula management",
     "INCI ingredient database",
     "Health Canada cosmetic notification",
-    "CNF filing software",
+    "CNF preparation software",
     "cosmetic label generator Canada",
     "cosmetic product costing",
-    "Canadian cosmetic compliance",
+    "Canadian cosmetic makers",
     "bilingual cosmetic labels",
     "cosmetic ingredient hotlist",
   ],

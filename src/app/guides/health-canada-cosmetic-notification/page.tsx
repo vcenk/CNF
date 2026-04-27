@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { DisclaimerCallout } from "@/components/marketing/disclaimer-callout";
 import { siteConfig } from "@/lib/site-config";
 
 const pathname = "/guides/health-canada-cosmetic-notification";
@@ -17,7 +18,7 @@ const faqs = [
   {
     question: "Who needs to file a Cosmetic Notification Form (CNF)?",
     answer:
-      "Every manufacturer and importer selling a cosmetic product in Canada — including handmade products sold at craft fairs or from home — must file within 10 days of first sale.",
+      "Every manufacturer and importer selling a cosmetic product in Canada, including handmade products sold at craft fairs or from home, must file within 10 days of first sale.",
   },
   {
     question: "Is there a fee for filing a CNF with Health Canada?",
@@ -50,7 +51,7 @@ export default function GuidePage() {
       author: { "@type": "Organization", name: siteConfig.name },
       publisher: { "@type": "Organization", name: siteConfig.name },
       datePublished: "2026-04-06",
-      dateModified: "2026-04-12",
+      dateModified: "2026-04-27",
       mainEntityOfPage: `${siteConfig.url}${pathname}`,
     },
     {
@@ -81,16 +82,18 @@ export default function GuidePage() {
       />
 
       <article className="mx-auto max-w-4xl px-4 py-16 sm:px-6">
-        {/* Breadcrumb */}
         <nav className="mb-8 text-sm text-muted-foreground">
-          <Link href="/" className="hover:text-foreground">Home</Link>
+          <Link href="/" className="hover:text-foreground">
+            Home
+          </Link>
           <span className="mx-2">/</span>
-          <Link href="/guides" className="hover:text-foreground">Guides</Link>
+          <Link href="/guides" className="hover:text-foreground">
+            Guides
+          </Link>
           <span className="mx-2">/</span>
           <span className="text-foreground">CNF Guide</span>
         </nav>
 
-        {/* Header */}
         <header className="mb-12">
           <p className="text-sm font-semibold uppercase tracking-wider text-brand">
             Guide
@@ -101,12 +104,11 @@ export default function GuidePage() {
           <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
             A Health Canada cosmetic notification guide should help teams
             understand the workflow before they ever reach a form. The practical
-            work begins long before portal upload.
+            work begins long before portal entry.
           </p>
         </header>
 
-        {/* Content */}
-        <div className="prose-brand space-y-10">
+        <div className="space-y-10">
           <section>
             <h2 className="font-display text-2xl font-semibold">
               What a cosmetic notification workflow actually involves
@@ -141,7 +143,7 @@ export default function GuidePage() {
               <li>Product identity and category</li>
               <li>Usage type and product description</li>
               <li>Ingredient list with INCI names and percentages</li>
-              <li>Validation review before export or upload</li>
+              <li>Readiness review before export or manual entry</li>
             </ul>
           </section>
 
@@ -153,16 +155,22 @@ export default function GuidePage() {
               The best place for software to help is at the handoff between
               messy source material and a submission-ready draft. That includes
               a structured formula builder with built-in INCI lookups, real-time
-              validation against the Health Canada hotlist, automated bilingual
-              label generation, and a clear export path for the final portal
-              submission.
+              validation against the Health Canada hotlist, bilingual label
+              drafting support, and a structured preparation package for the
+              final portal entry process.
             </p>
             <p className="mt-3 leading-relaxed text-muted-foreground">
-              <Link href="/ingredients" className="text-brand underline hover:text-brand-dark">
+              <Link
+                href="/ingredients"
+                className="text-brand underline hover:text-brand-dark"
+              >
                 Browse the ingredient database
               </Link>{" "}
-              to start looking up INCI names and check hotlist status, or{" "}
-              <Link href="/formulas" className="text-brand underline hover:text-brand-dark">
+              to start looking up INCI names and review hotlist status, or{" "}
+              <Link
+                href="/formulas"
+                className="text-brand underline hover:text-brand-dark"
+              >
                 create a formula
               </Link>{" "}
               to build your product from a single source of truth.
@@ -170,7 +178,10 @@ export default function GuidePage() {
           </section>
         </div>
 
-        {/* FAQ */}
+        <div className="mt-12">
+          <DisclaimerCallout compact />
+        </div>
+
         <section className="mt-16">
           <h2 className="font-display text-2xl font-semibold">
             Frequently asked questions
@@ -185,14 +196,13 @@ export default function GuidePage() {
           </div>
         </section>
 
-        {/* CTA */}
         <div className="mt-12 rounded-xl border border-brand/20 bg-brand-soft/30 p-6 text-center">
           <p className="font-display text-lg font-semibold">
-            Ready to streamline your cosmetic compliance?
+            Ready to organize your notification prep?
           </p>
           <p className="mt-1 text-sm text-muted-foreground">
             Start with the free ingredient database, then build formulas that
-            auto-generate labels and CNF exports.
+            support labels, costing, and CNF preparation work.
           </p>
           <Link
             href="/ingredients"

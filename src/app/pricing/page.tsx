@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { siteConfig } from "@/lib/site-config";
 import { Check } from "lucide-react";
+import { DisclaimerCallout } from "@/components/marketing/disclaimer-callout";
+import { siteConfig } from "@/lib/site-config";
 
 const tiers = [
   {
@@ -14,7 +15,7 @@ const tiers = [
     features: [
       "Full ingredient database with INCI names",
       "Supplier directory with pricing",
-      "Health Canada hotlist checks",
+      "Health Canada hotlist references",
       "2 formulas (read-only, no exports)",
       "All guide content",
     ],
@@ -48,8 +49,8 @@ const tiers = [
     features: [
       "50 formulas",
       "Everything in Maker",
-      "CNF export (.hcxs generation)",
-      "Pre-submission validation",
+      "CNF preparation package tools",
+      "Readiness review support",
       "May-contain variant support",
       "Filing status tracking",
     ],
@@ -60,7 +61,7 @@ const tiers = [
     period: "/mo",
     description: "For established brands",
     cta: "Contact us",
-    ctaHref: "/auth/signup",
+    ctaHref: "/contact",
     ctaVariant: "outline" as const,
     features: [
       "Unlimited formulas",
@@ -109,7 +110,8 @@ export default function PricingPage() {
           </h1>
           <p className="mx-auto mt-4 max-w-xl text-lg text-muted-foreground">
             Start free with the ingredient database and supplier directory. Pay
-            only when you need formula tools, labels, or CNF exports.
+            only when you need formula tools, labels, or CNF preparation
+            workflows.
           </p>
         </div>
 
@@ -129,12 +131,10 @@ export default function PricingPage() {
                 </div>
               )}
 
-              {/* Tier name */}
               <p className="text-sm font-semibold text-foreground">
                 {tier.name}
               </p>
 
-              {/* Price — fixed height block for alignment */}
               <div className="mt-4 flex items-baseline gap-1">
                 <span className="font-display text-4xl font-bold tracking-tight">
                   {tier.price}
@@ -146,12 +146,10 @@ export default function PricingPage() {
                 )}
               </div>
 
-              {/* Description */}
               <p className="mt-1 text-sm text-muted-foreground">
                 {tier.description}
               </p>
 
-              {/* CTA button */}
               <Link
                 href={tier.ctaHref}
                 className={`mt-6 block w-full rounded-lg py-2.5 text-center text-sm font-semibold transition-colors ${
@@ -163,20 +161,22 @@ export default function PricingPage() {
                 {tier.cta}
               </Link>
 
-              {/* Divider */}
               <div className="my-6 h-px bg-border" />
 
-              {/* Features */}
               <ul className="flex-1 space-y-3 text-sm">
-                {tier.features.map((f) => (
-                  <li key={f} className="flex items-start gap-2.5">
+                {tier.features.map((feature) => (
+                  <li key={feature} className="flex items-start gap-2.5">
                     <Check className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
-                    <span className="text-muted-foreground">{f}</span>
+                    <span className="text-muted-foreground">{feature}</span>
                   </li>
                 ))}
               </ul>
             </div>
           ))}
+        </div>
+
+        <div className="mt-10">
+          <DisclaimerCallout compact />
         </div>
       </div>
     </>

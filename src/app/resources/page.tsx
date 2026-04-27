@@ -4,12 +4,12 @@ import { ProductCard } from "@/features/shop/product-card";
 import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = {
-  title: "Free Resources — Templates, Checklists & Guides for Cosmetic Makers",
+  title: "Free Resources - Templates, Checklists & Guides for Cosmetic Makers",
   description:
-    "Free downloadable resources for Canadian cosmetic makers. Compliance checklists, label templates, and ingredient guides.",
+    "Free downloadable resources for Canadian cosmetic makers. Checklists, label templates, and ingredient guides.",
   alternates: { canonical: "/resources" },
   openGraph: {
-    title: "Free Resources — FormulaNorth",
+    title: "Free Resources - FormulaNorth",
     description: "Free templates and guides for Canadian cosmetic makers.",
     url: `${siteConfig.url}/resources`,
     siteName: siteConfig.name,
@@ -17,9 +17,8 @@ export const metadata: Metadata = {
 };
 
 export default async function ResourcesPage() {
-  // Get all free, published products
   const allProducts = await getPublishedProducts();
-  const freeProducts = allProducts.filter((p) => p.is_free);
+  const freeProducts = allProducts.filter((product) => product.is_free);
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
@@ -32,7 +31,8 @@ export default async function ResourcesPage() {
         </h1>
         <p className="mt-3 max-w-2xl text-muted-foreground">
           Downloadable checklists, templates, and guides to help you navigate
-          Canadian cosmetic compliance. Enter your email to download.
+          Canadian cosmetic formulation, labeling, and CNF preparation work.
+          Enter your email to download.
         </p>
       </div>
 
