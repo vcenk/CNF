@@ -3,6 +3,8 @@ import Link from "next/link";
 import { requireAuth } from "@/lib/auth/require-auth";
 import { createClient } from "@/lib/supabase/server";
 import { Card, CardContent } from "@/components/ui/card";
+import { FormulaUsageCard } from "@/features/dashboard/formula-usage";
+import { getFormulaUsage } from "@/lib/plan-limits";
 import {
   FlaskConical,
   Tag,
@@ -10,6 +12,7 @@ import {
   Plus,
   ArrowRight,
   Search,
+  CheckCircle2,
   ShoppingBag,
 } from "lucide-react";
 
@@ -22,20 +25,14 @@ export default async function DashboardPage() {
   const user = await requireAuth();
   const supabase = await createClient();
 
-  // Fetch stats in parallel
   const [
     { data: profile },
-    { count: formulaCount },
     { count: labelCount },
     { count: submissionCount },
     { data: recentFormulas },
+    usage,
   ] = await Promise.all([
     supabase.from("profiles").select("*").eq("id", user.id).single(),
-    supabase
-      .from("formulas")
-      .select("*", { count: "exact", head: true })
-      .eq("user_id", user.id)
-      .eq("is_archived", false),
     supabase
       .from("label_templates")
       .select("*, formulas!inner(user_id)", { count: "exact", head: true })
@@ -51,15 +48,15 @@ export default async function DashboardPage() {
       .eq("is_archived", false)
       .order("updated_at", { ascending: false })
       .limit(5),
+    getFormulaUsage(user.id),
   ]);
 
   const displayName = profile?.display_name || user.email?.split("@")[0] || "Maker";
-  const tier = profile?.subscription_tier ?? "free";
 
   const stats = [
     {
       label: "Formulas",
-      value: formulaCount ?? 0,
+      value: usage.count,
       icon: FlaskConical,
       href: "/formulas",
     },
@@ -70,7 +67,7 @@ export default async function DashboardPage() {
       href: "/dashboard/labels",
     },
     {
-      label: "CNF Filings",
+      label: "CNF preparations",
       value: submissionCount ?? 0,
       icon: FileOutput,
       href: "/dashboard/filings",
@@ -85,37 +82,31 @@ export default async function DashboardPage() {
           Welcome back, {displayName}
         </h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          Plan:{" "}
-          <span className="font-medium capitalize text-brand">{tier}</span>
-          {tier === "free" && (
-            <>
-              {" "}
-              &middot;{" "}
-              <Link href="/pricing" className="text-brand underline hover:text-brand-dark">
-                Upgrade
-              </Link>
-            </>
-          )}
+          Keep your formulas, labels, and CNF preparation aligned in one
+          workspace.
         </p>
       </div>
 
-      {/* Stats */}
-      <div className="mb-8 grid gap-4 sm:grid-cols-3">
-        {stats.map((stat) => (
-          <Link key={stat.label} href={stat.href}>
-            <Card className="transition-shadow hover:shadow-md">
-              <CardContent className="flex items-center gap-4 p-5">
-                <div className="rounded-lg bg-brand/10 p-2.5">
-                  <stat.icon className="h-5 w-5 text-brand" />
-                </div>
-                <div>
-                  <p className="text-2xl font-bold">{stat.value}</p>
-                  <p className="text-sm text-muted-foreground">{stat.label}</p>
-                </div>
-              </CardContent>
-            </Card>
-          </Link>
-        ))}
+      {/* Plan + usage */}
+      <div className="mb-8 grid gap-4 lg:grid-cols-3">
+        <div className="lg:col-span-2 grid gap-4 sm:grid-cols-3">
+          {stats.map((stat) => (
+            <Link key={stat.label} href={stat.href}>
+              <Card className="transition-shadow hover:shadow-md">
+                <CardContent className="flex items-center gap-4 p-5">
+                  <div className="rounded-lg bg-brand/10 p-2.5">
+                    <stat.icon className="h-5 w-5 text-brand" />
+                  </div>
+                  <div>
+                    <p className="text-2xl font-bold">{stat.value}</p>
+                    <p className="text-sm text-muted-foreground">{stat.label}</p>
+                  </div>
+                </CardContent>
+              </Card>
+            </Link>
+          ))}
+        </div>
+        <FormulaUsageCard usage={usage} />
       </div>
 
       {/* Quick actions */}
@@ -132,18 +123,18 @@ export default async function DashboardPage() {
             <span className="text-sm font-medium">New formula</span>
           </Link>
           <Link
+            href="/tools/cnf-readiness-checker"
+            className="flex items-center gap-3 rounded-lg border border-border bg-card p-4 transition-colors hover:border-brand"
+          >
+            <CheckCircle2 className="h-5 w-5 text-brand" />
+            <span className="text-sm font-medium">CNF Readiness Checker</span>
+          </Link>
+          <Link
             href="/ingredients"
             className="flex items-center gap-3 rounded-lg border border-border bg-card p-4 transition-colors hover:border-brand"
           >
             <Search className="h-5 w-5 text-brand" />
             <span className="text-sm font-medium">Search ingredients</span>
-          </Link>
-          <Link
-            href="/shop"
-            className="flex items-center gap-3 rounded-lg border border-border bg-card p-4 transition-colors hover:border-brand"
-          >
-            <ShoppingBag className="h-5 w-5 text-brand" />
-            <span className="text-sm font-medium">Browse shop</span>
           </Link>
           <Link
             href="/dashboard/account"
@@ -174,15 +165,32 @@ export default async function DashboardPage() {
             <CardContent className="py-10 text-center">
               <FlaskConical className="mx-auto h-10 w-10 text-muted-foreground/30" />
               <p className="mt-3 text-sm text-muted-foreground">
-                No formulas yet. Create your first one to get started.
+                No formulas yet. Create your first one or try the CNF Readiness
+                Checker without an account.
               </p>
-              <Link
-                href="/formulas"
-                className="mt-4 inline-flex items-center gap-2 rounded-lg bg-brand px-4 py-2 text-sm font-medium text-white hover:bg-brand-dark"
-              >
-                <Plus className="h-4 w-4" />
-                Create formula
-              </Link>
+              <div className="mt-4 flex flex-wrap justify-center gap-2">
+                <Link
+                  href="/formulas"
+                  className="inline-flex items-center gap-2 rounded-lg bg-brand px-4 py-2 text-sm font-medium text-white hover:bg-brand-dark"
+                >
+                  <Plus className="h-4 w-4" />
+                  Create formula
+                </Link>
+                <Link
+                  href="/tools/cnf-readiness-checker"
+                  className="inline-flex items-center gap-2 rounded-lg border border-border px-4 py-2 text-sm font-medium hover:bg-muted"
+                >
+                  <CheckCircle2 className="h-4 w-4" />
+                  Try CNF Readiness Checker
+                </Link>
+                <Link
+                  href="/shop"
+                  className="inline-flex items-center gap-2 rounded-lg border border-border px-4 py-2 text-sm font-medium hover:bg-muted"
+                >
+                  <ShoppingBag className="h-4 w-4" />
+                  Browse shop
+                </Link>
+              </div>
             </CardContent>
           </Card>
         ) : (

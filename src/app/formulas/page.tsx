@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { requireAuth } from "@/lib/auth/require-auth";
 import { getUserFormulas } from "@/lib/supabase/queries/formulas";
+import { getFormulaUsage } from "@/lib/plan-limits";
 import { createFormulaAction } from "./actions";
 import { FormulaSearch } from "@/features/formulas/formula-search";
+import { FormulaUsageCard } from "@/features/dashboard/formula-usage";
 import { FlaskConical, Plus } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -22,7 +25,10 @@ interface RawFormula {
 
 export default async function FormulasPage() {
   const user = await requireAuth();
-  const raw = await getUserFormulas(user.id);
+  const [raw, usage] = await Promise.all([
+    getUserFormulas(user.id),
+    getFormulaUsage(user.id),
+  ]);
 
   const formulas = (raw as RawFormula[]).map((f) => ({
     id: f.id,
@@ -36,7 +42,7 @@ export default async function FormulasPage() {
 
   return (
     <div className="p-6 lg:p-8">
-      <div className="mb-8 flex items-center justify-between">
+      <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="font-display text-2xl font-bold tracking-tight">
             My Formulas
@@ -46,17 +52,31 @@ export default async function FormulasPage() {
           </p>
         </div>
 
-        <form action={createFormulaAction}>
-          <input type="hidden" name="name" value="Untitled Formula" />
-          <input type="hidden" name="batchSize" value="100" />
-          <button
-            type="submit"
-            className="flex items-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground hover:bg-brand-dark"
+        {usage.atLimit ? (
+          <Link
+            href="/pricing?upgradeReason=formula-limit"
+            className="flex items-center gap-2 rounded-lg border border-amber-300 bg-amber-50 px-4 py-2.5 text-sm font-medium text-amber-800 hover:bg-amber-100 dark:border-amber-900/40 dark:bg-amber-950/30 dark:text-amber-200"
           >
             <Plus className="h-4 w-4" />
-            New formula
-          </button>
-        </form>
+            Upgrade to add more formulas
+          </Link>
+        ) : (
+          <form action={createFormulaAction}>
+            <input type="hidden" name="name" value="Untitled Formula" />
+            <input type="hidden" name="batchSize" value="100" />
+            <button
+              type="submit"
+              className="flex items-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground hover:bg-brand-dark"
+            >
+              <Plus className="h-4 w-4" />
+              New formula
+            </button>
+          </form>
+        )}
+      </div>
+
+      <div className="mb-8">
+        <FormulaUsageCard usage={usage} variant="compact" />
       </div>
 
       {formulas.length === 0 ? (
@@ -67,17 +87,27 @@ export default async function FormulasPage() {
             Create your first formula to start building with ingredients from the
             database.
           </p>
-          <form action={createFormulaAction} className="mt-6">
-            <input type="hidden" name="name" value="Untitled Formula" />
-            <input type="hidden" name="batchSize" value="100" />
-            <button
-              type="submit"
-              className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:bg-brand-dark"
+          {usage.atLimit ? (
+            <Link
+              href="/pricing?upgradeReason=formula-limit"
+              className="mt-6 inline-flex items-center gap-2 rounded-lg border border-amber-300 bg-amber-50 px-6 py-3 text-sm font-medium text-amber-800 hover:bg-amber-100 dark:border-amber-900/40 dark:bg-amber-950/30 dark:text-amber-200"
             >
               <Plus className="h-4 w-4" />
-              Create your first formula
-            </button>
-          </form>
+              Upgrade to create a formula
+            </Link>
+          ) : (
+            <form action={createFormulaAction} className="mt-6">
+              <input type="hidden" name="name" value="Untitled Formula" />
+              <input type="hidden" name="batchSize" value="100" />
+              <button
+                type="submit"
+                className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:bg-brand-dark"
+              >
+                <Plus className="h-4 w-4" />
+                Create your first formula
+              </button>
+            </form>
+          )}
         </div>
       ) : (
         <FormulaSearch formulas={formulas} />

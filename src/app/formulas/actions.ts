@@ -5,9 +5,16 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { requireAuth } from "@/lib/auth/require-auth";
 import { logActivity } from "@/lib/supabase/queries/activity";
+import { checkCanCreateFormula } from "@/lib/plan-limits";
 
 export async function createFormulaAction(_formData: FormData): Promise<void> {
   const user = await requireAuth();
+
+  const guard = await checkCanCreateFormula(user.id);
+  if (!guard.allowed) {
+    redirect(`/pricing?upgradeReason=formula-limit&tier=${guard.usage.tier}`);
+  }
+
   const supabase = await createClient();
 
   const name = _formData.get("name") as string;
@@ -221,6 +228,12 @@ export async function archiveFormulaAction(formulaId: string) {
 
 export async function duplicateFormulaAction(formulaId: string): Promise<void> {
   const user = await requireAuth();
+
+  const guard = await checkCanCreateFormula(user.id);
+  if (!guard.allowed) {
+    redirect(`/pricing?upgradeReason=formula-limit&tier=${guard.usage.tier}`);
+  }
+
   const supabase = await createClient();
 
   // Get original formula + current version + ingredients

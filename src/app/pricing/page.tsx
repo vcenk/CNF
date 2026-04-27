@@ -77,7 +77,26 @@ export const metadata: Metadata = {
   description: `${siteConfig.name} pricing plans for Canadian cosmetic makers. Start free, upgrade as you grow.`,
 };
 
-export default function PricingPage() {
+interface PricingPageProps {
+  searchParams: Promise<{
+    upgradeReason?: string;
+    tier?: string;
+  }>;
+}
+
+const UPGRADE_REASON_COPY: Record<string, { title: string; body: string }> = {
+  "formula-limit": {
+    title: "You've reached your formula limit",
+    body: "Upgrade your plan to keep adding formulas. Existing formulas remain saved on your current plan.",
+  },
+};
+
+export default async function PricingPage({ searchParams }: PricingPageProps) {
+  const params = await searchParams;
+  const banner = params.upgradeReason
+    ? UPGRADE_REASON_COPY[params.upgradeReason]
+    : null;
+  const fromTier = params.tier ?? "";
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
@@ -101,6 +120,18 @@ export default function PricingPage() {
       />
 
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+        {banner && (
+          <div className="mx-auto mb-10 max-w-3xl rounded-xl border border-amber-200 bg-amber-50/70 p-5 text-sm dark:border-amber-900/40 dark:bg-amber-950/20">
+            <p className="font-semibold text-amber-900 dark:text-amber-200">
+              {banner.title}
+              {fromTier ? ` (current plan: ${fromTier})` : ""}
+            </p>
+            <p className="mt-1 text-amber-900/80 dark:text-amber-200/80">
+              {banner.body}
+            </p>
+          </div>
+        )}
+
         <div className="text-center">
           <p className="text-sm font-semibold uppercase tracking-wider text-brand">
             Pricing
