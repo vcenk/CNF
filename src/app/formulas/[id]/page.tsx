@@ -196,6 +196,7 @@ export default async function FormulaBuilderPage({ params }: PageProps) {
           <LabelTab
             formulaId={formula.id}
             usageType={formula.usage_type}
+            productCategory={formula.product_category}
             ingredients={ingredients.map((ing) => {
               const details = ing.ingredients as Record<string, unknown>;
               return {

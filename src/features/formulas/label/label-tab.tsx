@@ -14,6 +14,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { LabelPdfDownload } from "./label-pdf";
+import { TranslateButton } from "./translate-button";
 import { Save, Tag, AlertTriangle } from "lucide-react";
 
 interface IngredientForLabel {
@@ -25,6 +26,7 @@ interface IngredientForLabel {
 interface LabelTabProps {
   formulaId: string;
   usageType: string | null;
+  productCategory?: string | null;
   ingredients: IngredientForLabel[];
   initialTemplate: {
     product_display_name_en: string;
@@ -41,6 +43,7 @@ interface LabelTabProps {
 export function LabelTab({
   formulaId,
   usageType,
+  productCategory,
   ingredients,
   initialTemplate,
 }: LabelTabProps) {
@@ -103,7 +106,16 @@ export function LabelTab({
                 <Input value={nameEn} onChange={(e) => setNameEn(e.target.value)} placeholder="Body Lotion" />
               </div>
               <div className="space-y-1.5">
-                <Label className="text-xs">Product name (French)</Label>
+                <div className="flex items-center justify-between gap-2">
+                  <Label className="text-xs">Product name (French)</Label>
+                  <TranslateButton
+                    sourceText={nameEn}
+                    kind="product_name"
+                    productCategory={productCategory}
+                    onTranslated={setNameFr}
+                    hasExistingValue={nameFr.trim().length > 0}
+                  />
+                </div>
                 <Input value={nameFr} onChange={(e) => setNameFr(e.target.value)} placeholder="Lotion pour le corps" />
               </div>
               <div className="space-y-1.5">
@@ -138,7 +150,16 @@ export function LabelTab({
                 <Textarea value={claimsEn} onChange={(e) => setClaimsEn(e.target.value)} rows={3} placeholder="Vegan&#10;Cruelty-free" />
               </div>
               <div className="space-y-1.5">
-                <Label className="text-xs">Claims (French, one per line)</Label>
+                <div className="flex items-center justify-between gap-2">
+                  <Label className="text-xs">Claims (French, one per line)</Label>
+                  <TranslateButton
+                    sourceText={claimsEn}
+                    kind="claims"
+                    productCategory={productCategory}
+                    onTranslated={setClaimsFr}
+                    hasExistingValue={claimsFr.trim().length > 0}
+                  />
+                </div>
                 <Textarea value={claimsFr} onChange={(e) => setClaimsFr(e.target.value)} rows={3} placeholder="Végétalien&#10;Sans cruauté" />
               </div>
             </div>
