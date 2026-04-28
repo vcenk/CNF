@@ -80,12 +80,14 @@ export function WaitlistForm({ tier, tierLabel, defaultEmail = "" }: WaitlistFor
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           disabled={state.kind === "loading"}
+          suppressHydrationWarning
           className="w-full rounded-lg border border-border bg-background py-2 pl-8 pr-2 text-sm shadow-xs outline-none transition-colors focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:opacity-60"
         />
       </div>
       <button
         type="submit"
         disabled={state.kind === "loading"}
+        suppressHydrationWarning
         className="block w-full rounded-lg bg-primary py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-brand-dark disabled:opacity-60"
       >
         {state.kind === "loading" ? "Saving…" : `Join ${tierLabel} waitlist`}
