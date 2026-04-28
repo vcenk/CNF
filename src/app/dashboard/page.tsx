@@ -14,6 +14,7 @@ import {
   Search,
   CheckCircle2,
   ShoppingBag,
+  MessageSquare,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -142,6 +143,13 @@ export default async function DashboardPage() {
           >
             <Tag className="h-5 w-5 text-brand" />
             <span className="text-sm font-medium">Account settings</span>
+          </Link>
+          <Link
+            href="/feedback?source=dashboard"
+            className="flex items-center gap-3 rounded-lg border border-border bg-card p-4 transition-colors hover:border-brand"
+          >
+            <MessageSquare className="h-5 w-5 text-brand" />
+            <span className="text-sm font-medium">Suggest a feature</span>
           </Link>
         </div>
       </div>

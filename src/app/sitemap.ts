@@ -47,6 +47,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteConfig.url}/bc/cosmetic-business-license-guide`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
     { url: `${siteConfig.url}/bc/handmade-skincare-insurance`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
     { url: `${siteConfig.url}/bc/temporary-food-vs-cosmetic-vendor`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
+    { url: `${siteConfig.url}/feedback`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.5 },
   ];
 
   const ingredientPages: MetadataRoute.Sitemap = ingredientSlugs.map((slug) => ({

@@ -271,6 +271,13 @@ export default async function PricingPage({ searchParams }: PricingPageProps) {
             >
               Get in touch
             </Link>
+            . Have a feature request?{" "}
+            <Link
+              href="/feedback?source=pricing"
+              className="text-brand underline hover:text-brand-dark"
+            >
+              Tell us what you need
+            </Link>
             .
           </p>
         </div>

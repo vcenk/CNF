@@ -32,6 +32,22 @@ export default function ContactPage() {
       </section>
 
       <section className="space-y-4">
+        <h2 className="font-display text-2xl font-semibold">Feature requests</h2>
+        <p className="leading-7 text-muted-foreground">
+          Have ideas about what would make FormulaNorth more useful, or
+          something specific you wish it could do? Use the structured{" "}
+          <Link
+            href="/feedback"
+            className="text-brand underline hover:text-brand-dark"
+          >
+            feedback form
+          </Link>
+          {" "}— it&apos;s the fastest way to make sure your idea ends up in
+          our queue.
+        </p>
+      </section>
+
+      <section className="space-y-4">
         <h2 className="font-display text-2xl font-semibold">
           What to include
         </h2>
