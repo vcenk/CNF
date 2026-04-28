@@ -53,7 +53,12 @@ export async function searchIngredients({
   const { data, count, error } = await dbQuery;
 
   if (error) {
-    console.error("Error searching ingredients:", error);
+    console.error("Error searching ingredients:", {
+      message: error.message,
+      code: error.code,
+      details: error.details,
+      hint: error.hint,
+    });
     return { ingredients: [], total: 0 };
   }
 
@@ -100,7 +105,12 @@ export async function getIngredientFunctions() {
     .order("name");
 
   if (error) {
-    console.error("Error fetching functions:", error);
+    console.error("Error fetching functions:", {
+      message: error.message,
+      code: error.code,
+      details: error.details,
+      hint: error.hint,
+    });
     return [];
   }
 
@@ -125,7 +135,12 @@ export async function getIngredientsByFunction(functionSlug: string) {
     .order("inci_name");
 
   if (error) {
-    console.error("Error fetching by function:", error);
+    console.error("Error fetching by function:", {
+      message: error.message,
+      code: error.code,
+      details: error.details,
+      hint: error.hint,
+    });
     return [];
   }
 
@@ -143,7 +158,12 @@ export async function getHotlistIngredients() {
     .order("inci_name");
 
   if (error) {
-    console.error("Error fetching hotlist:", error);
+    console.error("Error fetching hotlist:", {
+      message: error.message,
+      code: error.code,
+      details: error.details,
+      hint: error.hint,
+    });
     return [];
   }
 
@@ -174,7 +194,12 @@ export async function getRelatedIngredients(
     .limit(limit);
 
   if (error) {
-    console.error("Error fetching related:", error);
+    console.error("Error fetching related:", {
+      message: error.message,
+      code: error.code,
+      details: error.details,
+      hint: error.hint,
+    });
     return [];
   }
 
