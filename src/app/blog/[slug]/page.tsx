@@ -6,6 +6,7 @@ import { getPostBySlug, getAllPosts, getRelatedPosts } from "@/lib/blog";
 import { siteConfig } from "@/lib/site-config";
 import { Badge } from "@/components/ui/badge";
 import { ShareButton } from "./share-button";
+import { blogMdxComponents } from "./mdx-components";
 import {
   Calendar,
   Clock,
@@ -180,8 +181,8 @@ export default async function BlogPostPage({ params }: PageProps) {
           </div>
         </header>
 
-        <div className="prose prose-neutral max-w-none prose-headings:font-display prose-headings:font-semibold prose-headings:tracking-tight prose-h2:text-2xl prose-h2:mt-10 prose-h3:text-xl prose-a:text-brand prose-a:underline hover:prose-a:text-brand-dark prose-strong:text-foreground prose-li:text-muted-foreground prose-li:leading-relaxed prose-p:text-muted-foreground prose-p:leading-relaxed prose-code:text-foreground prose-code:bg-muted prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none">
-          <MDXRemote source={post.content} />
+        <div className="max-w-none">
+          <MDXRemote source={post.content} components={blogMdxComponents} />
         </div>
 
         <section className="mt-12 rounded-2xl border border-brand/30 bg-brand-soft/20 p-6 sm:p-8">
