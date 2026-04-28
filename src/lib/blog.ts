@@ -66,3 +66,34 @@ export function getPostsByCategory(
 export function getAllPostSlugs(): string[] {
   return getAllPosts().map((p) => p.slug);
 }
+
+export function getCategoriesWithCounts(): Array<{
+  name: string;
+  count: number;
+}> {
+  const counts = new Map<string, number>();
+  for (const post of getAllPosts()) {
+    counts.set(post.category, (counts.get(post.category) ?? 0) + 1);
+  }
+  return Array.from(counts.entries())
+    .map(([name, count]) => ({ name, count }))
+    .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
+}
+
+export function getRelatedPosts(
+  slug: string,
+  limit = 3
+): Omit<BlogPost, "content">[] {
+  const all = getAllPosts();
+  const current = all.find((p) => p.slug === slug);
+  if (!current) return [];
+
+  const sameCategory = all.filter(
+    (p) => p.slug !== slug && p.category === current.category
+  );
+  const others = all.filter(
+    (p) => p.slug !== slug && p.category !== current.category
+  );
+
+  return [...sameCategory, ...others].slice(0, limit);
+}
