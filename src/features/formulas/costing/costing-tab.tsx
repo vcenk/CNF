@@ -135,6 +135,7 @@ export function CostingTab({
                   </TableCell>
                   <TableCell className="text-right">
                     <Input
+                      key={`${line.ingredientId}-${line.pricePerKg ?? "empty"}`}
                       type="number"
                       defaultValue={line.pricePerKg ?? ""}
                       onBlur={(e) => handlePriceChange(line.ingredientId, e.target.value)}
