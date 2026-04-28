@@ -12,9 +12,11 @@ import {
   type UsageType,
   type ReadinessSeverity,
   type ReadinessReport,
+  type ReadinessInput,
   type IngredientFlag,
 } from "@/lib/cnf-readiness";
 import { runReadinessCheck, type CheckerActionState } from "./actions";
+import { AiClaimHelper } from "./ai-claim-helper";
 
 const initialCheckerState: CheckerActionState = { status: "idle" };
 
@@ -217,13 +219,19 @@ export function CheckerForm() {
       </form>
 
       {state.status === "ok" && state.report && (
-        <ReadinessResult report={state.report} />
+        <ReadinessResult report={state.report} input={state.inputEcho} />
       )}
     </div>
   );
 }
 
-function ReadinessResult({ report }: { report: ReadinessReport }) {
+function ReadinessResult({
+  report,
+  input,
+}: {
+  report: ReadinessReport;
+  input?: ReadinessInput;
+}) {
   const { summary, sections, ingredientFlags, nextSteps } = report;
 
   const hasBlockers = summary.errorCount > 0;
@@ -271,30 +279,49 @@ function ReadinessResult({ report }: { report: ReadinessReport }) {
         <SummaryStat label="Block" count={summary.errorCount} severity="error" />
       </div>
 
-      {sections.map((section) => (
-        <div key={section.heading} className="space-y-3">
-          <h3 className="font-display text-lg font-semibold">{section.heading}</h3>
-          <ul className="space-y-2">
-            {section.items.map((item, index) => (
-              <li
-                key={`${section.heading}-${index}`}
-                className={`flex items-start gap-3 rounded-lg border bg-background/40 p-3 ${SEVERITY_STYLES[item.severity].row}`}
-              >
-                <span className={`mt-1 h-2.5 w-2.5 shrink-0 rounded-full ${SEVERITY_STYLES[item.severity].dot}`} />
-                <div className="flex-1 text-sm">
-                  <div className="font-medium text-foreground">{item.label}</div>
-                  {item.detail && (
-                    <p className="mt-1 text-muted-foreground">{item.detail}</p>
-                  )}
-                </div>
-                <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${SEVERITY_STYLES[item.severity].chip}`}>
-                  {SEVERITY_STYLES[item.severity].label}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
+      {sections.map((section) => {
+        const isClaimSection = section.heading === "Claim risk reminders";
+        const sectionHasRisk = section.items.some(
+          (item) => item.severity === "warning" || item.severity === "error"
+        );
+        const showAiHelper =
+          isClaimSection && sectionHasRisk && !!input?.claims?.trim();
+
+        return (
+          <div key={section.heading} className="space-y-3">
+            <h3 className="font-display text-lg font-semibold">{section.heading}</h3>
+            <ul className="space-y-2">
+              {section.items.map((item, index) => (
+                <li
+                  key={`${section.heading}-${index}`}
+                  className={`flex items-start gap-3 rounded-lg border bg-background/40 p-3 ${SEVERITY_STYLES[item.severity].row}`}
+                >
+                  <span className={`mt-1 h-2.5 w-2.5 shrink-0 rounded-full ${SEVERITY_STYLES[item.severity].dot}`} />
+                  <div className="flex-1 text-sm">
+                    <div className="font-medium text-foreground">{item.label}</div>
+                    {item.detail && (
+                      <p className="mt-1 text-muted-foreground">{item.detail}</p>
+                    )}
+                  </div>
+                  <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${SEVERITY_STYLES[item.severity].chip}`}>
+                    {SEVERITY_STYLES[item.severity].label}
+                  </span>
+                </li>
+              ))}
+            </ul>
+            {showAiHelper && input && (
+              <div className="pt-2">
+                <AiClaimHelper
+                  claims={input.claims}
+                  productName={input.productName}
+                  productCategory={input.productCategory || undefined}
+                  usageType={input.usageType || undefined}
+                />
+              </div>
+            )}
+          </div>
+        );
+      })}
 
       {ingredientFlags.length > 0 && (
         <div className="space-y-3">
