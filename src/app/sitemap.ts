@@ -40,6 +40,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteConfig.url}/tools/inci-list-formatter`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
     { url: `${siteConfig.url}/tools/cosmetic-cost-calculator`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
     { url: `${siteConfig.url}/tools/cosmetic-label-checklist`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
+    { url: `${siteConfig.url}/bc`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
+    { url: `${siteConfig.url}/bc/farmers-market-cosmetic-vendor-checklist`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
+    { url: `${siteConfig.url}/bc/sell-handmade-soap-at-markets`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
+    { url: `${siteConfig.url}/bc/vancouver-market-vendor-checklist`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
+    { url: `${siteConfig.url}/bc/cosmetic-business-license-guide`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
+    { url: `${siteConfig.url}/bc/handmade-skincare-insurance`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
+    { url: `${siteConfig.url}/bc/temporary-food-vs-cosmetic-vendor`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
   ];
 
   const ingredientPages: MetadataRoute.Sitemap = ingredientSlugs.map((slug) => ({
