@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Check } from "lucide-react";
+import { Check, Sparkles } from "lucide-react";
 import { DisclaimerCallout } from "@/components/marketing/disclaimer-callout";
 import { siteConfig } from "@/lib/site-config";
+import { createClient } from "@/lib/supabase/server";
 import { WaitlistForm } from "./waitlist-form";
+import { FeedbackForm } from "@/app/feedback/feedback-form";
 
 type Cta =
   | { kind: "link"; label: string; href: string; variant: "primary" | "outline" }
@@ -119,6 +121,13 @@ export default async function PricingPage({ searchParams }: PricingPageProps) {
     ? UPGRADE_REASON_COPY[params.upgradeReason]
     : null;
   const fromTier = params.tier ?? "";
+
+  // Pre-fill the embedded feedback form for signed-in users.
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  const defaultEmail = user?.email ?? "";
 
   const structuredData = {
     "@context": "https://schema.org",
@@ -273,16 +282,42 @@ export default async function PricingPage({ searchParams }: PricingPageProps) {
             </Link>
             . Have a feature request?{" "}
             <Link
-              href="/feedback?source=pricing"
+              href="#feedback"
               className="text-brand underline hover:text-brand-dark"
             >
-              Tell us what you need
+              Tell us what you need below
             </Link>
             .
           </p>
         </div>
 
-        <div className="mt-10">
+        <section
+          id="feedback"
+          className="mt-20 scroll-mt-24 rounded-2xl border border-brand/30 bg-gradient-to-br from-brand-soft/30 via-card to-card p-6 shadow-sm sm:p-10"
+        >
+          <div className="mb-8 flex items-start gap-4">
+            <div className="rounded-xl bg-brand/15 p-3">
+              <Sparkles className="h-5 w-5 text-brand" />
+            </div>
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-wider text-brand">
+                Help shape what we build next
+              </p>
+              <h2 className="mt-1 font-display text-2xl font-bold tracking-tight sm:text-3xl">
+                What would make FormulaNorth more useful for you?
+              </h2>
+              <p className="mt-3 max-w-2xl text-muted-foreground">
+                We&apos;re prioritising paid-tier features based on what
+                comes up most. Tick what you&apos;d use, add detail, and we&apos;ll
+                email you when those features ship.
+              </p>
+            </div>
+          </div>
+
+          <FeedbackForm defaultEmail={defaultEmail} source="pricing" />
+        </section>
+
+        <div className="mt-12">
           <DisclaimerCallout compact />
         </div>
       </div>
