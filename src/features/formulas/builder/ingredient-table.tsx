@@ -155,6 +155,7 @@ export function IngredientTable({ versionId, ingredients }: IngredientTableProps
                       </TableCell>
                       <TableCell>
                         <Input
+                          key={`${ing.id}-${ing.percentage}`}
                           type="number"
                           defaultValue={ing.percentage}
                           onBlur={(e) => handlePercentageChange(ing.id, e.target.value)}
