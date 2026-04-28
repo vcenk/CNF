@@ -3,21 +3,41 @@ import Link from "next/link";
 import { Check } from "lucide-react";
 import { DisclaimerCallout } from "@/components/marketing/disclaimer-callout";
 import { siteConfig } from "@/lib/site-config";
+import { WaitlistForm } from "./waitlist-form";
 
-const tiers = [
+type Cta =
+  | { kind: "link"; label: string; href: string; variant: "primary" | "outline" }
+  | { kind: "waitlist"; tier: "maker" | "studio"; tierLabel: string };
+
+interface Tier {
+  name: string;
+  price: string;
+  period?: string;
+  description: string;
+  cta: Cta;
+  comingSoon?: boolean;
+  highlighted?: boolean;
+  features: string[];
+}
+
+const tiers: Tier[] = [
   {
     name: "Free",
     price: "$0",
     description: "Browse and research",
-    cta: "Get started",
-    ctaHref: "/ingredients",
-    ctaVariant: "outline" as const,
+    cta: {
+      kind: "link",
+      label: "Get started",
+      href: "/ingredients",
+      variant: "outline",
+    },
     features: [
       "Full ingredient database with INCI names",
       "Supplier directory with pricing",
-      "Health Canada hotlist references",
-      "2 formulas (read-only, no exports)",
+      "Health Canada Hotlist references",
+      "All free tools (CNF Readiness Checker, INCI formatter, cost calculator, label checklist)",
       "All guide content",
+      "Save up to 2 formulas",
     ],
   },
   {
@@ -25,16 +45,15 @@ const tiers = [
     price: "CA$12",
     period: "/mo",
     description: "For active makers",
-    cta: "Start free trial",
-    ctaHref: "/auth/signup",
-    ctaVariant: "primary" as const,
+    comingSoon: true,
     highlighted: true,
+    cta: { kind: "waitlist", tier: "maker", tierLabel: "Maker" },
     features: [
       "10 formulas with full version control",
       "Phase grouping (water, oil, cool-down)",
       "Batch scaling calculator",
       "COGS calculator with margin tools",
-      "Bilingual EN/FR label generator",
+      "Bilingual EN/FR label drafting",
       "PDF label export",
     ],
   },
@@ -43,9 +62,8 @@ const tiers = [
     price: "CA$29",
     period: "/mo",
     description: "For growing brands",
-    cta: "Start free trial",
-    ctaHref: "/auth/signup",
-    ctaVariant: "outline" as const,
+    comingSoon: true,
+    cta: { kind: "waitlist", tier: "studio", tierLabel: "Studio" },
     features: [
       "50 formulas",
       "Everything in Maker",
@@ -60,9 +78,13 @@ const tiers = [
     price: "CA$59",
     period: "/mo",
     description: "For established brands",
-    cta: "Contact us",
-    ctaHref: "/contact",
-    ctaVariant: "outline" as const,
+    comingSoon: true,
+    cta: {
+      kind: "link",
+      label: "Contact us",
+      href: "/contact",
+      variant: "outline",
+    },
     features: [
       "Unlimited formulas",
       "Everything in Studio",
@@ -74,7 +96,7 @@ const tiers = [
 
 export const metadata: Metadata = {
   title: "Pricing",
-  description: `${siteConfig.name} pricing plans for Canadian cosmetic makers. Start free, upgrade as you grow.`,
+  description: `${siteConfig.name} pricing plans for Canadian cosmetic makers. Free tier available now; paid tiers opening soon — join the waitlist.`,
 };
 
 interface PricingPageProps {
@@ -87,7 +109,7 @@ interface PricingPageProps {
 const UPGRADE_REASON_COPY: Record<string, { title: string; body: string }> = {
   "formula-limit": {
     title: "You've reached your formula limit",
-    body: "Upgrade your plan to keep adding formulas. Existing formulas remain saved on your current plan.",
+    body: "Free accounts can save 2 formulas. Paid tiers (Maker, Studio, Business) are coming soon — join the waitlist below and we'll email you when they open. Existing formulas remain saved on your current plan.",
   },
 };
 
@@ -97,6 +119,7 @@ export default async function PricingPage({ searchParams }: PricingPageProps) {
     ? UPGRADE_REASON_COPY[params.upgradeReason]
     : null;
   const fromTier = params.tier ?? "";
+
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
@@ -109,6 +132,9 @@ export default async function PricingPage({ searchParams }: PricingPageProps) {
       price: tier.price.replace(/[^0-9.]/g, "") || "0",
       priceCurrency: "CAD",
       description: tier.description,
+      availability: tier.comingSoon
+        ? "https://schema.org/PreOrder"
+        : "https://schema.org/InStock",
     })),
   };
 
@@ -137,12 +163,13 @@ export default async function PricingPage({ searchParams }: PricingPageProps) {
             Pricing
           </p>
           <h1 className="mt-2 font-display text-3xl font-bold tracking-tight sm:text-4xl">
-            Simple pricing that scales with you
+            Simple pricing, when paid plans open
           </h1>
-          <p className="mx-auto mt-4 max-w-xl text-lg text-muted-foreground">
-            Start free with the ingredient database and supplier directory. Pay
-            only when you need formula tools, labels, or CNF preparation
-            workflows.
+          <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
+            The Free plan is available today: ingredient database, supplier
+            directory, all free tools, and 2 saved formulas. Paid plans (Maker,
+            Studio, Business) are coming soon — join the waitlist below and
+            we&apos;ll email you when they open.
           </p>
         </div>
 
@@ -162,9 +189,20 @@ export default async function PricingPage({ searchParams }: PricingPageProps) {
                 </div>
               )}
 
-              <p className="text-sm font-semibold text-foreground">
-                {tier.name}
-              </p>
+              <div className="flex items-center justify-between gap-2">
+                <p className="text-sm font-semibold text-foreground">
+                  {tier.name}
+                </p>
+                {tier.comingSoon ? (
+                  <span className="rounded-full bg-muted px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
+                    Coming soon
+                  </span>
+                ) : (
+                  <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300">
+                    Available
+                  </span>
+                )}
+              </div>
 
               <div className="mt-4 flex items-baseline gap-1">
                 <span className="font-display text-4xl font-bold tracking-tight">
@@ -181,16 +219,25 @@ export default async function PricingPage({ searchParams }: PricingPageProps) {
                 {tier.description}
               </p>
 
-              <Link
-                href={tier.ctaHref}
-                className={`mt-6 block w-full rounded-lg py-2.5 text-center text-sm font-semibold transition-colors ${
-                  tier.ctaVariant === "primary"
-                    ? "bg-brand text-white hover:bg-brand-dark"
-                    : "border border-border bg-card text-foreground hover:bg-muted"
-                }`}
-              >
-                {tier.cta}
-              </Link>
+              <div className="mt-6">
+                {tier.cta.kind === "link" ? (
+                  <Link
+                    href={tier.cta.href}
+                    className={`block w-full rounded-lg py-2.5 text-center text-sm font-semibold transition-colors ${
+                      tier.cta.variant === "primary"
+                        ? "bg-brand text-white hover:bg-brand-dark"
+                        : "border border-border bg-card text-foreground hover:bg-muted"
+                    }`}
+                  >
+                    {tier.cta.label}
+                  </Link>
+                ) : (
+                  <WaitlistForm
+                    tier={tier.cta.tier}
+                    tierLabel={tier.cta.tierLabel}
+                  />
+                )}
+              </div>
 
               <div className="my-6 h-px bg-border" />
 
@@ -204,6 +251,28 @@ export default async function PricingPage({ searchParams }: PricingPageProps) {
               </ul>
             </div>
           ))}
+        </div>
+
+        <div className="mx-auto mt-10 max-w-3xl space-y-4 text-sm leading-6 text-muted-foreground">
+          <p>
+            <span className="font-semibold text-foreground">Why a waitlist?</span>{" "}
+            Paid subscriptions are not yet enabled. We want to keep the public
+            site honest about what works today: the Free tier and all free
+            tools are fully usable, and we&apos;re finishing the billing,
+            invoicing, and feature gating for the paid plans before turning
+            them on.
+          </p>
+          <p>
+            Have a specific question about a plan, or want to be a
+            beta tester?{" "}
+            <Link
+              href="/contact"
+              className="text-brand underline hover:text-brand-dark"
+            >
+              Get in touch
+            </Link>
+            .
+          </p>
         </div>
 
         <div className="mt-10">
