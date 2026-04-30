@@ -68,6 +68,7 @@ export const metadata: Metadata = {
     },
   },
   verification: {
+    google: "h0573iyEDWJiL7QLwBsjH1WI_obTqqJo0fa-H6GeHFA",
     other: {
       "google-adsense-account": ADSENSE_CLIENT,
     },
