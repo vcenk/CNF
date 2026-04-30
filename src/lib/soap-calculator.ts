@@ -1328,19 +1328,29 @@ export const OIL_CATEGORY_LABEL: Record<SoapOil["category"], string> = {
 // =====================================================================
 
 export const ADDITIVES: AdditiveDef[] = [
+  // Chelators / antioxidants (anti-DOS / longer shelf life)
+  { slug: "sodium_lactate", label: "Sodium lactate", typicalMin: 1, typicalMax: 3, notes: "Hardens bars and helps unmold faster. 60% solution typical." },
+  { slug: "rosemary_oleoresin", label: "Rosemary oleoresin extract (ROE)", typicalMin: 0.1, typicalMax: 0.5, notes: "Antioxidant. Slows DOS (dreaded orange spots). Add to oils before lye." },
+  { slug: "tetrasodium_edta", label: "Tetrasodium EDTA", typicalMin: 0.1, typicalMax: 0.5, notes: "Chelator that binds metal ions in hard water; reduces soap scum." },
+  { slug: "citric_acid", label: "Citric acid", typicalMin: 0.5, typicalMax: 2, notes: "Chelator; pre-dissolve and increase lye to compensate (see soap-making references for amount)." },
+  { slug: "sodium_citrate", label: "Sodium citrate", typicalMin: 1, typicalMax: 3, notes: "Pre-neutralised chelator alternative to citric acid; no extra lye needed." },
+  // Clays
   { slug: "kaolin_clay", label: "Kaolin clay", typicalMin: 1, typicalMax: 3, notes: "Adds slip and silkiness, mild absorption." },
   { slug: "bentonite_clay", label: "Bentonite clay", typicalMin: 1, typicalMax: 3, notes: "More absorptive, popular in shave bars." },
   { slug: "rose_clay", label: "Rose clay", typicalMin: 1, typicalMax: 2, notes: "Pale pink color and gentle exfoliation." },
   { slug: "activated_charcoal", label: "Activated charcoal", typicalMin: 0.5, typicalMax: 2, notes: "Black color and oil binding." },
+  // Humectants / sugars
   { slug: "honey", label: "Honey", typicalMin: 0.5, typicalMax: 2, notes: "Adds humectancy. Can heat the batch — go low." },
   { slug: "sugar", label: "Sugar", typicalMin: 1, typicalMax: 3, notes: "Boosts lather. Dissolve in lye-water before mixing." },
+  // Texture / scrub
   { slug: "salt", label: "Sea salt", typicalMin: 1, typicalMax: 100, notes: "Up to 100% of oils for salt bars; <3% otherwise." },
-  { slug: "sodium_lactate", label: "Sodium lactate", typicalMin: 1, typicalMax: 3, notes: "Hardens bars and helps unmold faster." },
   { slug: "oats_colloidal", label: "Colloidal oats", typicalMin: 1, typicalMax: 5, notes: "Soothing, gentle exfoliation." },
-  { slug: "milk", label: "Milk (goat / coconut)", typicalMin: 5, typicalMax: 100, notes: "Replaces water; freeze first to keep cool." },
-  { slug: "aloe_juice", label: "Aloe vera juice", typicalMin: 5, typicalMax: 100, notes: "Replaces water for soothing properties." },
   { slug: "coffee_grounds", label: "Coffee grounds", typicalMin: 1, typicalMax: 3, notes: "Exfoliation; deodorizing for kitchen soap." },
   { slug: "poppy_seeds", label: "Poppy seeds", typicalMin: 0.5, typicalMax: 2, notes: "Light exfoliation." },
+  // Liquids
+  { slug: "milk", label: "Milk (goat / coconut)", typicalMin: 5, typicalMax: 100, notes: "Replaces water; freeze first to keep cool." },
+  { slug: "aloe_juice", label: "Aloe vera juice", typicalMin: 5, typicalMax: 100, notes: "Replaces water for soothing properties." },
+  // Botanicals / colour
   { slug: "calendula_petals", label: "Calendula petals", typicalMin: 0.5, typicalMax: 2, notes: "Decorative botanical." },
   { slug: "titanium_dioxide", label: "Titanium dioxide", typicalMin: 0.5, typicalMax: 2, notes: "White opacity / brightening." },
 ];
@@ -1478,6 +1488,7 @@ const RECOMMENDED_RANGES: Record<string, [number, number]> = {
   Conditioning: [44, 69],
   Bubbly: [14, 46],
   Creamy: [16, 48],
+  Longevity: [54, 100],
   Iodine: [41, 70],
   INS: [136, 165],
 };
@@ -1593,6 +1604,12 @@ export function calculateSoap(input: SoapInput): SoapResult {
   const bubbly = weighted("bubbly");
   const creamy = weighted("creamy");
   const iodine = weighted("iodine");
+  // Longevity is the average of saturated-fatty-acid contributions to bar
+  // life — approximated here as hardness + bubbly + creamy / 3 over the
+  // upper-bound scale, capped at 100.
+  const longevity = oilLines.length > 0
+    ? Math.min(100, (hardness + bubbly + creamy) / 2)
+    : 0;
   const ins = oilLines.length > 0 ? hardness + (130 - iodine) : null;
 
   const qualities: SoapQualityScore[] = [
@@ -1601,6 +1618,7 @@ export function calculateSoap(input: SoapInput): SoapResult {
     { label: "Conditioning", value: conditioning, recommendedMin: 44, recommendedMax: 69, inRange: classify(conditioning, RECOMMENDED_RANGES.Conditioning) },
     { label: "Bubbly", value: bubbly, recommendedMin: 14, recommendedMax: 46, inRange: classify(bubbly, RECOMMENDED_RANGES.Bubbly) },
     { label: "Creamy", value: creamy, recommendedMin: 16, recommendedMax: 48, inRange: classify(creamy, RECOMMENDED_RANGES.Creamy) },
+    { label: "Longevity", value: longevity, recommendedMin: 54, recommendedMax: 100, inRange: classify(longevity, RECOMMENDED_RANGES.Longevity) },
     { label: "Iodine", value: iodine, recommendedMin: 41, recommendedMax: 70, inRange: classify(iodine, RECOMMENDED_RANGES.Iodine) },
     {
       label: "INS",
