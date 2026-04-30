@@ -4,7 +4,7 @@ import { requireAuth } from "@/lib/auth/require-auth";
 import { createClient } from "@/lib/supabase/server";
 import { Card, CardContent } from "@/components/ui/card";
 import { FormulaUsageCard } from "@/features/dashboard/formula-usage";
-import { getFormulaUsage } from "@/lib/plan-limits";
+import { getFormulaUsage } from "@/lib/plan-limits-server";
 import {
   FlaskConical,
   Tag,

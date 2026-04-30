@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { requireAuth } from "@/lib/auth/require-auth";
 import { getUserFormulas } from "@/lib/supabase/queries/formulas";
-import { getFormulaUsage } from "@/lib/plan-limits";
+import { getFormulaUsage } from "@/lib/plan-limits-server";
 import { createFormulaAction } from "./actions";
 import { FormulaSearch } from "@/features/formulas/formula-search";
 import { FormulaUsageCard } from "@/features/dashboard/formula-usage";

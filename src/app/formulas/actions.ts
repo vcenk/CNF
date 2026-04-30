@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { requireAuth } from "@/lib/auth/require-auth";
 import { logActivity } from "@/lib/supabase/queries/activity";
-import { checkCanCreateFormula } from "@/lib/plan-limits";
+import { checkCanCreateFormula } from "@/lib/plan-limits-server";
 
 export async function createFormulaAction(_formData: FormData): Promise<void> {
   const user = await requireAuth();
