@@ -7,7 +7,14 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/api/", "/_next/", "/formulas/", "/auth/"],
+        disallow: [
+          "/api/",
+          "/_next/",
+          "/formulas/",
+          "/auth/",
+          "/dashboard/",
+          "/tools/soap-calculator/print",
+        ],
       },
     ],
     sitemap: `${siteConfig.url}/sitemap.xml`,

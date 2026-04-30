@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import { Fraunces, Manrope } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { Toaster } from "@/components/ui/sonner";
 import { siteConfig } from "@/lib/site-config";
+
+const ADSENSE_CLIENT = "ca-pub-2430261037866035";
 
 const fraunces = Fraunces({
   subsets: ["latin"],
@@ -64,6 +67,11 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
     },
   },
+  verification: {
+    other: {
+      "google-adsense-account": ADSENSE_CLIENT,
+    },
+  },
 };
 
 export default function RootLayout({
@@ -78,6 +86,13 @@ export default function RootLayout({
         <main className="min-h-[calc(100vh-8rem)]">{children}</main>
         <SiteFooter />
         <Toaster position="top-right" richColors />
+        <Script
+          id="google-adsense"
+          async
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}`}
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
