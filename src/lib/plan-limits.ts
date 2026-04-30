@@ -96,3 +96,20 @@ export async function checkCanCreateFormula(userId: string): Promise<FormulaCrea
   }
   return { allowed: true, usage };
 }
+
+/**
+ * Feature gates — which tier can use a given premium feature inside the
+ * formula builder. Free tier gets the public-side tools (calculator, recipes,
+ * etc.) but not the integrated experience inside a saved formula.
+ */
+export function canUseSoapCalculator(tier: SubscriptionTier): boolean {
+  return tier === "maker" || tier === "studio" || tier === "business";
+}
+
+export function canUseCnfWizard(tier: SubscriptionTier): boolean {
+  return tier === "studio" || tier === "business";
+}
+
+export function canExportPdfLabel(tier: SubscriptionTier): boolean {
+  return tier === "maker" || tier === "studio" || tier === "business";
+}

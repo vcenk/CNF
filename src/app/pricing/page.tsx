@@ -113,6 +113,10 @@ const UPGRADE_REASON_COPY: Record<string, { title: string; body: string }> = {
     title: "You've reached your formula limit",
     body: "Free accounts can save 2 formulas. Paid tiers (Maker, Studio, Business) are coming soon — join the waitlist below and we'll email you when they open. Existing formulas remain saved on your current plan.",
   },
+  "soap-calculator": {
+    title: "Soap calculator inside your formula is a Maker tier feature",
+    body: "Use the standalone calculator at /tools/soap-calculator for free anytime. The integrated version that lives inside a saved formula and persists soap recipe state is part of the Maker tier — join the waitlist below and we'll email you when it opens.",
+  },
 };
 
 export default async function PricingPage({ searchParams }: PricingPageProps) {

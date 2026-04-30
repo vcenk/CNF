@@ -19,10 +19,13 @@ import { LabelTab } from "@/features/formulas/label/label-tab";
 import { ExportTab } from "@/features/formulas/export/export-tab";
 import { SubmissionHistory } from "@/features/formulas/export/submission-history";
 import { ActivityTimeline } from "@/features/formulas/builder/activity-timeline";
+import { SoapMakerSection } from "@/features/formulas/soap/soap-maker-section";
 import { getLabelTemplate } from "@/app/formulas/[id]/label-actions";
 import { getFormulaActivity, getFormulaCnfSubmissions } from "@/lib/supabase/queries/activity";
 import { validateFormula } from "@/services/formula-validation";
 import { validateForCnfSubmission } from "@/services/cnf-validation";
+import { createClient } from "@/lib/supabase/server";
+import { normalizeTier } from "@/lib/plan-limits";
 
 export const metadata: Metadata = {
   title: "Formula Builder",
@@ -75,13 +78,24 @@ export default async function FormulaBuilderPage({ params }: PageProps) {
 
   // Costing + label + activity data
   const ingredientIds = ingredients.map((i) => i.ingredient_id);
-  const [costConfig, priceData, labelTemplate, activities, cnfSubmissions] = await Promise.all([
+  const [costConfig, priceData, labelTemplate, activities, cnfSubmissions, profile] = await Promise.all([
     getCostConfig(id),
     getIngredientPrices(user.id, ingredientIds),
     getLabelTemplate(id),
     getFormulaActivity(id),
     getFormulaCnfSubmissions(id),
+    (async () => {
+      const supabase = await createClient();
+      const { data } = await supabase
+        .from("profiles")
+        .select("subscription_tier")
+        .eq("id", user.id)
+        .single();
+      return data;
+    })(),
   ]);
+
+  const userTier = normalizeTier(profile?.subscription_tier);
 
   const costingIngredients = ingredients.map((ing) => {
     const details = ing.ingredients as Record<string, unknown>;
@@ -135,6 +149,7 @@ export default async function FormulaBuilderPage({ params }: PageProps) {
           <TabsTrigger value="builder">Builder</TabsTrigger>
           <TabsTrigger value="costing">Costing</TabsTrigger>
           <TabsTrigger value="label">Label</TabsTrigger>
+          <TabsTrigger value="soap">Soap maker</TabsTrigger>
           <TabsTrigger value="export">Export</TabsTrigger>
         </TabsList>
 
@@ -216,6 +231,10 @@ export default async function FormulaBuilderPage({ params }: PageProps) {
               custom_claims_fr: labelTemplate.custom_claims_fr ?? [],
             } : null}
           />
+        </TabsContent>
+
+        <TabsContent value="soap" className="mt-6">
+          <SoapMakerSection tier={userTier} />
         </TabsContent>
 
         <TabsContent value="export" className="mt-6">
