@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   Menu,
   CheckCircle2,
@@ -9,6 +10,8 @@ import {
   ListChecks,
   Tag,
   ArrowRight,
+  LogOut,
+  User,
 } from "lucide-react";
 import {
   Sheet,
@@ -18,6 +21,7 @@ import {
 } from "@/components/ui/sheet";
 import { useState } from "react";
 import { siteConfig } from "@/lib/site-config";
+import { createClient } from "@/lib/supabase/client";
 
 const publicNavItems = [
   { label: "Ingredients", href: "/ingredients" },
@@ -57,6 +61,15 @@ const toolItems = [
 
 export function MobileNav({ isLoggedIn }: { isLoggedIn: boolean }) {
   const [open, setOpen] = useState(false);
+  const router = useRouter();
+
+  async function handleSignOut() {
+    setOpen(false);
+    const supabase = createClient();
+    await supabase.auth.signOut();
+    router.push("/");
+    router.refresh();
+  }
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -114,13 +127,31 @@ export function MobileNav({ isLoggedIn }: { isLoggedIn: boolean }) {
           </div>
 
           {isLoggedIn ? (
-            <Link
-              href="/dashboard"
-              onClick={() => setOpen(false)}
-              className="mt-4 rounded-lg bg-primary px-4 py-2.5 text-center text-base font-medium text-primary-foreground"
-            >
-              Dashboard
-            </Link>
+            <div className="mt-4 space-y-1">
+              <Link
+                href="/dashboard"
+                onClick={() => setOpen(false)}
+                className="flex items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-center text-base font-medium text-primary-foreground"
+              >
+                Dashboard
+              </Link>
+              <Link
+                href="/dashboard/account"
+                onClick={() => setOpen(false)}
+                className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-base font-medium text-foreground transition-colors hover:bg-accent/10"
+              >
+                <User className="h-4 w-4 shrink-0 text-muted-foreground" />
+                Account settings
+              </Link>
+              <button
+                type="button"
+                onClick={handleSignOut}
+                className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-base font-medium text-foreground transition-colors hover:bg-destructive/10 hover:text-destructive"
+              >
+                <LogOut className="h-4 w-4 shrink-0 text-muted-foreground" />
+                Sign out
+              </button>
+            </div>
           ) : (
             <Link
               href="/auth/login"
