@@ -123,11 +123,16 @@ export default function SellHandmadeSoapAtMarketsPage() {
       sections={sections}
       faqs={faqs}
       primaryCta={{
-        label: "Start a soap formula",
-        href: "/formulas",
-        description: "Save your recipe and cost it per bar",
+        label: "Try the free Soap Calculator",
+        href: "/tools/soap-calculator",
+        description: "Compute lye, water, and soap-quality scores for your recipe",
       }}
       relatedLinks={[
+        {
+          label: "Soap Calculator (Lye / SAP)",
+          href: "/tools/soap-calculator",
+          description: "Free saponification calculator with quality scoring.",
+        },
         {
           label: "How to Sell Handmade Soap in Canada",
           href: "/how-to-sell-handmade-soap-in-canada",

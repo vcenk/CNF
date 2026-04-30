@@ -19,6 +19,7 @@ const footerLinks = {
     { label: "Blog", href: "/blog" },
     { label: "Guides", href: "/guides" },
     { label: "Free Tools", href: "/tools" },
+    { label: "Soap Calculator", href: "/tools/soap-calculator" },
     { label: "CNF Readiness Checker", href: "/tools/cnf-readiness-checker" },
     { label: "Shop", href: "/shop" },
   ],

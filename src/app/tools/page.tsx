@@ -17,6 +17,13 @@ interface Tool {
 
 const tools: Tool[] = [
   {
+    title: "Soap Calculator (Lye / SAP)",
+    description:
+      "Enter oils, superfat, water ratio. Get NaOH or KOH amounts and live hardness/cleansing/conditioning/bubbly/creamy scores.",
+    href: "/tools/soap-calculator",
+    badge: "Free",
+  },
+  {
     title: "CNF Readiness Checker",
     description:
       "Paste your ingredients and product details — get a quick readiness report with hotlist flags, label reminders, and claim-risk notes.",

@@ -135,11 +135,16 @@ export default function HowToSellHandmadeSoapInCanadaPage() {
       sections={sections}
       faqs={faqs}
       primaryCta={{
-        label: "Start a soap formula",
-        href: "/formulas",
-        description: "Save your recipe and cost it per bar",
+        label: "Try the free Soap Calculator",
+        href: "/tools/soap-calculator",
+        description: "Compute lye, water, and soap-quality scores for your recipe",
       }}
       relatedLinks={[
+        {
+          label: "Soap Calculator (Lye / SAP)",
+          href: "/tools/soap-calculator",
+          description: "Free saponification calculator — enter oils, get NaOH or KOH amounts and quality scores.",
+        },
         {
           label: "Cosmetic Notification Form (CNF) Canada",
           href: "/cosmetic-notification-form-canada",
@@ -154,11 +159,6 @@ export default function HowToSellHandmadeSoapInCanadaPage() {
           label: "Cosmetic Ingredient Hotlist",
           href: "/health-canada-cosmetic-hotlist",
           description: "Check soap ingredients against restricted and prohibited substances.",
-        },
-        {
-          label: "Handmade skincare business in Canada",
-          href: "/handmade-skincare-business-canada",
-          description: "Broader business setup steps for indie cosmetic makers.",
         },
       ]}
     />
