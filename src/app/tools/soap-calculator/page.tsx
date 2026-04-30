@@ -136,6 +136,44 @@ export default function SoapCalculatorPage() {
           <DisclaimerCallout title="Soap calculators are starting points, not safety reviews" />
         </div>
 
+        <div className="mb-10 grid gap-3 sm:grid-cols-3">
+          <Link
+            href="/tools/soap-calculator/recipes"
+            className="group rounded-xl border border-border bg-card p-4 transition-colors hover:border-brand"
+          >
+            <p className="text-sm font-semibold transition-colors group-hover:text-brand">
+              📚 Free recipe library
+            </p>
+            <p className="mt-1 text-xs text-muted-foreground">
+              15 trustworthy recipes — Castile, salt bar, milk soap, liquid,
+              shave bar — open in calculator with one click.
+            </p>
+          </Link>
+          <Link
+            href="/blog/soap-maker-starter-kit"
+            className="group rounded-xl border border-border bg-card p-4 transition-colors hover:border-brand"
+          >
+            <p className="text-sm font-semibold transition-colors group-hover:text-brand">
+              🧰 Starter kit guide
+            </p>
+            <p className="mt-1 text-xs text-muted-foreground">
+              Equipment, safety gear, ingredients, and Canadian suppliers
+              for your first batch.
+            </p>
+          </Link>
+          <Link
+            href="/blog/cold-process-soap-step-by-step"
+            className="group rounded-xl border border-border bg-card p-4 transition-colors hover:border-brand"
+          >
+            <p className="text-sm font-semibold transition-colors group-hover:text-brand">
+              🪜 CP step-by-step
+            </p>
+            <p className="mt-1 text-xs text-muted-foreground">
+              Full first-batch walkthrough — from weighing to cure.
+            </p>
+          </Link>
+        </div>
+
         <SoapForm />
 
         <section className="mt-20 max-w-3xl">
@@ -156,6 +194,10 @@ export default function SoapCalculatorPage() {
           <h2 className="font-display text-2xl font-semibold">Related guides</h2>
           <ul className="mt-4 grid gap-3 sm:grid-cols-2">
             {[
+              { href: "/tools/soap-calculator/recipes", label: "Free Soap Recipe Library" },
+              { href: "/blog/soap-maker-starter-kit", label: "Soap Maker Starter Kit" },
+              { href: "/blog/cold-process-soap-step-by-step", label: "Cold Process Soap: Step-by-Step" },
+              { href: "/blog/choosing-your-first-soap-oils", label: "Choosing Your First Soap Oils" },
               { href: "/how-to-sell-handmade-soap-in-canada", label: "How to Sell Handmade Soap in Canada" },
               { href: "/bc/sell-handmade-soap-at-markets", label: "Sell Handmade Soap at BC Markets" },
               { href: "/cosmetic-label-requirements-canada", label: "Cosmetic Label Requirements in Canada" },
