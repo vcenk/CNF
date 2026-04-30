@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
 import { DisclaimerCallout } from "@/components/marketing/disclaimer-callout";
+import { BetaBadge } from "@/components/marketing/beta-badge";
 import { FormatterForm } from "./formatter-form";
 
 const pathname = "/tools/inci-list-formatter";
@@ -99,7 +100,10 @@ export default function InciListFormatterPage() {
         </nav>
 
         <header className="mb-10">
-          <p className="text-sm font-semibold uppercase tracking-wider text-brand">Free tool</p>
+          <div className="flex flex-wrap items-center gap-3">
+            <p className="text-sm font-semibold uppercase tracking-wider text-brand">Free tool</p>
+            <BetaBadge />
+          </div>
           <h1 className="mt-2 font-display text-3xl font-bold tracking-tight sm:text-4xl">
             INCI Ingredient List Formatter
           </h1>

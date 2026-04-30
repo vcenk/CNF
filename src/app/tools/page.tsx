@@ -6,6 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { BetaBadge } from "@/components/marketing/beta-badge";
 
 interface Tool {
   title: string;
@@ -63,16 +64,21 @@ export default function ToolsIndexPage() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
       <div className="mb-12">
-        <p className="text-sm font-semibold uppercase tracking-wider text-brand">
-          Free tools
-        </p>
+        <div className="flex flex-wrap items-center gap-3">
+          <p className="text-sm font-semibold uppercase tracking-wider text-brand">
+            Free tools
+          </p>
+          <BetaBadge />
+        </div>
         <h1 className="mt-2 font-display text-3xl font-bold tracking-tight sm:text-4xl">
           Tools for Canadian cosmetic makers
         </h1>
         <p className="mt-4 max-w-2xl text-lg text-muted-foreground">
-          Quick, free helpers for the most common parts of cosmetic
-          formulation, label drafting, costing, and CNF preparation. No
-          account required.
+          Quick helpers for the most common parts of cosmetic formulation,
+          label drafting, costing, and CNF preparation. No account required.
+          All tools are free during the FormulaNorth public beta — saving
+          recipes inside formulas and CNF preparation packages are part of
+          the upcoming Maker tier.
         </p>
       </div>
 

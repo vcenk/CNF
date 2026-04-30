@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
 import { DisclaimerCallout } from "@/components/marketing/disclaimer-callout";
+import { BetaBadge } from "@/components/marketing/beta-badge";
 import { SoapForm } from "./soap-form";
 
 const pathname = "/tools/soap-calculator";
@@ -118,9 +119,12 @@ export default function SoapCalculatorPage() {
         </nav>
 
         <header className="mb-10 max-w-3xl">
-          <p className="text-sm font-semibold uppercase tracking-wider text-brand">
-            Free tool
-          </p>
+          <div className="flex flex-wrap items-center gap-3">
+            <p className="text-sm font-semibold uppercase tracking-wider text-brand">
+              Free tool
+            </p>
+            <BetaBadge />
+          </div>
           <h1 className="mt-2 font-display text-3xl font-bold tracking-tight sm:text-4xl">
             Soap Calculator (Lye / SAP)
           </h1>
