@@ -13,7 +13,9 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import { siteConfig } from "@/lib/site-config";
-import { MapPin, ExternalLink, Plus } from "lucide-react";
+import { MapPin, ExternalLink, Plus, ShieldCheck } from "lucide-react";
+import { getOptionalUser } from "@/lib/auth/require-auth";
+import { isAdminEmail } from "@/lib/auth/require-admin";
 
 export const metadata: Metadata = {
   title: "Canadian Cosmetic Ingredient Suppliers — Directory by Province",
@@ -51,7 +53,11 @@ export default async function SuppliersPage({ searchParams }: SuppliersPageProps
   );
   const activeProvince = isValidFilter ? (filter as ProvinceCode) : null;
 
-  const suppliers = (await getAllSuppliers()) as SupplierRow[];
+  const [suppliers, user] = await Promise.all([
+    getAllSuppliers() as Promise<SupplierRow[]>,
+    getOptionalUser(),
+  ]);
+  const isAdmin = isAdminEmail(user?.email);
 
   // Tally counts per province for the filter pills
   const counts = new Map<string, number>();
@@ -130,6 +136,15 @@ export default async function SuppliersPage({ searchParams }: SuppliersPageProps
               How to choose a Canadian cosmetic ingredient supplier →
             </Link>
           </p>
+          {isAdmin && (
+            <Link
+              href="/dashboard/suppliers/new"
+              className="mt-4 inline-flex items-center gap-2 rounded-lg border border-brand/40 bg-brand/5 px-3 py-1.5 text-xs font-medium text-brand transition-colors hover:bg-brand/10"
+            >
+              <ShieldCheck className="h-3.5 w-3.5" />
+              Admin: add a supplier
+            </Link>
+          )}
         </div>
 
         {/* Province filter pills */}
@@ -217,7 +232,7 @@ export default async function SuppliersPage({ searchParams }: SuppliersPageProps
                 add them.
               </p>
               <Link
-                href="/feedback?source=suppliers"
+                href="/suppliers/suggest"
                 className="mt-4 inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-brand-dark"
               >
                 Suggest a supplier
