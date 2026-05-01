@@ -4,6 +4,7 @@ import {
   type SeoGuideFaq,
   type SeoGuideSection,
 } from "@/components/marketing/seo-guide";
+import { FragranceAllergenAlert } from "@/components/marketing/fragrance-allergen-alert";
 
 const pathname = "/cosmetic-label-requirements-canada";
 const title = "Cosmetic Label Requirements in Canada";
@@ -156,6 +157,7 @@ export default function CosmeticLabelRequirementsCanadaPage() {
             works, and how to plan bilingual content before you send
             packaging to a printer.
           </p>
+          <FragranceAllergenAlert variant="compact" source="label-guide" />
         </>
       }
       sections={sections}

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
 import { DisclaimerCallout } from "@/components/marketing/disclaimer-callout";
 import { BetaBadge } from "@/components/marketing/beta-badge";
+import { FragranceAllergenAlert } from "@/components/marketing/fragrance-allergen-alert";
 import { CheckerForm } from "./checker-form";
 
 const pathname = "/tools/cnf-readiness-checker";
@@ -134,7 +135,8 @@ export default function CnfReadinessCheckerPage() {
           </p>
         </header>
 
-        <div className="mb-10">
+        <div className="mb-10 space-y-6">
+          <FragranceAllergenAlert source="cnf-checker" />
           <DisclaimerCallout
             title="This is preparation support, not regulatory approval"
           />

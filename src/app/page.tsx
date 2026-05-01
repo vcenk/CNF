@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
 import { DisclaimerCallout } from "@/components/marketing/disclaimer-callout";
+import { FragranceAllergenAlert } from "@/components/marketing/fragrance-allergen-alert";
 import {
   Card,
   CardDescription,
@@ -184,6 +185,10 @@ export default function HomePage() {
             See pricing
           </Link>
         </div>
+      </section>
+
+      <section className="mx-auto max-w-5xl px-4 sm:px-6">
+        <FragranceAllergenAlert source="homepage" />
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">

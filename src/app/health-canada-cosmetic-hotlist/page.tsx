@@ -4,6 +4,7 @@ import {
   type SeoGuideFaq,
   type SeoGuideSection,
 } from "@/components/marketing/seo-guide";
+import { FragranceAllergenAlert } from "@/components/marketing/fragrance-allergen-alert";
 
 const pathname = "/health-canada-cosmetic-hotlist";
 const title = "Health Canada Cosmetic Ingredient Hotlist Explained";
@@ -143,6 +144,7 @@ export default function HealthCanadaCosmeticHotlistPage() {
             restricted ingredients, how to check your formula, and how
             hotlist conditions can affect your label.
           </p>
+          <FragranceAllergenAlert variant="compact" source="hotlist-guide" />
         </>
       }
       sections={sections}

@@ -4,6 +4,7 @@ import {
   type SeoGuideFaq,
   type SeoGuideSection,
 } from "@/components/marketing/seo-guide";
+import { FragranceAllergenAlert } from "@/components/marketing/fragrance-allergen-alert";
 
 const pathname = "/cosmetic-notification-form-canada";
 const title = "Cosmetic Notification Form (CNF) Canada — A Practical Guide";
@@ -154,6 +155,7 @@ export default function CosmeticNotificationFormCanadaPage() {
             not legal or regulatory advice and does not replace Health Canada
             guidance.
           </p>
+          <FragranceAllergenAlert variant="compact" source="cnf-guide" />
         </>
       }
       sections={sections}
