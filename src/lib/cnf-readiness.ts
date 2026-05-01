@@ -171,11 +171,25 @@ export function buildReadinessReport(
       const usageMismatch =
         match.usage_type_restriction === "rinse-off" && input.usageType === "leave-on";
 
-      let detail = "Restricted ingredient.";
-      if (match.hotlist_max_concentration != null) {
+      // Lead with the specific rule that's broken, then add context.
+      const leadParts: string[] = [];
+      if (overMax && match.hotlist_max_concentration != null) {
+        leadParts.push(
+          `EXCEEDS MAX: ${p.percentage}% in formula vs ${match.hotlist_max_concentration}% allowed.`
+        );
+      }
+      if (usageMismatch) {
+        leadParts.push(
+          `WRONG USE TYPE: this product is leave-on but the ingredient is restricted to rinse-off only.`
+        );
+      }
+
+      let detail =
+        leadParts.length > 0 ? leadParts.join(" ") : "Restricted ingredient.";
+      if (!overMax && match.hotlist_max_concentration != null) {
         detail += ` Max ${match.hotlist_max_concentration}%.`;
       }
-      if (match.usage_type_restriction) {
+      if (!usageMismatch && match.usage_type_restriction) {
         detail += ` Use type: ${match.usage_type_restriction} only.`;
       }
       if (match.hotlist_conditions) {
