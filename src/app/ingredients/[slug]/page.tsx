@@ -178,9 +178,14 @@ export default async function IngredientDetailPage({ params }: PageProps) {
                 {name}
               </h1>
               {ingredient.common_name && (
-                <p className="mt-1 text-lg text-muted-foreground">
-                  {ingredient.inci_name}
-                </p>
+                <div className="mt-2 flex flex-wrap items-baseline gap-2">
+                  <span className="rounded-md bg-muted px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+                    INCI
+                  </span>
+                  <p className="text-lg font-medium italic text-brand">
+                    {ingredient.inci_name}
+                  </p>
+                </div>
               )}
             </div>
             <HotlistBadge status={ingredient.hotlist_status} />

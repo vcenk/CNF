@@ -19,17 +19,36 @@ export function IngredientCard({
   functions,
   isFragranceAllergen,
 }: IngredientCardProps) {
+  // Display rules:
+  // - If both common name and INCI exist (and differ): show common name as
+  //   the headline, INCI as a styled secondary line in italic + brand colour.
+  // - If only INCI exists: show INCI as the headline (no redundant subtitle).
+  const hasDistinctCommon =
+    commonName && commonName.trim().toLowerCase() !== inciName.trim().toLowerCase();
+
   return (
     <Link href={`/ingredients/${slug}`}>
       <Card className="h-full transition-shadow hover:shadow-md">
-        <CardHeader className="space-y-2">
+        <CardHeader className="space-y-1.5">
           <div className="flex items-start justify-between gap-2">
             <CardTitle className="text-sm font-semibold leading-tight">
-              {commonName || inciName}
+              {hasDistinctCommon ? commonName : inciName}
             </CardTitle>
             <HotlistBadge status={hotlistStatus} />
           </div>
-          <p className="text-xs text-muted-foreground">{inciName}</p>
+
+          {hasDistinctCommon && (
+            <p
+              title={inciName}
+              className="line-clamp-2 text-xs italic leading-snug text-brand/85"
+            >
+              <span className="not-italic font-semibold uppercase tracking-wider text-[10px] text-muted-foreground">
+                INCI
+              </span>{" "}
+              {inciName}
+            </p>
+          )}
+
           <CardDescription className="flex flex-wrap gap-1 pt-1">
             {functions.slice(0, 3).map((fn) => (
               <span
