@@ -85,7 +85,7 @@ export function MobileNav({ isLoggedIn }: { isLoggedIn: boolean }) {
           alt={siteConfig.name}
           width={1448}
           height={1086}
-          className="h-9 w-auto"
+          className="h-12 w-auto"
         />
         <nav className="mt-6 flex flex-col gap-1">
           {/* Free tools section, prominent at the top */}

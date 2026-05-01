@@ -37,7 +37,7 @@ export function DashboardMobileNav() {
   }
 
   return (
-    <div className="sticky top-16 z-40 border-b border-border/40 bg-card/80 backdrop-blur-md md:hidden">
+    <div className="sticky top-20 z-40 border-b border-border/40 bg-card/80 backdrop-blur-md md:hidden">
       <div className="flex items-center gap-2 overflow-x-auto px-3 py-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {navItems.map((item) => {
           const isActive =

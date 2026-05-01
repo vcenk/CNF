@@ -42,7 +42,7 @@ export function DashboardSidebar() {
     <aside className="hidden w-56 shrink-0 flex-col border-r border-border/40 bg-card/50 md:flex">
       <Link
         href="/"
-        className="flex h-16 items-center border-b border-border/40 px-4"
+        className="flex h-20 items-center border-b border-border/40 px-4"
         aria-label="FormulaNorth home"
       >
         <Image
@@ -50,7 +50,7 @@ export function DashboardSidebar() {
           alt="FormulaNorth"
           width={1448}
           height={1086}
-          className="h-9 w-auto"
+          className="h-12 w-auto"
         />
       </Link>
       <nav className="flex-1 space-y-1 px-3 py-4">

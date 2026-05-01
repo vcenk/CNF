@@ -22,7 +22,7 @@ export default function SignupPage() {
               width={1448}
               height={1086}
               priority
-              className="mx-auto h-12 w-auto"
+              className="mx-auto h-16 w-auto"
             />
           </Link>
           <CardTitle className="sr-only">{siteConfig.name}</CardTitle>
