@@ -19,8 +19,8 @@ export async function SiteHeader() {
           <Image
             src="/FormulaNorth_Logo.png"
             alt={siteConfig.name}
-            width={1448}
-            height={1086}
+            width={1200}
+            height={363}
             priority
             className="h-12 w-auto sm:h-14"
           />

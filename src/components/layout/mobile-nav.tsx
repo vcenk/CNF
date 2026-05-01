@@ -83,8 +83,8 @@ export function MobileNav({ isLoggedIn }: { isLoggedIn: boolean }) {
         <Image
           src="/FormulaNorth_Logo.png"
           alt={siteConfig.name}
-          width={1448}
-          height={1086}
+          width={1200}
+          height={363}
           className="h-12 w-auto"
         />
         <nav className="mt-6 flex flex-col gap-1">

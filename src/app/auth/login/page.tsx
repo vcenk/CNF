@@ -19,8 +19,8 @@ export default function LoginPage() {
             <Image
               src="/FormulaNorth_Logo.png"
               alt={siteConfig.name}
-              width={1448}
-              height={1086}
+              width={1200}
+              height={363}
               priority
               className="mx-auto h-16 w-auto"
             />
