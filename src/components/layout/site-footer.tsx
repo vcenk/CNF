@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
 import { regulatoryShortDisclaimer } from "@/lib/legal";
+import { FooterNewsletterForm } from "./footer-newsletter-form";
 
 const footerLinks = {
   Product: [
@@ -40,8 +41,8 @@ export function SiteFooter() {
   return (
     <footer className="border-t border-border/40 bg-surface/60">
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
-        <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:grid-cols-6">
-          <div className="lg:col-span-1">
+        <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:grid-cols-7">
+          <div className="col-span-2 sm:col-span-3 lg:col-span-2">
             <Link href="/" className="inline-block" aria-label={`${siteConfig.name} home`}>
               <Image
                 src="/FormulaNorth_Logo.png"
@@ -54,6 +55,9 @@ export function SiteFooter() {
             <p className="mt-3 text-sm text-muted-foreground">
               {siteConfig.tagline}
             </p>
+            <div className="mt-6 max-w-sm">
+              <FooterNewsletterForm />
+            </div>
           </div>
 
           {Object.entries(footerLinks).map(([category, links]) => (
