@@ -6,6 +6,7 @@ import { createClient } from "@/lib/supabase/server";
 import { requireAuth } from "@/lib/auth/require-auth";
 import { logActivity } from "@/lib/supabase/queries/activity";
 import { checkCanCreateFormula } from "@/lib/plan-limits-server";
+import { isFormulaUnit, type FormulaUnit } from "@/lib/units";
 
 export async function createFormulaAction(_formData: FormData): Promise<void> {
   const user = await requireAuth();
@@ -60,19 +61,48 @@ export async function updateFormulaAction(formulaId: string, formData: FormData)
   const productCategory = formData.get("productCategory") as string | null;
   const usageType = formData.get("usageType") as string | null;
   const batchSize = parseFloat(formData.get("batchSize") as string) || 100;
+  const preferredUnitRaw = formData.get("preferredUnit");
+  const preferredUnit: FormulaUnit | undefined = isFormulaUnit(preferredUnitRaw)
+    ? preferredUnitRaw
+    : undefined;
+
+  const updatePayload: Record<string, unknown> = {
+    name,
+    product_category: productCategory || null,
+    usage_type: usageType || null,
+    target_batch_size_g: batchSize,
+    updated_at: new Date().toISOString(),
+  };
+  if (preferredUnit !== undefined) {
+    updatePayload.preferred_unit = preferredUnit;
+  }
 
   const { error } = await supabase
     .from("formulas")
-    .update({
-      name,
-      product_category: productCategory || null,
-      usage_type: usageType || null,
-      target_batch_size_g: batchSize,
-      updated_at: new Date().toISOString(),
-    })
+    .update(updatePayload)
     .eq("id", formulaId);
 
-  if (error) return { error: error.message };
+  if (error) {
+    // Schema may not yet have preferred_unit (migration 0003 not run).
+    // Retry without it so saving other fields keeps working.
+    if (
+      preferredUnit !== undefined &&
+      (error.code === "PGRST204" || error.message?.includes("preferred_unit"))
+    ) {
+      delete updatePayload.preferred_unit;
+      const retry = await supabase
+        .from("formulas")
+        .update(updatePayload)
+        .eq("id", formulaId);
+      if (retry.error) return { error: retry.error.message };
+      return {
+        success: true,
+        warning:
+          "Saved, but preferred_unit isn't in the database yet — run docs/migrations/0003-formulas-preferred-unit.sql.",
+      };
+    }
+    return { error: error.message };
+  }
 
   revalidatePath(`/formulas/${formulaId}`);
   return { success: true };

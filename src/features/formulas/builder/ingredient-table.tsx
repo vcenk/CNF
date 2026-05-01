@@ -14,6 +14,14 @@ import { Input } from "@/components/ui/input";
 import { HotlistBadge } from "@/features/ingredients/hotlist-badge";
 import { Trash2, Plus } from "lucide-react";
 import { IngredientSearchAdd } from "./ingredient-search-add";
+import {
+  UNIT_LABELS,
+  formatForUnit,
+  formatPoundsAndOunces,
+  inputToPercent,
+  percentToDisplay,
+  type FormulaUnit,
+} from "@/lib/units";
 
 interface IngredientRow {
   id: string;
@@ -33,6 +41,8 @@ interface IngredientRow {
 interface IngredientTableProps {
   versionId: string;
   ingredients: IngredientRow[];
+  preferredUnit?: FormulaUnit;
+  batchSizeG?: number;
 }
 
 const phases = [
@@ -46,18 +56,31 @@ const phases = [
   { value: "main", label: "Main" },
 ];
 
-export function IngredientTable({ versionId, ingredients }: IngredientTableProps) {
+export function IngredientTable({
+  versionId,
+  ingredients,
+  preferredUnit = "percent",
+  batchSizeG = 100,
+}: IngredientTableProps) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [showSearch, setShowSearch] = useState(false);
 
   const total = ingredients.reduce((sum, ing) => sum + Number(ing.percentage), 0);
+  const totalGrams = (total / 100) * batchSizeG;
+  const isWeightMode = preferredUnit !== "percent";
 
-  function handlePercentageChange(rowId: string, value: string) {
-    const pct = parseFloat(value);
-    if (isNaN(pct) || pct <= 0) return;
+  function handleInputChange(rowId: string, value: string) {
+    const parsed = parseFloat(value);
+    if (isNaN(parsed) || parsed <= 0) return;
+
+    // Always store as percentage. In weight modes, convert via batch size.
+    const percentToSave = inputToPercent(parsed, preferredUnit, batchSizeG);
+
+    if (percentToSave <= 0 || !isFinite(percentToSave)) return;
+
     startTransition(async () => {
-      await updateIngredientAction(rowId, { percentage: pct });
+      await updateIngredientAction(rowId, { percentage: percentToSave });
       router.refresh();
     });
   }
@@ -131,15 +154,28 @@ export function IngredientTable({ versionId, ingredients }: IngredientTableProps
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead className="w-[40%]">Ingredient</TableHead>
-                    <TableHead className="w-[15%]">%</TableHead>
+                    <TableHead className="w-[35%]">Ingredient</TableHead>
+                    <TableHead className="w-[20%]">
+                      Amount
+                      {isWeightMode && (
+                        <span className="ml-1 text-xs font-normal text-muted-foreground">
+                          ({UNIT_LABELS[preferredUnit]})
+                        </span>
+                      )}
+                    </TableHead>
                     <TableHead className="w-[20%]">Phase</TableHead>
                     <TableHead className="w-[15%]">Status</TableHead>
                     <TableHead className="w-[10%]"></TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {group.items.map((ing) => (
+                  {group.items.map((ing) => {
+                    const displayValue = percentToDisplay(
+                      Number(ing.percentage),
+                      preferredUnit,
+                      batchSizeG
+                    );
+                    return (
                     <TableRow key={ing.id} className={isPending ? "opacity-60" : ""}>
                       <TableCell>
                         <div>
@@ -154,16 +190,24 @@ export function IngredientTable({ versionId, ingredients }: IngredientTableProps
                         </div>
                       </TableCell>
                       <TableCell>
-                        <Input
-                          key={`${ing.id}-${ing.percentage}`}
-                          type="number"
-                          defaultValue={ing.percentage}
-                          onBlur={(e) => handlePercentageChange(ing.id, e.target.value)}
-                          className="w-20 text-sm"
-                          step="0.1"
-                          min="0.001"
-                          max="100"
-                        />
+                        <div className="flex flex-col gap-0.5">
+                          <Input
+                            key={`${ing.id}-${ing.percentage}-${preferredUnit}-${batchSizeG}`}
+                            type="number"
+                            defaultValue={formatForUnit(displayValue, preferredUnit)}
+                            onBlur={(e) => handleInputChange(ing.id, e.target.value)}
+                            className="w-24 text-sm"
+                            step={preferredUnit === "percent" || preferredUnit === "g" ? "0.01" : "0.001"}
+                            min="0.001"
+                            max={preferredUnit === "percent" ? "100" : undefined}
+                            suppressHydrationWarning
+                          />
+                          {isWeightMode && (
+                            <span className="text-[11px] text-muted-foreground">
+                              {Number(ing.percentage).toFixed(2).replace(/\.?0+$/, "")}%
+                            </span>
+                          )}
+                        </div>
                       </TableCell>
                       <TableCell>
                         <select
@@ -197,20 +241,31 @@ export function IngredientTable({ versionId, ingredients }: IngredientTableProps
                         </button>
                       </TableCell>
                     </TableRow>
-                  ))}
+                  );
+                  })}
                 </TableBody>
               </Table>
             </div>
           ))}
 
-          {/* Total bar */}
-          <div className={`flex items-center justify-between rounded-lg border px-4 py-3 text-sm font-medium ${
+          {/* Total bar — always show both percentage and weight */}
+          <div className={`flex flex-wrap items-center justify-between gap-3 rounded-lg border px-4 py-3 text-sm font-medium ${
             total >= 99.5 && total <= 100.5
               ? "border-success/30 bg-success-soft/30 text-success"
               : "border-destructive/30 bg-danger-soft/30 text-danger"
           }`}>
             <span>Total</span>
-            <span>{total.toFixed(1)}%</span>
+            <span className="flex items-center gap-3">
+              <span>{total.toFixed(1)}%</span>
+              {batchSizeG > 0 && (
+                <span className="text-xs opacity-80">
+                  · {formatForUnit(totalGrams, "g")}g
+                  {totalGrams >= 100 && (
+                    <span className="ml-1.5">({formatPoundsAndOunces(totalGrams)})</span>
+                  )}
+                </span>
+              )}
+            </span>
           </div>
         </div>
       )}

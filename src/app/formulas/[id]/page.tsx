@@ -26,6 +26,7 @@ import { validateFormula } from "@/services/formula-validation";
 import { validateForCnfSubmission } from "@/services/cnf-validation";
 import { createClient } from "@/lib/supabase/server";
 import { normalizeTier } from "@/lib/plan-limits";
+import { isFormulaUnit, type FormulaUnit } from "@/lib/units";
 
 export const metadata: Metadata = {
   title: "Formula Builder",
@@ -142,7 +143,16 @@ export default async function FormulaBuilderPage({ params }: PageProps) {
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
-      <FormulaHeader formula={formula} />
+      <FormulaHeader
+        formula={{
+          ...formula,
+          preferred_unit: isFormulaUnit(
+            (formula as { preferred_unit?: unknown }).preferred_unit
+          )
+            ? ((formula as { preferred_unit: FormulaUnit }).preferred_unit)
+            : "percent",
+        }}
+      />
 
       <Tabs defaultValue="builder" className="mt-6">
         <TabsList>
@@ -159,6 +169,14 @@ export default async function FormulaBuilderPage({ params }: PageProps) {
               <IngredientTable
                 versionId={currentVersion.id}
                 ingredients={ingredients}
+                preferredUnit={
+                  isFormulaUnit(
+                    (formula as { preferred_unit?: unknown }).preferred_unit
+                  )
+                    ? ((formula as { preferred_unit: FormulaUnit }).preferred_unit)
+                    : "percent"
+                }
+                batchSizeG={Number(formula.target_batch_size_g)}
               />
             </div>
             <div className="space-y-4">

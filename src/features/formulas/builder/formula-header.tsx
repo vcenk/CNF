@@ -11,6 +11,8 @@ import {
 } from "@/app/formulas/actions";
 import { Input } from "@/components/ui/input";
 import { ArrowLeft, Save, Copy, Archive } from "lucide-react";
+import { UnitToggle } from "./unit-toggle";
+import type { FormulaUnit } from "@/lib/units";
 
 interface FormulaHeaderProps {
   formula: {
@@ -19,6 +21,7 @@ interface FormulaHeaderProps {
     product_category: string | null;
     usage_type: string | null;
     target_batch_size_g: number;
+    preferred_unit?: FormulaUnit;
   };
 }
 
@@ -137,6 +140,17 @@ export function FormulaHeader({ formula }: FormulaHeaderProps) {
           />
           <span className="text-sm text-muted-foreground">g batch</span>
         </div>
+
+        <UnitToggle
+          formulaId={formula.id}
+          currentUnit={formula.preferred_unit ?? "percent"}
+          formula={{
+            name,
+            product_category: category || null,
+            usage_type: usageType || null,
+            target_batch_size_g: parseFloat(batchSize) || formula.target_batch_size_g,
+          }}
+        />
 
         <div className="ml-auto flex items-center gap-2">
           <button
