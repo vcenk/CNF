@@ -1,0 +1,226 @@
+<!--
+  ====================================================================
+  Supabase Auth — "Confirm Signup" template
+  ====================================================================
+
+  Where to paste this:
+    Supabase Dashboard
+      → Project Settings → Auth → Email Templates → Confirm signup
+      → paste the entire HTML below into the Message body
+      → Subject line (set in the same panel):
+
+        Confirm your FormulaNorth account
+
+      → Click Save changes
+
+  Available template variables (Supabase Go-template syntax):
+    {{ .ConfirmationURL }}   — the email confirmation link
+    {{ .Token }}             — 6-digit OTP code (not used in this template)
+    {{ .SiteURL }}           — site URL configured in Supabase (https://formulanorth.ca)
+    {{ .Email }}             — recipient email
+
+  This template is hand-written for cross-client compatibility:
+    - Inline CSS (Gmail strips <style> blocks)
+    - Table-based layout (Outlook desktop ignores flex/grid)
+    - System font stack (no external fonts)
+    - Absolute https:// URLs for the logo
+
+  Safe to re-edit and re-paste — Supabase doesn't track template diffs.
+  Bump the static year in the footer once a year.
+  ====================================================================
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Confirm your FormulaNorth account</title>
+</head>
+<body style="margin:0; padding:0; background-color:#fffaf1; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif; color:#1e1a17;">
+
+  <!-- Preheader (hidden, shows in inbox preview line) -->
+  <div style="display:none; visibility:hidden; opacity:0; color:transparent; height:0; width:0; overflow:hidden; mso-hide:all;">
+    Confirm your email to start using FormulaNorth — the workspace for Canadian indie cosmetic makers.
+  </div>
+
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#fffaf1;">
+    <tr>
+      <td align="center" style="padding:32px 16px;">
+
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600" style="max-width:600px; background-color:#ffffff; border:1px solid #e8e2d5; border-radius:16px; overflow:hidden;">
+
+          <!-- ===== Header / Logo ===== -->
+          <tr>
+            <td align="center" style="padding:36px 32px 28px; background-color:#fffaf1; border-bottom:1px solid #e8e2d5;">
+              <a href="https://formulanorth.ca" style="text-decoration:none; display:inline-block;">
+                <img src="https://formulanorth.ca/FormulaNorth_Logo.png"
+                     alt="FormulaNorth"
+                     width="200"
+                     style="display:block; max-width:200px; height:auto; border:0;">
+              </a>
+              <p style="margin:14px 0 0; font-size:13px; line-height:1.5; color:#5a544d; letter-spacing:0.04em; text-transform:uppercase;">
+                For Canadian indie cosmetic makers
+              </p>
+            </td>
+          </tr>
+
+          <!-- ===== Headline + intro ===== -->
+          <tr>
+            <td style="padding:40px 32px 8px;">
+              <h1 style="margin:0 0 16px; font-size:26px; font-weight:700; color:#1e1a17; line-height:1.3;">
+                Confirm your email to get started
+              </h1>
+              <p style="margin:0 0 12px; font-size:16px; line-height:1.6; color:#3d3935;">
+                Welcome to <strong style="color:#0d6c63;">FormulaNorth</strong> — the workspace built for the people making soap, lotion, balm, scrub, lip products, perfume, and other cosmetics in Canada.
+              </p>
+              <p style="margin:0 0 28px; font-size:16px; line-height:1.6; color:#3d3935;">
+                Click the button below to confirm <strong style="color:#1e1a17;">{{ .Email }}</strong> and activate your account.
+              </p>
+            </td>
+          </tr>
+
+          <!-- ===== CTA button ===== -->
+          <tr>
+            <td align="center" style="padding:0 32px 16px;">
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td align="center" style="background-color:#0d6c63; border-radius:10px;">
+                    <a href="{{ .ConfirmationURL }}"
+                       style="display:inline-block; padding:14px 36px; color:#ffffff; font-size:16px; font-weight:600; text-decoration:none; line-height:1; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;">
+                      Confirm my email &rarr;
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- ===== Backup link ===== -->
+          <tr>
+            <td style="padding:8px 32px 32px;">
+              <p style="margin:0; font-size:13px; line-height:1.6; color:#8a847d; text-align:center;">
+                Button not working? Paste this link into your browser:<br>
+                <a href="{{ .ConfirmationURL }}" style="color:#0d6c63; word-break:break-all;">{{ .ConfirmationURL }}</a>
+              </p>
+            </td>
+          </tr>
+
+          <!-- ===== Divider ===== -->
+          <tr>
+            <td style="padding:0 32px;">
+              <div style="border-top:1px solid #e8e2d5; height:1px; line-height:1px; font-size:1px;">&nbsp;</div>
+            </td>
+          </tr>
+
+          <!-- ===== What you can do ===== -->
+          <tr>
+            <td style="padding:32px 32px 16px;">
+              <h2 style="margin:0 0 6px; font-size:18px; font-weight:700; color:#1e1a17;">
+                What FormulaNorth gives you
+              </h2>
+              <p style="margin:0 0 20px; font-size:14px; line-height:1.6; color:#5a544d;">
+                Everything below is included in your free account. Open any of these once you're confirmed.
+              </p>
+
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+
+                <tr>
+                  <td style="padding:14px 0; vertical-align:top; border-top:1px solid #f1ebde;">
+                    <a href="https://formulanorth.ca/ingredients" style="color:#0d6c63; font-weight:600; text-decoration:none; font-size:15px;">
+                      Search the ingredient database &rarr;
+                    </a>
+                    <p style="margin:4px 0 0; font-size:14px; line-height:1.55; color:#5a544d;">
+                      INCI lookup, Health Canada Hotlist status, fragrance-allergen flags, and Canadian supplier links for every ingredient.
+                    </p>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td style="padding:14px 0; vertical-align:top; border-top:1px solid #f1ebde;">
+                    <a href="https://formulanorth.ca/tools/cnf-readiness-checker" style="color:#0d6c63; font-weight:600; text-decoration:none; font-size:15px;">
+                      Run the CNF Readiness Checker &rarr;
+                    </a>
+                    <p style="margin:4px 0 0; font-size:14px; line-height:1.55; color:#5a544d;">
+                      Paste your formula. Catch prohibited ingredients, restricted concentrations, and fragrance-allergen disclosures before you submit your Cosmetic Notification Form.
+                    </p>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td style="padding:14px 0; vertical-align:top; border-top:1px solid #f1ebde;">
+                    <a href="https://formulanorth.ca/tools/soap-calculator" style="color:#0d6c63; font-weight:600; text-decoration:none; font-size:15px;">
+                      Soap calculator with 75 oils &rarr;
+                    </a>
+                    <p style="margin:4px 0 0; font-size:14px; line-height:1.55; color:#5a544d;">
+                      Lye and water amounts, fatty-acid profile, hardness / cleansing / conditioning numbers. Save and share recipes by URL.
+                    </p>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td style="padding:14px 0; vertical-align:top; border-top:1px solid #f1ebde;">
+                    <a href="https://formulanorth.ca/suppliers" style="color:#0d6c63; font-weight:600; text-decoration:none; font-size:15px;">
+                      Canadian supplier directory &rarr;
+                    </a>
+                    <p style="margin:4px 0 0; font-size:14px; line-height:1.55; color:#5a544d;">
+                      Real Canadian suppliers with location and catalog links — submitted and verified by other indie makers.
+                    </p>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td style="padding:14px 0; vertical-align:top; border-top:1px solid #f1ebde; border-bottom:1px solid #f1ebde;">
+                    <a href="https://formulanorth.ca/blog" style="color:#0d6c63; font-weight:600; text-decoration:none; font-size:15px;">
+                      Compliance blog &rarr;
+                    </a>
+                    <p style="margin:4px 0 0; font-size:14px; line-height:1.55; color:#5a544d;">
+                      Plain-English breakdowns of Canadian cosmetic rules: CNF filing, fragrance allergen disclosure, label requirements, soap-specific rules.
+                    </p>
+                  </td>
+                </tr>
+
+              </table>
+            </td>
+          </tr>
+
+          <!-- ===== Footer ===== -->
+          <tr>
+            <td style="padding:24px 32px 32px; background-color:#fffaf1; border-top:1px solid #e8e2d5;">
+
+              <p style="margin:0 0 12px; font-size:12px; line-height:1.6; color:#8a847d; text-align:center;">
+                You're receiving this because you signed up at
+                <a href="https://formulanorth.ca" style="color:#0d6c63; text-decoration:none;">formulanorth.ca</a>.
+                If you didn't sign up, you can safely ignore this message — your address won't be added to anything.
+              </p>
+
+              <p style="margin:0 0 16px; font-size:11px; line-height:1.6; color:#a09a93; text-align:center;">
+                FormulaNorth is preparation support for Canadian indie cosmetic makers. It is not legal or regulatory advice and does not replace official Health Canada guidance. Always verify against the current Cosmetic Regulations and the Cosmetic Ingredient Hotlist before sale or notification.
+              </p>
+
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                <tr>
+                  <td align="center" style="padding-top:8px;">
+                    <a href="https://formulanorth.ca/privacy" style="font-size:11px; color:#8a847d; text-decoration:none; padding:0 8px;">Privacy</a>
+                    <span style="color:#cfc8be;">·</span>
+                    <a href="https://formulanorth.ca/terms" style="font-size:11px; color:#8a847d; text-decoration:none; padding:0 8px;">Terms</a>
+                    <span style="color:#cfc8be;">·</span>
+                    <a href="https://formulanorth.ca/contact" style="font-size:11px; color:#8a847d; text-decoration:none; padding:0 8px;">Contact</a>
+                  </td>
+                </tr>
+              </table>
+
+              <p style="margin:14px 0 0; font-size:11px; color:#a09a93; text-align:center;">
+                &copy; 2026 FormulaNorth &middot; Canada
+              </p>
+
+            </td>
+          </tr>
+
+        </table>
+
+      </td>
+    </tr>
+  </table>
+
+</body>
+</html>
