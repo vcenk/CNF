@@ -78,15 +78,22 @@ export function MobileNav({ isLoggedIn }: { isLoggedIn: boolean }) {
         <Menu className="h-5 w-5" />
         <span className="sr-only">Open menu</span>
       </SheetTrigger>
-      <SheetContent side="right" className="w-80 overflow-y-auto">
+      <SheetContent
+        side="right"
+        className="w-80 overflow-y-auto bg-surface px-5 py-5"
+      >
         <SheetTitle className="sr-only">{siteConfig.name}</SheetTitle>
-        <Image
-          src="/FormulaNorth_Logo.png"
-          alt={siteConfig.name}
-          width={1200}
-          height={363}
-          className="h-12 w-auto"
-        />
+        {/* Logo: capped width + right padding so it never overlaps the
+            absolutely-positioned X close button (top-3 right-3). */}
+        <div className="pr-10">
+          <Image
+            src="/FormulaNorth_Logo.png"
+            alt={siteConfig.name}
+            width={1200}
+            height={363}
+            className="h-10 w-auto"
+          />
+        </div>
         <nav className="mt-6 flex flex-col gap-1">
           {/* Free tools section, prominent at the top */}
           <div className="mb-2">
