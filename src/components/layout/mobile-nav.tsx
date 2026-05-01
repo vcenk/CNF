@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
@@ -78,9 +79,14 @@ export function MobileNav({ isLoggedIn }: { isLoggedIn: boolean }) {
         <span className="sr-only">Open menu</span>
       </SheetTrigger>
       <SheetContent side="right" className="w-80 overflow-y-auto">
-        <SheetTitle className="font-display text-lg font-bold text-brand">
-          {siteConfig.name}
-        </SheetTitle>
+        <SheetTitle className="sr-only">{siteConfig.name}</SheetTitle>
+        <Image
+          src="/FormulaNorth_Logo.png"
+          alt={siteConfig.name}
+          width={1448}
+          height={1086}
+          className="h-9 w-auto"
+        />
         <nav className="mt-6 flex flex-col gap-1">
           {/* Free tools section, prominent at the top */}
           <div className="mb-2">

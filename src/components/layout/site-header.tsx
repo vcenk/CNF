@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
 import { MainNav } from "./main-nav";
@@ -10,10 +11,19 @@ export async function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-surface/80 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
-        <Link href="/" className="flex items-center gap-2 no-underline">
-          <span className="font-display text-xl font-bold tracking-tight text-brand">
-            {siteConfig.name}
-          </span>
+        <Link
+          href="/"
+          className="flex items-center no-underline"
+          aria-label={`${siteConfig.name} home`}
+        >
+          <Image
+            src="/FormulaNorth_Logo.png"
+            alt={siteConfig.name}
+            width={1448}
+            height={1086}
+            priority
+            className="h-9 w-auto sm:h-10"
+          />
         </Link>
 
         <MainNav isLoggedIn={!!user} />

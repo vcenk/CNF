@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
 import { regulatoryShortDisclaimer } from "@/lib/legal";
@@ -41,10 +42,16 @@ export function SiteFooter() {
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
         <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:grid-cols-6">
           <div className="lg:col-span-1">
-            <span className="font-display text-lg font-bold text-brand">
-              {siteConfig.name}
-            </span>
-            <p className="mt-2 text-sm text-muted-foreground">
+            <Link href="/" className="inline-block" aria-label={`${siteConfig.name} home`}>
+              <Image
+                src="/FormulaNorth_Logo.png"
+                alt={siteConfig.name}
+                width={1448}
+                height={1086}
+                className="h-10 w-auto"
+              />
+            </Link>
+            <p className="mt-3 text-sm text-muted-foreground">
               {siteConfig.tagline}
             </p>
           </div>

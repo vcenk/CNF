@@ -8,6 +8,21 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export default async function OpenGraphImage() {
+  // Fetch the logo from the public URL so we can embed it.
+  // Edge runtime supports https fetches; on local dev this falls back
+  // gracefully to the text "FN" pill if the fetch fails.
+  let logoDataUrl: string | null = null;
+  try {
+    const logoResponse = await fetch(`${siteConfig.url}/FormulaNorth_Logo.png`);
+    if (logoResponse.ok) {
+      const buffer = await logoResponse.arrayBuffer();
+      const base64 = Buffer.from(buffer).toString("base64");
+      logoDataUrl = `data:image/png;base64,${base64}`;
+    }
+  } catch {
+    // Swallow — fall back to the FN pill below.
+  }
+
   return new ImageResponse(
     (
       <div
@@ -23,60 +38,81 @@ export default async function OpenGraphImage() {
           fontFamily: "Georgia, serif",
         }}
       >
-        {/* Top eyebrow */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "14px",
-            marginBottom: "26px",
-          }}
-        >
+        {/* Top: real logo image (if fetched) or FN monogram fallback */}
+        {logoDataUrl ? (
           <div
             style={{
-              width: "44px",
-              height: "44px",
-              background: "#0d6c63",
-              borderRadius: "12px",
               display: "flex",
               alignItems: "center",
-              justifyContent: "center",
-              color: "white",
-              fontSize: "26px",
-              fontWeight: 700,
-              fontFamily: "Georgia, serif",
+              marginBottom: "30px",
             }}
           >
-            FN
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={logoDataUrl}
+              alt={siteConfig.name}
+              width={300}
+              height={225}
+              style={{ objectFit: "contain" }}
+            />
           </div>
+        ) : (
           <div
             style={{
-              fontSize: "20px",
-              fontWeight: 600,
-              color: "#0d6c63",
-              letterSpacing: "0.18em",
-              textTransform: "uppercase",
-              fontFamily: "Helvetica, sans-serif",
+              display: "flex",
+              alignItems: "center",
+              gap: "14px",
+              marginBottom: "26px",
             }}
           >
-            For Canadian indie cosmetic makers
+            <div
+              style={{
+                width: "44px",
+                height: "44px",
+                background: "#0d6c63",
+                borderRadius: "12px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "white",
+                fontSize: "26px",
+                fontWeight: 700,
+                fontFamily: "Georgia, serif",
+              }}
+            >
+              FN
+            </div>
+            <div
+              style={{
+                fontSize: "20px",
+                fontWeight: 600,
+                color: "#0d6c63",
+                letterSpacing: "0.18em",
+                textTransform: "uppercase",
+                fontFamily: "Helvetica, sans-serif",
+              }}
+            >
+              For Canadian indie cosmetic makers
+            </div>
           </div>
-        </div>
+        )}
 
-        {/* Headline */}
-        <div
-          style={{
-            display: "flex",
-            fontSize: "84px",
-            fontWeight: 700,
-            color: "#1e1a17",
-            lineHeight: 1.05,
-            letterSpacing: "-0.02em",
-            marginBottom: "24px",
-          }}
-        >
-          {siteConfig.name}
-        </div>
+        {/* Headline (only show wordmark if logo image isn't available) */}
+        {!logoDataUrl && (
+          <div
+            style={{
+              display: "flex",
+              fontSize: "84px",
+              fontWeight: 700,
+              color: "#1e1a17",
+              lineHeight: 1.05,
+              letterSpacing: "-0.02em",
+              marginBottom: "24px",
+            }}
+          >
+            {siteConfig.name}
+          </div>
+        )}
 
         {/* Tagline */}
         <div

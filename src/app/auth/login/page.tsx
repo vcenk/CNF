@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { AuthForm } from "@/components/auth/auth-form";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -14,8 +15,18 @@ export default function LoginPage() {
     <div className="mx-auto flex min-h-[60vh] max-w-sm flex-col items-center justify-center px-4 py-16">
       <Card className="w-full">
         <CardHeader className="text-center">
-          <CardTitle className="font-display text-2xl">{siteConfig.name}</CardTitle>
-          <CardDescription>Sign in to manage your formulas</CardDescription>
+          <Link href="/" className="mx-auto inline-block" aria-label={`${siteConfig.name} home`}>
+            <Image
+              src="/FormulaNorth_Logo.png"
+              alt={siteConfig.name}
+              width={1448}
+              height={1086}
+              priority
+              className="mx-auto h-12 w-auto"
+            />
+          </Link>
+          <CardTitle className="sr-only">{siteConfig.name}</CardTitle>
+          <CardDescription className="mt-3">Sign in to manage your formulas</CardDescription>
         </CardHeader>
         <CardContent>
           <AuthForm mode="login" />

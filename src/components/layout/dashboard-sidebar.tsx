@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
@@ -39,6 +40,19 @@ export function DashboardSidebar() {
 
   return (
     <aside className="hidden w-56 shrink-0 flex-col border-r border-border/40 bg-card/50 md:flex">
+      <Link
+        href="/"
+        className="flex h-16 items-center border-b border-border/40 px-4"
+        aria-label="FormulaNorth home"
+      >
+        <Image
+          src="/FormulaNorth_Logo.png"
+          alt="FormulaNorth"
+          width={1448}
+          height={1086}
+          className="h-9 w-auto"
+        />
+      </Link>
       <nav className="flex-1 space-y-1 px-3 py-4">
         {navItems.map((item) => {
           const isActive =

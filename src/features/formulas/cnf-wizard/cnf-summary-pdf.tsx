@@ -2,6 +2,7 @@
 
 import {
   Document,
+  Image,
   Page,
   Text,
   View,
@@ -20,6 +21,17 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     paddingBottom: 12,
     borderBottom: "2 solid #0d6c63",
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 14,
+  },
+  headerText: {
+    flex: 1,
+  },
+  headerLogo: {
+    width: 70,
+    height: 52,
+    objectFit: "contain",
   },
   title: {
     fontSize: 18,
@@ -133,10 +145,16 @@ export function CnfSummaryPdf({ data, ingredients }: CnfSummaryPdfProps) {
     <Document>
       <Page size="A4" style={styles.page}>
         <View style={styles.header}>
-          <Text style={styles.title}>Cosmetic Notification Preparation Summary</Text>
-          <Text style={styles.subtitle}>
-            FormulaNorth | Generated {generatedAt}
-          </Text>
+          {/* eslint-disable-next-line jsx-a11y/alt-text */}
+          <Image src="/FormulaNorth_Logo.png" style={styles.headerLogo} />
+          <View style={styles.headerText}>
+            <Text style={styles.title}>
+              Cosmetic Notification Preparation Summary
+            </Text>
+            <Text style={styles.subtitle}>
+              FormulaNorth | Generated {generatedAt}
+            </Text>
+          </View>
         </View>
 
         <View style={styles.section}>
