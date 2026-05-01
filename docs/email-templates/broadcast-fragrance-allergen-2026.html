@@ -1,0 +1,339 @@
+<!--
+  ====================================================================
+  Resend Broadcast — Fragrance allergen disclosure update (April 2026)
+  ====================================================================
+
+  Where to use this:
+    Resend Dashboard
+      → Broadcasts → Create broadcast → From scratch (HTML)
+      → Audience: FormulaNorth Newsletter
+      → From: noreply@formulanorth.ca (or hello@formulanorth.ca)
+      → Subject:
+
+        Fragrance allergen rules: 24 now, 81 coming — what to update
+
+      → Preview text (set in the Resend UI):
+
+        Quick heads up — Health Canada's fragrance allergen disclosure
+        rules are now in effect, and the list is expanding from 24 to 81.
+
+      → Paste the entire HTML below into the body
+      → Send a test to yourself first
+      → Schedule or send
+
+  Why no first-name personalization:
+    The footer signup form only collects emails, not names. If a
+    template references {{firstName}} it would render literally for
+    everyone who signed up via the footer. We use a generic greeting
+    here. When we start collecting names too, we can swap to:
+      Hi {{{FIRST_NAME|there}}},
+
+  Why the logo loads:
+    Uses the public URL https://formulanorth.ca/FormulaNorth_Logo.png
+    (NOT a base64 data URI — those are blocked in Gmail/Outlook).
+
+  Unsubscribe:
+    Resend auto-injects {{{RESEND_UNSUBSCRIBE_URL}}} into broadcasts
+    when the audience has unsubscribe enabled (it does by default).
+  ====================================================================
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fragrance allergen rules: 24 now, 81 coming</title>
+    <!--[if mso]>
+      <style type="text/css">
+        body, table, td { font-family: Arial, Helvetica, sans-serif !important; }
+      </style>
+    <![endif]-->
+  </head>
+  <body style="margin:0; padding:0; background-color:#fffaf1; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; color:#1e1a17;">
+
+    <!-- Preheader (hidden, shows in inbox preview line) -->
+    <div style="display:none; visibility:hidden; opacity:0; color:transparent; height:0; width:0; overflow:hidden; mso-hide:all;">
+      Health Canada's fragrance allergen list is in effect (24) and expanding (81). What to update on your CNFs and labels.
+    </div>
+
+    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#fffaf1;">
+      <tr>
+        <td align="center" style="padding:32px 16px;">
+
+          <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600" style="max-width:600px; background-color:#ffffff; border:1px solid #e8e2d5; border-radius:16px; overflow:hidden;">
+
+            <!-- ===== Header / Logo ===== -->
+            <tr>
+              <td align="center" style="padding:36px 32px 28px; background-color:#fffaf1; border-bottom:1px solid #e8e2d5;">
+                <a href="https://formulanorth.ca" style="text-decoration:none; display:inline-block;">
+                  <img
+                    src="https://formulanorth.ca/FormulaNorth_Logo.png"
+                    alt="FormulaNorth"
+                    width="200"
+                    style="display:block; max-width:200px; height:auto; border:0;"
+                  />
+                </a>
+                <p style="margin:14px 0 0; font-size:13px; line-height:1.5; color:#5a544d; letter-spacing:0.04em; text-transform:uppercase;">
+                  For Canadian indie cosmetic makers
+                </p>
+              </td>
+            </tr>
+
+            <!-- ===== Headline + intro ===== -->
+            <tr>
+              <td style="padding:36px 32px 8px;">
+
+                <p style="margin:0 0 14px; font-size:11px; font-weight:700; letter-spacing:0.12em; color:#b07b1f; text-transform:uppercase;">
+                  &#9888;&#xFE0F; Health Canada &middot; Active regulation
+                </p>
+
+                <h1 style="margin:0 0 20px; font-size:26px; font-weight:700; color:#1e1a17; line-height:1.25;">
+                  Fragrance allergen disclosure: 24 now, 81 coming
+                </h1>
+
+                <p style="margin:0 0 16px; font-size:16px; line-height:1.6; color:#3d3935;">
+                  Hey there &mdash;
+                </p>
+
+                <p style="margin:0 0 16px; font-size:16px; line-height:1.6; color:#3d3935;">
+                  Quick heads up. Health Canada's fragrance allergen disclosure rules are now in effect, and the list is expanding. If your products use <strong style="color:#1e1a17;">essential oils or fragrance oils</strong>, this affects your CNF filings and labels.
+                </p>
+
+                <!-- Threshold callout -->
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:18px 0 8px;">
+                  <tr>
+                    <td style="padding:14px 18px; background-color:#fffaf1; border:1px solid #e8d8b0; border-radius:10px;">
+                      <p style="margin:0; font-size:14px; line-height:1.6; color:#1e1a17;">
+                        <strong style="color:#0d6c63;">Disclosure thresholds:</strong>
+                        <strong>0.001%</strong> in leave-on products,
+                        <strong>0.01%</strong> in rinse-off products.
+                        Below these, the allergen can stay grouped under "Parfum".
+                      </p>
+                    </td>
+                  </tr>
+                </table>
+
+              </td>
+            </tr>
+
+            <!-- ===== Three dates ===== -->
+            <tr>
+              <td style="padding:24px 32px 8px;">
+
+                <h2 style="margin:0 0 16px; font-size:18px; font-weight:700; color:#1e1a17;">
+                  Three dates to know
+                </h2>
+
+                <!-- IN EFFECT -->
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 0 12px;">
+                  <tr>
+                    <td style="padding:16px 18px; background-color:#fdecec; border:1px solid #e8b8b8; border-radius:10px;">
+                      <p style="margin:0 0 4px; font-size:11px; font-weight:700; color:#7a2d2d; letter-spacing:0.08em; text-transform:uppercase;">
+                        In effect
+                      </p>
+                      <p style="margin:0 0 8px; font-size:17px; font-weight:700; color:#1e1a17;">
+                        April 12, 2026
+                      </p>
+                      <p style="margin:0; font-size:14px; line-height:1.6; color:#3d3935;">
+                        All cosmetics sold in Canada must individually disclose
+                        <strong>24 fragrance allergens</strong> above the threshold.
+                      </p>
+                    </td>
+                  </tr>
+                </table>
+
+                <!-- COMING -->
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 0 12px;">
+                  <tr>
+                    <td style="padding:16px 18px; background-color:#fff7e6; border:1px solid #f0d9a8; border-radius:10px;">
+                      <p style="margin:0 0 4px; font-size:11px; font-weight:700; color:#7a5b1d; letter-spacing:0.08em; text-transform:uppercase;">
+                        Coming
+                      </p>
+                      <p style="margin:0 0 8px; font-size:17px; font-weight:700; color:#1e1a17;">
+                        August 1, 2026
+                      </p>
+                      <p style="margin:0; font-size:14px; line-height:1.6; color:#3d3935;">
+                        Newly-marketed cosmetics must disclose the expanded list of
+                        <strong>81 fragrance allergens</strong>.
+                      </p>
+                    </td>
+                  </tr>
+                </table>
+
+                <!-- 2028 -->
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 0 12px;">
+                  <tr>
+                    <td style="padding:16px 18px; background-color:#e8f4f1; border:1px solid #b8d8d0; border-radius:10px;">
+                      <p style="margin:0 0 4px; font-size:11px; font-weight:700; color:#0d6c63; letter-spacing:0.08em; text-transform:uppercase;">
+                        Existing products
+                      </p>
+                      <p style="margin:0 0 8px; font-size:17px; font-weight:700; color:#1e1a17;">
+                        August 1, 2028
+                      </p>
+                      <p style="margin:0; font-size:14px; line-height:1.6; color:#3d3935;">
+                        <strong>Existing products</strong> already on the market must comply with the 81-allergen list.
+                      </p>
+                    </td>
+                  </tr>
+                </table>
+
+              </td>
+            </tr>
+
+            <!-- ===== What we updated ===== -->
+            <tr>
+              <td style="padding:24px 32px 16px;">
+
+                <h2 style="margin:0 0 12px; font-size:18px; font-weight:700; color:#1e1a17;">
+                  What we updated for you
+                </h2>
+
+                <p style="margin:0 0 14px; font-size:15px; line-height:1.6; color:#3d3935;">
+                  We refreshed the FormulaNorth ingredient database to reflect the new rules, so your readiness checks stay accurate:
+                </p>
+
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                  <tr>
+                    <td style="padding:8px 0; vertical-align:top; font-size:15px; line-height:1.6; color:#3d3935;">
+                      <span style="color:#0d6c63; font-weight:700;">&#10003;</span>&nbsp;&nbsp;
+                      Full <strong>24-allergen list</strong> flagged on every ingredient page and CNF check
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding:8px 0; vertical-align:top; font-size:15px; line-height:1.6; color:#3d3935;">
+                      <span style="color:#0d6c63; font-weight:700;">&#10003;</span>&nbsp;&nbsp;
+                      Expanded <strong>81-allergen list</strong> ready for new product filings (Aug 2026 onward)
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding:8px 0; vertical-align:top; font-size:15px; line-height:1.6; color:#3d3935;">
+                      <span style="color:#0d6c63; font-weight:700;">&#10003;</span>&nbsp;&nbsp;
+                      Threshold warnings (<strong>0.001%</strong> / <strong>0.01%</strong>) built into the readiness checker
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding:8px 0; vertical-align:top; font-size:15px; line-height:1.6; color:#3d3935;">
+                      <span style="color:#0d6c63; font-weight:700;">&#10003;</span>&nbsp;&nbsp;
+                      Hotlist data audit complete &mdash; <strong>32 prohibited</strong> + <strong>38 restricted</strong> substances now flagged with concentration caps
+                    </td>
+                  </tr>
+                </table>
+
+              </td>
+            </tr>
+
+            <!-- ===== CTA ===== -->
+            <tr>
+              <td align="center" style="padding:24px 32px 8px;">
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                  <tr>
+                    <td align="center" style="background-color:#0d6c63; border-radius:10px;">
+                      <a href="https://formulanorth.ca/tools/cnf-readiness-checker"
+                         style="display:inline-block; padding:14px 32px; color:#ffffff; font-size:16px; font-weight:600; text-decoration:none; line-height:1; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;">
+                        Run a free CNF readiness check &rarr;
+                      </a>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr>
+              <td align="center" style="padding:14px 32px 32px;">
+                <p style="margin:0; font-size:14px; line-height:1.6; color:#5a544d;">
+                  Want the full breakdown?
+                  <a href="https://formulanorth.ca/blog/fragrance-allergen-rules-2026" style="color:#0d6c63; text-decoration:underline;">
+                    What changed and why &rarr;
+                  </a>
+                </p>
+              </td>
+            </tr>
+
+            <!-- ===== Divider ===== -->
+            <tr>
+              <td style="padding:0 32px;">
+                <div style="border-top:1px solid #e8e2d5; height:1px; line-height:1px; font-size:1px;">&nbsp;</div>
+              </td>
+            </tr>
+
+            <!-- ===== More to explore ===== -->
+            <tr>
+              <td style="padding:24px 32px 8px;">
+                <h2 style="margin:0 0 12px; font-size:16px; font-weight:700; color:#1e1a17;">
+                  Or explore on your own
+                </h2>
+
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                  <tr>
+                    <td style="padding:8px 0; font-size:14px; line-height:1.55;">
+                      <a href="https://formulanorth.ca/ingredients" style="color:#0d6c63; font-weight:600; text-decoration:none;">
+                        Ingredient database &rarr;
+                      </a>
+                      <span style="color:#5a544d;"> &middot; INCI lookup, Hotlist status, fragrance-allergen flags</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding:8px 0; font-size:14px; line-height:1.55;">
+                      <a href="https://formulanorth.ca/tools/soap-calculator" style="color:#0d6c63; font-weight:600; text-decoration:none;">
+                        Soap calculator &rarr;
+                      </a>
+                      <span style="color:#5a544d;"> &middot; 75 oils, lye + water, fatty-acid profile, save and share</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding:8px 0; font-size:14px; line-height:1.55;">
+                      <a href="https://formulanorth.ca/suppliers" style="color:#0d6c63; font-weight:600; text-decoration:none;">
+                        Canadian supplier directory &rarr;
+                      </a>
+                      <span style="color:#5a544d;"> &middot; Real Canadian suppliers with locations and catalog links</span>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <!-- ===== Footer ===== -->
+            <tr>
+              <td style="padding:28px 32px 32px; background-color:#fffaf1; border-top:1px solid #e8e2d5;">
+
+                <p style="margin:0 0 12px; font-size:12px; line-height:1.6; color:#8a847d; text-align:center;">
+                  You're receiving this because you signed up for FormulaNorth compliance updates at
+                  <a href="https://formulanorth.ca" style="color:#0d6c63; text-decoration:none;">formulanorth.ca</a>.
+                  We only email when something changes that affects your filings.
+                </p>
+
+                <p style="margin:0 0 16px; font-size:11px; line-height:1.6; color:#a09a93; text-align:center;">
+                  FormulaNorth is preparation support for Canadian indie cosmetic makers. It is not legal or regulatory advice and does not replace official Health Canada guidance. Always verify against the current Cosmetic Regulations and Hotlist before sale.
+                </p>
+
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                  <tr>
+                    <td align="center" style="padding-top:8px;">
+                      <a href="{{{RESEND_UNSUBSCRIBE_URL}}}" style="font-size:11px; color:#8a847d; text-decoration:underline; padding:0 8px;">
+                        Unsubscribe
+                      </a>
+                      <span style="color:#cfc8be;">&middot;</span>
+                      <a href="https://formulanorth.ca/privacy" style="font-size:11px; color:#8a847d; text-decoration:none; padding:0 8px;">
+                        Privacy
+                      </a>
+                      <span style="color:#cfc8be;">&middot;</span>
+                      <a href="https://formulanorth.ca/contact" style="font-size:11px; color:#8a847d; text-decoration:none; padding:0 8px;">
+                        Contact
+                      </a>
+                    </td>
+                  </tr>
+                </table>
+
+                <p style="margin:14px 0 0; font-size:11px; color:#a09a93; text-align:center;">
+                  &copy; 2026 FormulaNorth &middot; Canada
+                </p>
+
+              </td>
+            </tr>
+
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

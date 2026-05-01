@@ -6,6 +6,8 @@ email FormulaNorth sends. Pasted into the Supabase dashboard at
 
 ## File map
 
+### Supabase Auth (transactional — sent automatically by Supabase)
+
 | File | Supabase template | Subject line |
 |---|---|---|
 | `confirm-signup.html` | Confirm signup | `Confirm your FormulaNorth account` |
@@ -14,6 +16,14 @@ email FormulaNorth sends. Pasted into the Supabase dashboard at
 | `change-email.html` | Change email address | `Confirm your new FormulaNorth email` |
 | `reset-password.html` | Reset password | `Reset your FormulaNorth password` |
 | `reauthentication.html` | Reauthentication | `Your FormulaNorth verification code` |
+
+### Resend Broadcasts (marketing — sent manually via Resend dashboard)
+
+| File | When to send | Subject line |
+|---|---|---|
+| `broadcast-fragrance-allergen-2026.html` | One-off — Health Canada fragrance allergen update | `Fragrance allergen rules: 24 now, 81 coming — what to update` |
+
+For broadcasts, paste the body into Resend → Broadcasts → Create broadcast → HTML, set the subject in the form above (NOT inside the HTML), pick the FormulaNorth Newsletter audience, send a test to yourself first, then schedule or send.
 
 ## Why these are version-controlled (not just pasted into Supabase)
 
