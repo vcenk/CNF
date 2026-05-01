@@ -16,21 +16,29 @@
 -- =====================================================================
 
 -- ---------- Step 1: backfill ---------------------------------------
+--
+-- Schema check (current as of 2026-04-30):
+--   profiles.id              uuid NOT NULL  (PK, FK to auth.users)
+--   profiles.display_name    text NOT NULL DEFAULT ''
+--   profiles.email           text (nullable)
+--   profiles.subscription_tier text NOT NULL DEFAULT 'free'
+--   profiles.created_at      timestamptz NOT NULL DEFAULT now()
+--   profiles.updated_at      timestamptz NOT NULL DEFAULT now()
+--
+-- We explicitly populate id, display_name, email, subscription_tier
+-- (the rest take their defaults) so the INSERT is robust regardless
+-- of what other columns get added later.
 
-INSERT INTO public.profiles (id, subscription_tier, created_at, updated_at)
+INSERT INTO public.profiles (id, display_name, email, subscription_tier)
 SELECT
   u.id,
-  'free',
-  COALESCE(u.created_at, NOW()),
-  NOW()
+  COALESCE(SPLIT_PART(u.email, '@', 1), ''),
+  u.email,
+  'free'
 FROM auth.users u
 LEFT JOIN public.profiles p ON p.id = u.id
 WHERE p.id IS NULL
 ON CONFLICT (id) DO NOTHING;
-
--- Verify counts match (run this manually after):
---   SELECT count(*) AS auth_users FROM auth.users;
---   SELECT count(*) AS profile_rows FROM public.profiles;
 
 -- ---------- Step 2: trigger function -------------------------------
 
@@ -41,8 +49,13 @@ SECURITY DEFINER
 SET search_path = public
 AS $$
 BEGIN
-  INSERT INTO public.profiles (id, subscription_tier, created_at, updated_at)
-  VALUES (NEW.id, 'free', NOW(), NOW())
+  INSERT INTO public.profiles (id, display_name, email, subscription_tier)
+  VALUES (
+    NEW.id,
+    COALESCE(SPLIT_PART(NEW.email, '@', 1), ''),
+    NEW.email,
+    'free'
+  )
   ON CONFLICT (id) DO NOTHING;
   RETURN NEW;
 END;
