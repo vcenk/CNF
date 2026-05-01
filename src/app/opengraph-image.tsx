@@ -7,10 +7,26 @@ export const alt = `${siteConfig.name} — ${siteConfig.tagline}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
+/**
+ * Site-wide default Open Graph image (1200x630).
+ *
+ * Design constraints — social platforms crop aggressively:
+ *   - Facebook desktop card: shows full 1.91:1 (close to native 1200x630)
+ *   - Facebook mobile / Messenger card: often a square crop from the center
+ *   - Twitter "summary_large_image": 1200x600 (close to native)
+ *   - Twitter "summary": 144x144 square crop from the center
+ *   - LinkedIn: 1200x627 (close to native)
+ *   - WhatsApp / iMessage: square crop
+ *   - Slack / Discord: full image, but small height
+ *
+ * To survive every crop, all key content (logo + tagline + URL) must
+ * sit inside the centered "safe zone" — roughly the central 800x500
+ * region. Edges are decorative only.
+ *
+ * If the logo image fetch fails (rare, only on local dev without the
+ * site URL set), we fall back to an FN monogram + text wordmark.
+ */
 export default async function OpenGraphImage() {
-  // Fetch the logo from the public URL so we can embed it.
-  // Edge runtime supports https fetches; on local dev this falls back
-  // gracefully to the text "FN" pill if the fetch fails.
   let logoDataUrl: string | null = null;
   try {
     const logoResponse = await fetch(`${siteConfig.url}/FormulaNorth_Logo.png`);
@@ -20,7 +36,7 @@ export default async function OpenGraphImage() {
       logoDataUrl = `data:image/png;base64,${base64}`;
     }
   } catch {
-    // Swallow — fall back to the FN pill below.
+    // Fall back below.
   }
 
   return new ImageResponse(
@@ -31,51 +47,45 @@ export default async function OpenGraphImage() {
           height: "100%",
           display: "flex",
           flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
           background:
-            "linear-gradient(135deg, #fffaf1 0%, #fff 35%, #cbebe6 100%)",
-          padding: "70px",
-          position: "relative",
+            "linear-gradient(135deg, #fffaf1 0%, #fff 50%, #e8f4f1 100%)",
+          padding: "60px",
           fontFamily: "Georgia, serif",
+          textAlign: "center",
         }}
       >
-        {/* Top: real logo image (if fetched) or FN monogram fallback */}
+        {/* Logo — centered, large enough to survive a square crop */}
         {logoDataUrl ? (
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              marginBottom: "30px",
-            }}
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={logoDataUrl}
-              alt={siteConfig.name}
-              width={300}
-              height={225}
-              style={{ objectFit: "contain" }}
-            />
-          </div>
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={logoDataUrl}
+            alt={siteConfig.name}
+            width={520}
+            height={158}
+            style={{ objectFit: "contain", marginBottom: "32px" }}
+          />
         ) : (
           <div
             style={{
               display: "flex",
               alignItems: "center",
-              gap: "14px",
-              marginBottom: "26px",
+              gap: "20px",
+              marginBottom: "32px",
             }}
           >
             <div
               style={{
-                width: "44px",
-                height: "44px",
+                width: "80px",
+                height: "80px",
                 background: "#0d6c63",
-                borderRadius: "12px",
+                borderRadius: "20px",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 color: "white",
-                fontSize: "26px",
+                fontSize: "44px",
                 fontWeight: 700,
                 fontFamily: "Georgia, serif",
               }}
@@ -84,112 +94,92 @@ export default async function OpenGraphImage() {
             </div>
             <div
               style={{
-                fontSize: "20px",
-                fontWeight: 600,
+                fontSize: "72px",
+                fontWeight: 700,
                 color: "#0d6c63",
-                letterSpacing: "0.18em",
-                textTransform: "uppercase",
-                fontFamily: "Helvetica, sans-serif",
+                letterSpacing: "-0.02em",
+                fontFamily: "Georgia, serif",
               }}
             >
-              For Canadian indie cosmetic makers
+              FormulaNorth
             </div>
           </div>
         )}
 
-        {/* Headline (only show wordmark if logo image isn't available) */}
-        {!logoDataUrl && (
-          <div
-            style={{
-              display: "flex",
-              fontSize: "84px",
-              fontWeight: 700,
-              color: "#1e1a17",
-              lineHeight: 1.05,
-              letterSpacing: "-0.02em",
-              marginBottom: "24px",
-            }}
-          >
-            {siteConfig.name}
-          </div>
-        )}
-
-        {/* Tagline */}
+        {/* Tagline — large, centered, brand color */}
         <div
           style={{
             display: "flex",
-            fontSize: "44px",
-            fontWeight: 600,
+            fontSize: "52px",
+            fontWeight: 700,
             color: "#0d6c63",
-            letterSpacing: "-0.01em",
-            marginBottom: "auto",
+            letterSpacing: "-0.015em",
+            marginBottom: "24px",
+            lineHeight: 1.1,
           }}
         >
           {siteConfig.tagline}
         </div>
 
-        {/* Footer description */}
+        {/* Sub-line — explains who it's for */}
         <div
           style={{
             display: "flex",
-            flexDirection: "column",
-            gap: "12px",
-            marginTop: "60px",
+            fontSize: "28px",
+            color: "#3d3935",
+            lineHeight: 1.4,
+            maxWidth: "900px",
+            marginBottom: "40px",
+            fontFamily: "Helvetica, sans-serif",
           }}
         >
-          <div
-            style={{
-              fontSize: "26px",
-              color: "#56524d",
-              lineHeight: 1.4,
-              maxWidth: "880px",
-              fontFamily: "Helvetica, sans-serif",
-            }}
-          >
-            Formulate, cost, label, and prepare CNF — all in one workspace.
-          </div>
-          <div
-            style={{
-              display: "flex",
-              gap: "14px",
-              marginTop: "12px",
-              flexWrap: "wrap",
-            }}
-          >
-            {[
-              "75-oil soap calculator",
-              "CNF readiness checker",
-              "Bilingual EN/FR labels",
-              "Hotlist database",
-            ].map((label) => (
-              <div
-                key={label}
-                style={{
-                  fontSize: "20px",
-                  color: "#0d6c63",
-                  background: "#cbebe6",
-                  padding: "8px 16px",
-                  borderRadius: "999px",
-                  fontFamily: "Helvetica, sans-serif",
-                  fontWeight: 600,
-                }}
-              >
-                {label}
-              </div>
-            ))}
-          </div>
+          The workspace for Canadian indie cosmetic makers
         </div>
 
-        {/* URL pill */}
+        {/* Feature pills — at the bottom, optional content */}
+        <div
+          style={{
+            display: "flex",
+            gap: "12px",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            maxWidth: "1000px",
+          }}
+        >
+          {[
+            "CNF Readiness Checker",
+            "Soap Calculator",
+            "Hotlist Database",
+            "Bilingual Labels",
+          ].map((label) => (
+            <div
+              key={label}
+              style={{
+                fontSize: "20px",
+                color: "#0d6c63",
+                background: "#cbebe6",
+                padding: "10px 20px",
+                borderRadius: "999px",
+                fontFamily: "Helvetica, sans-serif",
+                fontWeight: 600,
+              }}
+            >
+              {label}
+            </div>
+          ))}
+        </div>
+
+        {/* URL pill — bottom right, decorative (gets cropped, that's OK) */}
         <div
           style={{
             position: "absolute",
-            bottom: "42px",
-            right: "70px",
-            fontSize: "22px",
+            bottom: "32px",
+            right: "48px",
+            fontSize: "20px",
             color: "#0d6c63",
             fontFamily: "Helvetica, sans-serif",
             fontWeight: 500,
+            opacity: 0.7,
           }}
         >
           formulanorth.ca
