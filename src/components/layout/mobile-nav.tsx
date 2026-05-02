@@ -13,6 +13,7 @@ import {
   ArrowRight,
   LogOut,
   User,
+  Sparkles,
 } from "lucide-react";
 import {
   Sheet,
@@ -36,6 +37,12 @@ const toolItems = [
     label: "CNF Readiness Checker",
     href: "/tools/cnf-readiness-checker",
     icon: CheckCircle2,
+  },
+  {
+    label: "Fragrance Allergen Calculator",
+    href: "/tools/fragrance-allergen-calculator",
+    icon: Sparkles,
+    isNew: true,
   },
   { label: "Soap Calculator", href: "/tools/soap-calculator", icon: Droplet },
   {
@@ -108,7 +115,12 @@ export function MobileNav({ isLoggedIn }: { isLoggedIn: boolean }) {
                 className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent/10"
               >
                 <tool.icon className="h-4 w-4 shrink-0 text-brand" />
-                {tool.label}
+                <span className="flex-1">{tool.label}</span>
+                {"isNew" in tool && tool.isNew && (
+                  <span className="rounded-full bg-brand-soft px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-brand">
+                    New
+                  </span>
+                )}
               </Link>
             ))}
             <Link

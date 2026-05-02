@@ -32,6 +32,13 @@ const tools: Tool[] = [
     badge: "Free",
   },
   {
+    title: "Fragrance Allergen Calculator",
+    description:
+      "Calculate which of the 81 EU/Canadian fragrance allergens (Linalool, Limonene, Citral…) cross the disclosure threshold in your formula. Soap, lotion, balm — all product types covered.",
+    href: "/tools/fragrance-allergen-calculator",
+    badge: "New",
+  },
+  {
     title: "INCI Ingredient List Formatter",
     description:
       "Clean up an ingredient list and get suggested INCI ordering and allergen disclosure reminders.",
@@ -96,6 +103,10 @@ export default function ToolsIndexPage() {
                   {tool.comingSoon ? (
                     <span className="shrink-0 rounded-full bg-muted px-2 py-0.5 text-xs text-muted-foreground">
                       Soon
+                    </span>
+                  ) : tool.badge === "New" ? (
+                    <span className="shrink-0 rounded-full bg-brand px-2 py-0.5 text-xs font-semibold text-primary-foreground">
+                      New
                     </span>
                   ) : tool.badge ? (
                     <span className="shrink-0 rounded-full bg-brand-soft px-2 py-0.5 text-xs font-medium text-brand">

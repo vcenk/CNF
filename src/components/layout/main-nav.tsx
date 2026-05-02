@@ -10,6 +10,7 @@ import {
   ListChecks,
   Tag,
   ArrowRight,
+  Sparkles,
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -32,6 +33,13 @@ const toolItems = [
     href: "/tools/cnf-readiness-checker",
     icon: CheckCircle2,
     detail: "Free hotlist + label readiness check",
+  },
+  {
+    label: "Fragrance Allergen Calculator",
+    href: "/tools/fragrance-allergen-calculator",
+    icon: Sparkles,
+    detail: "Calculate Linalool, Limonene, Citral disclosure",
+    isNew: true,
   },
   {
     label: "Soap Calculator",
@@ -87,7 +95,14 @@ export function MainNav({ isLoggedIn }: { isLoggedIn: boolean }) {
             >
               <tool.icon className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
               <div className="flex-1">
-                <div className="text-sm font-medium">{tool.label}</div>
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-medium">{tool.label}</span>
+                  {"isNew" in tool && tool.isNew && (
+                    <span className="rounded-full bg-brand-soft px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-brand">
+                      New
+                    </span>
+                  )}
+                </div>
                 <div className="text-xs text-muted-foreground">{tool.detail}</div>
               </div>
             </DropdownMenuItem>
