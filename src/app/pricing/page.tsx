@@ -5,20 +5,15 @@ import { Check, Sparkles } from "lucide-react";
 import { DisclaimerCallout } from "@/components/marketing/disclaimer-callout";
 import { siteConfig } from "@/lib/site-config";
 import { createClient } from "@/lib/supabase/server";
-import { WaitlistForm } from "./waitlist-form";
+import { CheckoutButton } from "@/features/billing/checkout-button";
 import { FeedbackForm } from "@/app/feedback/feedback-form";
-
-type Cta =
-  | { kind: "link"; label: string; href: string; variant: "primary" | "outline" }
-  | { kind: "waitlist"; tier: "maker" | "studio"; tierLabel: string };
 
 interface Tier {
   name: string;
-  price: string;
-  period?: string;
+  priceMonthly: string;
+  priceAnnual?: string;
+  annualSavings?: string;
   description: string;
-  cta: Cta;
-  comingSoon?: boolean;
   highlighted?: boolean;
   features: string[];
 }
@@ -26,97 +21,64 @@ interface Tier {
 const tiers: Tier[] = [
   {
     name: "Free",
-    price: "$0",
-    description: "Browse and research",
-    cta: {
-      kind: "link",
-      label: "Get started",
-      href: "/ingredients",
-      variant: "outline",
-    },
+    priceMonthly: "$0",
+    description: "Browse, research, and use every public tool. No card needed.",
     features: [
-      "Full ingredient database with INCI names",
-      "Supplier directory with pricing",
-      "Health Canada Hotlist references",
-      "All free tools (CNF Readiness Checker, INCI formatter, cost calculator, label checklist)",
-      "All guide content",
-      "Save up to 2 formulas",
+      "Full ingredient database (90+ fragrance allergens, 32 prohibited, 38 restricted with concentration caps)",
+      "Canadian supplier directory",
+      "All free tools — Soap Calculator, Fragrance Allergen Calculator, CNF Readiness Checker, INCI Formatter, Cost Calculator, Label Checklist",
+      "All blog and guide content",
+      "1 saved formula",
     ],
   },
   {
     name: "Maker",
-    price: "CA$12",
-    period: "/mo",
-    description: "For active makers",
-    comingSoon: true,
+    priceMonthly: "CA$12",
+    priceAnnual: "CA$108",
+    annualSavings: "Save $36",
+    description: "For active makers shipping real products in Canada.",
     highlighted: true,
-    cta: { kind: "waitlist", tier: "maker", tierLabel: "Maker" },
     features: [
-      "10 formulas with full version control",
-      "Phase grouping (water, oil, cool-down)",
-      "Batch scaling calculator",
-      "COGS calculator with margin tools",
-      "Bilingual EN/FR label drafting",
-      "PDF label export",
-    ],
-  },
-  {
-    name: "Studio",
-    price: "CA$29",
-    period: "/mo",
-    description: "For growing brands",
-    comingSoon: true,
-    cta: { kind: "waitlist", tier: "studio", tierLabel: "Studio" },
-    features: [
-      "50 formulas",
-      "Everything in Maker",
-      "CNF preparation package tools",
-      "Readiness review support",
-      "May-contain variant support",
-      "Filing status tracking",
-    ],
-  },
-  {
-    name: "Business",
-    price: "CA$59",
-    period: "/mo",
-    description: "For established brands",
-    comingSoon: true,
-    cta: {
-      kind: "link",
-      label: "Contact us",
-      href: "/contact",
-      variant: "outline",
-    },
-    features: [
-      "Unlimited formulas",
-      "Everything in Studio",
-      "Priority support",
-      "Early access to new features",
+      "Unlimited saved formulas with version history",
+      "Soap Maker integration inside the formula builder — lye, fatty acid, hardness/cleansing/conditioning on YOUR formulas",
+      "CNF Preparation Package PDF export with branded header",
+      "Bilingual (EN/FR) label generator with claim risk flagging",
+      "Cost-of-goods + retail/wholesale price recommendations",
+      "Personal supplier price tracking",
+      "Activity log + unlimited version history per formula",
     ],
   },
 ];
 
 export const metadata: Metadata = {
-  title: "Pricing",
-  description: `${siteConfig.name} pricing plans for Canadian cosmetic makers. Free tier available now; paid tiers opening soon — join the waitlist.`,
+  title: "Pricing — FormulaNorth",
+  description: `${siteConfig.name} pricing for Canadian indie cosmetic makers. Free tier with all public tools. Maker tier at CA$12/month or CA$108/year — 14-day free trial, no card required.`,
 };
 
 interface PricingPageProps {
   searchParams: Promise<{
     upgradeReason?: string;
     tier?: string;
+    billing?: string;
   }>;
 }
 
 const UPGRADE_REASON_COPY: Record<string, { title: string; body: string }> = {
   "formula-limit": {
-    title: "You've reached your formula limit",
-    body: "Free accounts can save 2 formulas. Paid tiers (Maker, Studio, Business) are coming soon — join the waitlist below and we'll email you when they open. Existing formulas remain saved on your current plan.",
+    title: "You've reached your saved-formula limit",
+    body: "The Free plan saves 1 formula. Upgrade to Maker for unlimited formulas, version history, and the rest of the integrated workflow. 14-day free trial — no credit card required up front.",
   },
   "soap-calculator": {
-    title: "Soap calculator inside your formula is a Maker tier feature",
-    body: "Use the standalone calculator at /tools/soap-calculator for free anytime. The integrated version that lives inside a saved formula and persists soap recipe state is part of the Maker tier — join the waitlist below and we'll email you when it opens.",
+    title: "Soap Maker integration is a Maker tier feature",
+    body: "The standalone Soap Calculator at /tools/soap-calculator is free for everyone. The integrated version that lives inside a saved formula and persists soap recipe state is part of Maker. Start a 14-day free trial below.",
+  },
+  "cnf-package": {
+    title: "CNF Preparation Package is a Maker tier feature",
+    body: "Export a print-ready PDF of your CNF prep with branded header, full ingredient list, allergen flags, and label content side-by-side. Start a 14-day free trial below.",
+  },
+  "label-export": {
+    title: "Bilingual label PDF export is a Maker tier feature",
+    body: "Print-ready EN/FR cosmetic labels with claim-risk flagging are part of Maker. Start a 14-day free trial below.",
   },
 };
 
@@ -125,14 +87,29 @@ export default async function PricingPage({ searchParams }: PricingPageProps) {
   const banner = params.upgradeReason
     ? UPGRADE_REASON_COPY[params.upgradeReason]
     : null;
-  const fromTier = params.tier ?? "";
+  const billingResult = params.billing;
 
-  // Pre-fill the embedded feedback form for signed-in users.
+  // Pre-fill the embedded feedback form for signed-in users +
+  // determine if they're already on a live subscription.
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
+  const isLoggedIn = !!user;
   const defaultEmail = user?.email ?? "";
+
+  let alreadySubscribed = false;
+  if (user) {
+    const { data: sub } = await supabase
+      .from("subscriptions")
+      .select("status")
+      .eq("user_id", user.id)
+      .maybeSingle();
+    alreadySubscribed =
+      sub?.status === "active" ||
+      sub?.status === "trialing" ||
+      sub?.status === "past_due";
+  }
 
   const structuredData = {
     "@context": "https://schema.org",
@@ -140,31 +117,66 @@ export default async function PricingPage({ searchParams }: PricingPageProps) {
     name: siteConfig.name,
     applicationCategory: "BusinessApplication",
     operatingSystem: "Web",
-    offers: tiers.map((tier) => ({
-      "@type": "Offer",
-      name: tier.name,
-      price: tier.price.replace(/[^0-9.]/g, "") || "0",
-      priceCurrency: "CAD",
-      description: tier.description,
-      availability: tier.comingSoon
-        ? "https://schema.org/PreOrder"
-        : "https://schema.org/InStock",
-    })),
+    offers: [
+      {
+        "@type": "Offer",
+        name: "Free",
+        price: "0",
+        priceCurrency: "CAD",
+        description: "All public tools and database access, 1 saved formula.",
+      },
+      {
+        "@type": "Offer",
+        name: "Maker — Monthly",
+        price: "12",
+        priceCurrency: "CAD",
+        description: "Unlimited formulas, soap maker integration, CNF prep package, bilingual labels.",
+      },
+      {
+        "@type": "Offer",
+        name: "Maker — Annual",
+        price: "108",
+        priceCurrency: "CAD",
+        description: "Annual billing, equivalent to $9/month.",
+      },
+    ],
   };
 
   return (
     <>
       <JsonLd data={structuredData} />
 
-      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+      <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6">
         {banner && (
           <div className="mx-auto mb-10 max-w-3xl rounded-xl border border-amber-200 bg-amber-50/70 p-5 text-sm dark:border-amber-900/40 dark:bg-amber-950/20">
             <p className="font-semibold text-amber-900 dark:text-amber-200">
               {banner.title}
-              {fromTier ? ` (current plan: ${fromTier})` : ""}
             </p>
             <p className="mt-1 text-amber-900/80 dark:text-amber-200/80">
               {banner.body}
+            </p>
+          </div>
+        )}
+
+        {billingResult === "success" && (
+          <div className="mx-auto mb-10 max-w-3xl rounded-xl border border-emerald-200 bg-emerald-50/70 p-5 text-sm dark:border-emerald-900/40 dark:bg-emerald-950/20">
+            <p className="font-semibold text-emerald-900 dark:text-emerald-200">
+              Thanks for subscribing!
+            </p>
+            <p className="mt-1 text-emerald-900/80 dark:text-emerald-200/80">
+              Your Maker trial has started. Manage your subscription anytime from{" "}
+              <Link href="/dashboard/account" className="underline">
+                your account
+              </Link>
+              .
+            </p>
+          </div>
+        )}
+
+        {billingResult === "canceled" && (
+          <div className="mx-auto mb-10 max-w-3xl rounded-xl border border-border bg-card p-5 text-sm">
+            <p className="text-muted-foreground">
+              Checkout cancelled — no charges made. You can start a trial any time.
             </p>
           </div>
         )}
@@ -174,21 +186,22 @@ export default async function PricingPage({ searchParams }: PricingPageProps) {
             Pricing
           </p>
           <h1 className="mt-2 font-display text-3xl font-bold tracking-tight sm:text-4xl">
-            Simple pricing, when paid plans open
+            Simple pricing for Canadian indie cosmetic makers
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
-            The Free plan is available today: ingredient database, supplier
-            directory, all free tools, and 2 saved formulas. Paid plans (Maker,
-            Studio, Business) are coming soon — join the waitlist below and
-            we&apos;ll email you when they open.
+            Free tier covers research and the public tools. Maker tier unlocks the
+            integrated workflow when you&apos;re ready to ship products.
+          </p>
+          <p className="mx-auto mt-3 max-w-2xl text-sm text-brand">
+            Maker plans come with a 14-day free trial — no credit card required.
           </p>
         </div>
 
-        <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-12 grid gap-6 sm:grid-cols-2">
           {tiers.map((tier) => (
             <div
               key={tier.name}
-              className={`relative flex flex-col rounded-xl border bg-card p-6 ${
+              className={`relative flex flex-col rounded-2xl border bg-card p-6 sm:p-8 ${
                 tier.highlighted
                   ? "border-brand ring-2 ring-brand/20 shadow-lg"
                   : "border-border"
@@ -196,57 +209,69 @@ export default async function PricingPage({ searchParams }: PricingPageProps) {
             >
               {tier.highlighted && (
                 <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-brand px-4 py-1 text-xs font-semibold text-white shadow-sm">
-                  Most popular
+                  Recommended
                 </div>
               )}
 
-              <div className="flex items-center justify-between gap-2">
-                <p className="text-sm font-semibold text-foreground">
-                  {tier.name}
-                </p>
-                {tier.comingSoon ? (
-                  <span className="rounded-full bg-muted px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
-                    Coming soon
-                  </span>
-                ) : (
-                  <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300">
-                    Available
-                  </span>
-                )}
-              </div>
+              <p className="text-sm font-semibold text-foreground">
+                {tier.name}
+              </p>
 
-              <div className="mt-4 flex items-baseline gap-1">
+              <div className="mt-3 flex items-baseline gap-1">
                 <span className="font-display text-4xl font-bold tracking-tight">
-                  {tier.price}
+                  {tier.priceMonthly}
                 </span>
-                {tier.period && (
-                  <span className="text-base text-muted-foreground">
-                    {tier.period}
-                  </span>
+                {tier.priceAnnual && (
+                  <span className="text-base text-muted-foreground"> CAD/month</span>
                 )}
               </div>
 
-              <p className="mt-1 text-sm text-muted-foreground">
+              {tier.priceAnnual && (
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Or <strong className="text-foreground">{tier.priceAnnual} CAD/year</strong> ({tier.annualSavings})
+                </p>
+              )}
+
+              <p className="mt-3 text-sm text-muted-foreground">
                 {tier.description}
               </p>
 
-              <div className="mt-6">
-                {tier.cta.kind === "link" ? (
+              <div className="mt-6 space-y-2">
+                {tier.name === "Free" ? (
                   <Link
-                    href={tier.cta.href}
-                    className={`block w-full rounded-lg py-2.5 text-center text-sm font-semibold transition-colors ${
-                      tier.cta.variant === "primary"
-                        ? "bg-brand text-white hover:bg-brand-dark"
-                        : "border border-border bg-card text-foreground hover:bg-muted"
-                    }`}
+                    href={isLoggedIn ? "/formulas" : "/auth/signup"}
+                    className="block w-full rounded-lg border border-border bg-card py-2.5 text-center text-sm font-semibold transition-colors hover:bg-muted"
                   >
-                    {tier.cta.label}
+                    {isLoggedIn ? "Go to formulas" : "Get started — Free"}
                   </Link>
                 ) : (
-                  <WaitlistForm
-                    tier={tier.cta.tier}
-                    tierLabel={tier.cta.tierLabel}
-                  />
+                  <>
+                    <CheckoutButton
+                      interval="month"
+                      isLoggedIn={isLoggedIn}
+                      alreadySubscribed={alreadySubscribed}
+                      className="block w-full rounded-lg bg-brand py-2.5 text-center text-sm font-semibold text-white transition-colors hover:bg-brand-dark disabled:opacity-50"
+                    >
+                      Start 14-day trial — $12/mo
+                    </CheckoutButton>
+                    <CheckoutButton
+                      interval="year"
+                      isLoggedIn={isLoggedIn}
+                      alreadySubscribed={alreadySubscribed}
+                      className="block w-full rounded-lg border border-brand/40 bg-brand/5 py-2.5 text-center text-sm font-semibold text-brand transition-colors hover:bg-brand/10 disabled:opacity-50"
+                    >
+                      Start 14-day trial — $108/year
+                    </CheckoutButton>
+                    {alreadySubscribed && (
+                      <p className="text-center text-xs text-muted-foreground">
+                        You&apos;re already subscribed. Click to{" "}
+                        <Link href="/dashboard/account" className="underline">
+                          manage your plan
+                        </Link>
+                        .
+                      </p>
+                    )}
+                  </>
                 )}
               </div>
 
@@ -264,33 +289,53 @@ export default async function PricingPage({ searchParams }: PricingPageProps) {
           ))}
         </div>
 
-        <div className="mx-auto mt-10 max-w-3xl space-y-4 text-sm leading-6 text-muted-foreground">
-          <p>
-            <span className="font-semibold text-foreground">Why a waitlist?</span>{" "}
-            Paid subscriptions are not yet enabled. We want to keep the public
-            site honest about what works today: the Free tier and all free
-            tools are fully usable, and we&apos;re finishing the billing,
-            invoicing, and feature gating for the paid plans before turning
-            them on.
-          </p>
-          <p>
-            Have a specific question about a plan, or want to be a
-            beta tester?{" "}
-            <Link
-              href="/contact"
-              className="text-brand underline hover:text-brand-dark"
-            >
-              Get in touch
-            </Link>
-            . Have a feature request?{" "}
-            <Link
-              href="#feedback"
-              className="text-brand underline hover:text-brand-dark"
-            >
-              Tell us what you need below
-            </Link>
-            .
-          </p>
+        <div className="mx-auto mt-12 max-w-3xl space-y-4 text-sm leading-6 text-muted-foreground">
+          <h2 className="font-display text-xl font-semibold text-foreground">
+            Common questions
+          </h2>
+
+          <div>
+            <p className="font-semibold text-foreground">
+              Do I need a credit card to start the trial?
+            </p>
+            <p className="mt-1">
+              No. The 14-day Maker trial doesn&apos;t ask for a card up front. You&apos;ll
+              be prompted to add one if you choose to continue past day 14.
+              Cancel anytime during the trial — no charge.
+            </p>
+          </div>
+
+          <div>
+            <p className="font-semibold text-foreground">
+              Can I switch from monthly to annual later?
+            </p>
+            <p className="mt-1">
+              Yes. From your account, open the billing portal and switch the
+              interval — Stripe handles proration automatically.
+            </p>
+          </div>
+
+          <div>
+            <p className="font-semibold text-foreground">
+              What happens to my formulas if I downgrade to Free?
+            </p>
+            <p className="mt-1">
+              Your formulas stay saved and viewable. You won&apos;t be able to create
+              new ones beyond the Free limit until you re-subscribe, and Maker-only
+              features (CNF prep export, bilingual labels, soap maker integration)
+              become read-only.
+            </p>
+          </div>
+
+          <div>
+            <p className="font-semibold text-foreground">
+              Is the Free tier really permanent?
+            </p>
+            <p className="mt-1">
+              Yes. The free public tools and the 1-formula starter are how new
+              makers find FormulaNorth. They will always be free.
+            </p>
+          </div>
         </div>
 
         <section
@@ -309,9 +354,9 @@ export default async function PricingPage({ searchParams }: PricingPageProps) {
                 What would make FormulaNorth more useful for you?
               </h2>
               <p className="mt-3 max-w-2xl text-muted-foreground">
-                We&apos;re prioritising paid-tier features based on what
-                comes up most. Tick what you&apos;d use, add detail, and we&apos;ll
-                email you when those features ship.
+                We&apos;re prioritising features based on what comes up most. Tick
+                what you&apos;d use, add detail, and we&apos;ll email you when those
+                features ship.
               </p>
             </div>
           </div>

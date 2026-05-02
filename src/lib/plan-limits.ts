@@ -5,6 +5,10 @@
  * Server-side functions that touch Supabase live in `plan-limits-server.ts`.
  */
 
+// We keep the full union members so any DB row using legacy 'studio' /
+// 'business' tier still type-checks. The pricing page only ships 'free'
+// and 'maker' — the other two are reserved for a possible future Studio
+// tier and currently fall through to Maker-equivalent access.
 export type SubscriptionTier = "free" | "maker" | "studio" | "business";
 
 export interface PlanLimit {
@@ -18,26 +22,30 @@ export const PLAN_LIMITS: Record<SubscriptionTier, PlanLimit> = {
   free: {
     tier: "free",
     label: "Free",
-    formulaLimit: 2,
-    description: "Browse the ingredient and supplier database; save up to 2 formulas.",
+    formulaLimit: 1,
+    description:
+      "Browse the database, use all free tools, save 1 formula.",
   },
   maker: {
     tier: "maker",
     label: "Maker",
-    formulaLimit: 10,
-    description: "Save up to 10 formulas with version history, costing, and bilingual label drafting.",
+    formulaLimit: null, // unlimited
+    description:
+      "Unlimited formulas, soap maker integration, CNF prep package, bilingual label generator, costing, supplier price tracking.",
   },
+  // Reserved for future expansion. Anyone on these legacy tiers gets
+  // Maker-equivalent access (see canUseX functions below).
   studio: {
     tier: "studio",
     label: "Studio",
-    formulaLimit: 50,
-    description: "Up to 50 formulas plus the CNF preparation workflow.",
+    formulaLimit: null,
+    description: "Reserved tier — full access.",
   },
   business: {
     tier: "business",
     label: "Business",
     formulaLimit: null,
-    description: "Unlimited formulas, multiple brands, and advanced records.",
+    description: "Reserved tier — full access.",
   },
 };
 
@@ -68,18 +76,29 @@ export interface FormulaCreationGuard {
 }
 
 /**
+ * Helper: any paid tier (Maker or above).
+ */
+export function isPaidTier(tier: SubscriptionTier): boolean {
+  return tier !== "free";
+}
+
+/**
  * Feature gates — which tier can use a given premium feature inside the
- * formula builder. Free tier gets the public-side tools (calculator, recipes,
- * etc.) but not the integrated experience inside a saved formula.
+ * formula builder. Free tier gets the public-side tools (calculator,
+ * recipes, etc.) but not the integrated experience inside a saved formula.
+ *
+ * Under the simplified Free + Maker tiering, all paid tiers get all
+ * premium features — Studio and Business are reserved type aliases that
+ * map to Maker-equivalent access until/unless we ship a true Studio tier.
  */
 export function canUseSoapCalculator(tier: SubscriptionTier): boolean {
-  return tier === "maker" || tier === "studio" || tier === "business";
+  return isPaidTier(tier);
 }
 
 export function canUseCnfWizard(tier: SubscriptionTier): boolean {
-  return tier === "studio" || tier === "business";
+  return isPaidTier(tier);
 }
 
 export function canExportPdfLabel(tier: SubscriptionTier): boolean {
-  return tier === "maker" || tier === "studio" || tier === "business";
+  return isPaidTier(tier);
 }
