@@ -52,7 +52,7 @@ const tiers: Tier[] = [
 
 export const metadata: Metadata = {
   title: "Pricing — FormulaNorth",
-  description: `${siteConfig.name} pricing for Canadian indie cosmetic makers. Free tier with all public tools. Maker tier at CA$12/month or CA$108/year — 14-day free trial, no card required.`,
+  description: `${siteConfig.name} pricing for Canadian indie cosmetic makers. Free tier with all public tools. Maker tier at CA$12/month or CA$108/year — 7-day free trial, no card required.`,
 };
 
 interface PricingPageProps {
@@ -66,19 +66,19 @@ interface PricingPageProps {
 const UPGRADE_REASON_COPY: Record<string, { title: string; body: string }> = {
   "formula-limit": {
     title: "You've reached your saved-formula limit",
-    body: "The Free plan saves 1 formula. Upgrade to Maker for unlimited formulas, version history, and the rest of the integrated workflow. 14-day free trial — no credit card required up front.",
+    body: "The Free plan saves 1 formula. Upgrade to Maker for unlimited formulas, version history, and the rest of the integrated workflow. 7-day free trial — no credit card required up front.",
   },
   "soap-calculator": {
     title: "Soap Maker integration is a Maker tier feature",
-    body: "The standalone Soap Calculator at /tools/soap-calculator is free for everyone. The integrated version that lives inside a saved formula and persists soap recipe state is part of Maker. Start a 14-day free trial below.",
+    body: "The standalone Soap Calculator at /tools/soap-calculator is free for everyone. The integrated version that lives inside a saved formula and persists soap recipe state is part of Maker. Start a 7-day free trial below.",
   },
   "cnf-package": {
     title: "CNF Preparation Package is a Maker tier feature",
-    body: "Export a print-ready PDF of your CNF prep with branded header, full ingredient list, allergen flags, and label content side-by-side. Start a 14-day free trial below.",
+    body: "Export a print-ready PDF of your CNF prep with branded header, full ingredient list, allergen flags, and label content side-by-side. Start a 7-day free trial below.",
   },
   "label-export": {
     title: "Bilingual label PDF export is a Maker tier feature",
-    body: "Print-ready EN/FR cosmetic labels with claim-risk flagging are part of Maker. Start a 14-day free trial below.",
+    body: "Print-ready EN/FR cosmetic labels with claim-risk flagging are part of Maker. Start a 7-day free trial below.",
   },
 };
 
@@ -193,7 +193,7 @@ export default async function PricingPage({ searchParams }: PricingPageProps) {
             integrated workflow when you&apos;re ready to ship products.
           </p>
           <p className="mx-auto mt-3 max-w-2xl text-sm text-brand">
-            Maker plans come with a 14-day free trial — no credit card required.
+            Maker plans come with a 7-day free trial — no credit card required.
           </p>
         </div>
 
@@ -252,7 +252,7 @@ export default async function PricingPage({ searchParams }: PricingPageProps) {
                       alreadySubscribed={alreadySubscribed}
                       className="block w-full rounded-lg bg-brand py-2.5 text-center text-sm font-semibold text-white transition-colors hover:bg-brand-dark disabled:opacity-50"
                     >
-                      Start 14-day trial — $12/mo
+                      Start 7-day trial — $12/mo
                     </CheckoutButton>
                     <CheckoutButton
                       interval="year"
@@ -260,7 +260,7 @@ export default async function PricingPage({ searchParams }: PricingPageProps) {
                       alreadySubscribed={alreadySubscribed}
                       className="block w-full rounded-lg border border-brand/40 bg-brand/5 py-2.5 text-center text-sm font-semibold text-brand transition-colors hover:bg-brand/10 disabled:opacity-50"
                     >
-                      Start 14-day trial — $108/year
+                      Start 7-day trial — $108/year
                     </CheckoutButton>
                     {alreadySubscribed && (
                       <p className="text-center text-xs text-muted-foreground">
@@ -299,8 +299,8 @@ export default async function PricingPage({ searchParams }: PricingPageProps) {
               Do I need a credit card to start the trial?
             </p>
             <p className="mt-1">
-              No. The 14-day Maker trial doesn&apos;t ask for a card up front. You&apos;ll
-              be prompted to add one if you choose to continue past day 14.
+              No. The 7-day Maker trial doesn&apos;t ask for a card up front. You&apos;ll
+              be prompted to add one if you choose to continue past day 7.
               Cancel anytime during the trial — no charge.
             </p>
           </div>

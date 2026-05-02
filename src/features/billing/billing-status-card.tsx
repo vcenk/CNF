@@ -102,7 +102,7 @@ export function BillingStatusCard({
                 <div>
                   <p className="text-sm font-medium">Upgrade to Maker for $12 CAD/month</p>
                   <p className="mt-1 text-xs text-muted-foreground">
-                    Unlimited formulas, soap maker integration, CNF prep package, bilingual labels, costing, supplier price tracking. 14-day free trial — no card required.
+                    Unlimited formulas, soap maker integration, CNF prep package, bilingual labels, costing, supplier price tracking. 7-day free trial — no card required.
                   </p>
                   <Link
                     href="/pricing"

@@ -69,9 +69,9 @@ export async function POST(request: Request) {
       mode: "subscription",
       customer: customerId,
       line_items: [{ price: priceId, quantity: 1 }],
-      // 14-day trial, no card required up front (still asked at end of trial)
+      // 7-day trial, no card required up front (still asked at end of trial)
       subscription_data: {
-        trial_period_days: 14,
+        trial_period_days: 7,
         metadata: { user_id: user.id },
       },
       // Don't require a payment method until trial ends. Higher signup
