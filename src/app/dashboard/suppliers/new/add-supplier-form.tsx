@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { addSupplierAction, type AddSupplierState } from "./actions";
-import { PROVINCES_CA } from "@/lib/supabase/queries/suppliers";
+import { PROVINCES_CA } from "@/lib/provinces";
 
 const initialState: AddSupplierState = { status: "idle" };
 

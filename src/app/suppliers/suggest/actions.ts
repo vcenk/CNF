@@ -1,7 +1,7 @@
 "use server";
 
 import { createClient } from "@/lib/supabase/server";
-import { PROVINCES_CA } from "@/lib/supabase/queries/suppliers";
+import { PROVINCES_CA } from "@/lib/provinces";
 
 export interface SuggestSupplierState {
   status: "idle" | "ok" | "error";

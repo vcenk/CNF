@@ -1,26 +1,12 @@
 import { createClient } from "@/lib/supabase/server";
 
-export const PROVINCES_CA = [
-  { code: "AB", name: "Alberta" },
-  { code: "BC", name: "British Columbia" },
-  { code: "MB", name: "Manitoba" },
-  { code: "NB", name: "New Brunswick" },
-  { code: "NL", name: "Newfoundland & Labrador" },
-  { code: "NS", name: "Nova Scotia" },
-  { code: "NT", name: "Northwest Territories" },
-  { code: "NU", name: "Nunavut" },
-  { code: "ON", name: "Ontario" },
-  { code: "PE", name: "Prince Edward Island" },
-  { code: "QC", name: "Quebec" },
-  { code: "SK", name: "Saskatchewan" },
-  { code: "YT", name: "Yukon" },
-] as const;
-
-export type ProvinceCode = (typeof PROVINCES_CA)[number]["code"];
-
-export const PROVINCE_LABEL: Record<ProvinceCode, string> = Object.fromEntries(
-  PROVINCES_CA.map((p) => [p.code, p.name])
-) as Record<ProvinceCode, string>;
+// Re-export client-safe constants for any existing server callers.
+// New imports should pull directly from `@/lib/provinces`.
+export {
+  PROVINCES_CA,
+  PROVINCE_LABEL,
+  type ProvinceCode,
+} from "@/lib/provinces";
 
 export async function getAllSuppliers() {
   const supabase = await createClient();
