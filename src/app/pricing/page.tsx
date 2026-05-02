@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { JsonLd } from "@/components/seo/json-ld";
 import Link from "next/link";
 import { Check, Sparkles } from "lucide-react";
 import { DisclaimerCallout } from "@/components/marketing/disclaimer-callout";
@@ -153,10 +154,7 @@ export default async function PricingPage({ searchParams }: PricingPageProps) {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-      />
+      <JsonLd data={structuredData} />
 
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         {banner && (

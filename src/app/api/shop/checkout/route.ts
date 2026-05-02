@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getStripe } from "@/lib/stripe";
 import { createClient } from "@/lib/supabase/server";
+import { siteConfig } from "@/lib/site-config";
 import crypto from "crypto";
 
 export async function POST(request: Request) {
@@ -47,8 +48,12 @@ export async function POST(request: Request) {
         },
       ],
       mode: "payment",
-      success_url: `${request.headers.get("origin")}/shop/${productSlug}/download?token=${downloadToken}`,
-      cancel_url: `${request.headers.get("origin")}/shop/${productSlug}`,
+      // Use trusted siteConfig.url, NOT the request Origin header.
+      // An attacker could spoof Origin to phish users with a fake
+      // post-payment redirect. Slug is also restricted to URL-safe chars
+      // before being interpolated into the path.
+      success_url: `${siteConfig.url}/shop/${encodeURIComponent(productSlug)}/download?token=${downloadToken}`,
+      cancel_url: `${siteConfig.url}/shop/${encodeURIComponent(productSlug)}`,
       metadata: {
         product_id: productId,
         download_token: downloadToken,

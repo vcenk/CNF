@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { JsonLd } from "@/components/seo/json-ld";
 import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
 import { DisclaimerCallout } from "@/components/marketing/disclaimer-callout";
@@ -110,10 +111,7 @@ export default function FragranceAllergenCalculatorPage() {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-      />
+      <JsonLd data={structuredData} />
 
       <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6">
         <nav className="mb-6 text-sm text-muted-foreground">

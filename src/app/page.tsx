@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { JsonLd } from "@/components/seo/json-ld";
 import { siteConfig } from "@/lib/site-config";
 import { DisclaimerCallout } from "@/components/marketing/disclaimer-callout";
 import { FragranceAllergenAlert } from "@/components/marketing/fragrance-allergen-alert";
@@ -148,10 +149,7 @@ export default function HomePage() {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-      />
+      <JsonLd data={structuredData} />
 
       <section className="mx-auto max-w-6xl px-4 pb-20 pt-24 text-center sm:px-6">
         <p className="text-sm font-semibold uppercase tracking-wider text-brand">

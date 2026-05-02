@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { JsonLd } from "@/components/seo/json-ld";
 import Link from "next/link";
 import {
   getAllSuppliers,
@@ -109,10 +110,7 @@ export default async function SuppliersPage({ searchParams }: SuppliersPageProps
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-      />
+      <JsonLd data={structuredData} />
 
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
         <div className="mb-8">

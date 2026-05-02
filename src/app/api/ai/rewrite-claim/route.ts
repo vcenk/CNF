@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getOpenAI, AI_MODEL } from "@/lib/openai";
+import { requireAuth } from "@/lib/auth/require-auth";
 
 interface RewriteRequest {
   claims?: string;
@@ -16,6 +17,10 @@ interface RewriteResponse {
 
 export async function POST(request: Request) {
   try {
+    // Require auth — this route hits OpenAI on our budget. Anonymous
+    // access would let anyone burn through API credits.
+    await requireAuth();
+
     const body = (await request.json()) as RewriteRequest;
     const claims = (body.claims ?? "").trim();
 

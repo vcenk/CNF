@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { JsonLd } from "@/components/seo/json-ld";
 import { Suspense } from "react";
 import Link from "next/link";
 import { getPublishedProducts } from "@/lib/supabase/queries/shop";
@@ -39,10 +40,7 @@ export default async function ShopPage({ searchParams }: PageProps) {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-      />
+      <JsonLd data={structuredData} />
 
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
         <div className="mb-8">
