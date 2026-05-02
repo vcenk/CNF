@@ -42,7 +42,7 @@ export default async function NewSupplierPage() {
         <ul className="mt-2 list-disc space-y-1 pl-4">
           <li>
             For online-only suppliers without a physical city, leave city + province blank.
-            They'll appear under "Online or unspecified" on the directory.
+            They&apos;ll appear under &ldquo;Online or unspecified&rdquo; on the directory.
           </li>
           <li>
             Specialties are comma-separated tags. Common ones: <em>essential oils, carrier oils, butters, fragrance oils, soap supplies, packaging, surfactants, raw skincare, mineral makeup</em>.

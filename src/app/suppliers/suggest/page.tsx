@@ -38,9 +38,9 @@ export default function SuggestSupplierPage() {
             Suggest a Canadian supplier
           </h1>
           <p className="mt-2 text-sm text-muted-foreground">
-            FormulaNorth's directory is grown from real maker recommendations.
-            If you order from a Canadian cosmetic ingredient supplier we don't
-            have listed, tell us about them. We'll review and add real suppliers
+            FormulaNorth&apos;s directory is grown from real maker recommendations.
+            If you order from a Canadian cosmetic ingredient supplier we don&apos;t
+            have listed, tell us about them. We&apos;ll review and add real suppliers
             makers actually use.
           </p>
         </div>
@@ -59,12 +59,12 @@ export default function SuggestSupplierPage() {
       </div>
 
       <div className="mt-6 rounded-xl border border-border bg-card p-5 text-sm text-muted-foreground">
-        <p className="font-semibold text-foreground">What we don't add</p>
+        <p className="font-semibold text-foreground">What we don&apos;t add</p>
         <ul className="mt-2 list-disc space-y-1.5 pl-4">
           <li>US-only suppliers (even if they ship to Canada)</li>
           <li>Personal Etsy shops without ingredient catalogs</li>
           <li>Brands selling finished cosmetics, not ingredients</li>
-          <li>Suppliers we can't verify exist via their website</li>
+          <li>Suppliers we can&apos;t verify exist via their website</li>
         </ul>
       </div>
     </div>

@@ -28,10 +28,10 @@ export function SuggestSupplierForm() {
           Thanks — submission received
         </h2>
         <p className="mt-2 text-sm text-emerald-900/80 dark:text-emerald-200/80">
-          We'll review and add the supplier to the directory if it's a fit. No
-          automated reply — you'll see it appear at{" "}
+          We&apos;ll review and add the supplier to the directory if it&apos;s a fit. No
+          automated reply — you&apos;ll see it appear at{" "}
           <Link href="/suppliers" className="underline">/suppliers</Link>{" "}
-          once it's live.
+          once it&apos;s live.
         </p>
         <div className="mt-6">
           <Link
@@ -163,7 +163,7 @@ export function SuggestSupplierForm() {
             suppressHydrationWarning
           />
           <Label htmlFor="is_customer" className="cursor-pointer text-sm font-normal">
-            I've ordered from them and can vouch for the supplier
+            I&apos;ve ordered from them and can vouch for the supplier
           </Label>
         </div>
       </div>
