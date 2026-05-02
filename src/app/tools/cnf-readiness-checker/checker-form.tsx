@@ -334,6 +334,38 @@ function ReadinessResult({
         </div>
       )}
 
+      {ingredientFlags.some(
+        (f) => f.match?.is_fragrance_allergen
+      ) && (
+        <div className="rounded-xl border border-brand/30 bg-brand-soft/20 p-5">
+          <div className="flex items-start gap-3">
+            <span className="mt-0.5 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-brand text-primary-foreground">
+              ✨
+            </span>
+            <div className="flex-1">
+              <h3 className="font-display text-base font-semibold">
+                We spotted fragrance allergens in your formula
+              </h3>
+              <p className="mt-1 text-sm text-muted-foreground">
+                The flag above tells you which allergens are present. To
+                compute the <strong className="text-foreground">exact finished-product percentage</strong>
+                {" "}of each allergen (so you know which need to be individually
+                named on your label and CNF), use the dedicated calculator.
+                It accepts allergen breakdowns from your supplier&apos;s
+                IFRA cert or loads typical values for natural EOs like
+                lavender, rose, citrus, and clove.
+              </p>
+              <Link
+                href="/tools/fragrance-allergen-calculator"
+                className="mt-3 inline-flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-brand-dark"
+              >
+                Open the Fragrance Allergen Calculator →
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="rounded-xl border border-brand/20 bg-brand-soft/30 p-5">
         <h3 className="font-display text-lg font-semibold">Suggested next steps</h3>
         <ol className="mt-3 list-inside list-decimal space-y-1 text-sm text-muted-foreground">
