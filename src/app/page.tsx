@@ -76,8 +76,9 @@ const tiers = [
     description: "Browse and research",
     features: [
       "Full ingredient database",
-      "Supplier directory",
-      "2 formulas (read-only)",
+      "Canadian supplier directory",
+      "All free tools (Soap Calc, CNF Checker, Allergen Calc, INCI Formatter)",
+      "1 saved formula",
     ],
   },
   {
@@ -86,33 +87,12 @@ const tiers = [
     period: "/mo",
     description: "For active makers",
     features: [
-      "10 formulas with version control",
-      "Batch scaling and COGS calculator",
-      "Bilingual label drafting",
+      "Unlimited saved formulas + version history",
+      "Soap maker integration inside your formulas",
+      "CNF Preparation Package PDF export",
+      "Bilingual EN/FR label drafting",
     ],
     highlighted: true,
-  },
-  {
-    name: "Studio",
-    price: "CA$29",
-    period: "/mo",
-    description: "For growing brands",
-    features: [
-      "50 formulas",
-      "CNF preparation workflow",
-      "May-contain variants",
-    ],
-  },
-  {
-    name: "Business",
-    price: "CA$59",
-    period: "/mo",
-    description: "For established brands",
-    features: [
-      "Unlimited formulas",
-      "Everything in Studio",
-      "Priority support",
-    ],
   },
 ];
 
@@ -141,7 +121,7 @@ export default function HomePage() {
       offers: {
         "@type": "AggregateOffer",
         lowPrice: "0",
-        highPrice: "59",
+        highPrice: "12",
         priceCurrency: "CAD",
       },
     },
@@ -266,12 +246,15 @@ export default function HomePage() {
         <h2 className="text-center font-display text-2xl font-bold sm:text-3xl">
           Simple pricing that scales with you
         </h2>
-        <p className="mx-auto mt-3 max-w-xl text-center text-muted-foreground">
-          Start free with the ingredient database. Upgrade when you need
-          formulas, labels, and CNF preparation workflows.
+        <p className="mx-auto mt-3 max-w-2xl text-center text-muted-foreground">
+          We&apos;re makers too. The existing cosmetic compliance tools cost $200+ a
+          month and are built for brands with a regulatory team — we couldn&apos;t
+          afford them either when we started. So we kept this honest: the public
+          tools stay free for everyone, and CA$12/month covers the workflow when
+          you&apos;re ready to ship.
         </p>
 
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mx-auto mt-12 grid max-w-3xl gap-6 sm:grid-cols-2">
           {tiers.map((tier) => (
             <div
               key={tier.name}

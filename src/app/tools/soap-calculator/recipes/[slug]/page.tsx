@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { JsonLd } from "@/components/seo/json-ld";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -8,6 +9,7 @@ import {
   RECIPES_BY_SLUG,
   SOAP_RECIPES,
   RECIPE_TAG_LABEL,
+  getRecipeImagePath,
 } from "@/lib/soap-recipes";
 import {
   calculateSoap,
@@ -89,6 +91,10 @@ export default async function RecipeDetailPage({ params }: PageProps) {
     })),
   ];
 
+  // ISO 8601 duration covering soap-making + cure. cureWeeks=0 (liquid soap)
+  // collapses to P2D for the make-and-test process.
+  const totalDurationDays = recipe.cureWeeks * 7 + 2;
+
   const structuredData = [
     {
       "@context": "https://schema.org",
@@ -96,6 +102,16 @@ export default async function RecipeDetailPage({ params }: PageProps) {
       name: recipe.name,
       description: recipe.summary,
       url,
+      image: `${siteConfig.url}${getRecipeImagePath(slug)}`,
+      author: {
+        "@type": "Organization",
+        name: siteConfig.name,
+        url: siteConfig.url,
+      },
+      datePublished: "2026-04-15",
+      prepTime: "PT45M",
+      totalTime: `P${totalDurationDays}D`,
+      recipeYield: "12–14 bars (1 kg batch)",
       recipeCategory: "Soap making",
       recipeInstructions: recipe.instructions.map((step, i) => ({
         "@type": "HowToStep",
@@ -166,6 +182,19 @@ export default async function RecipeDetailPage({ params }: PageProps) {
             </span>
           </div>
         </header>
+
+        {/* Hero image */}
+        <div className="mb-8 overflow-hidden rounded-2xl border border-border bg-muted">
+          <Image
+            src={getRecipeImagePath(slug)}
+            alt={`${recipe.name} — handmade soap`}
+            width={1200}
+            height={675}
+            sizes="(max-width: 896px) 100vw, 896px"
+            className="h-auto w-full object-cover"
+            priority
+          />
+        </div>
 
         {/* Action buttons */}
         <div className="mb-10 flex flex-wrap gap-3 rounded-xl border border-brand/30 bg-brand-soft/20 p-4">

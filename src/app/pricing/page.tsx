@@ -189,8 +189,11 @@ export default async function PricingPage({ searchParams }: PricingPageProps) {
             Simple pricing for Canadian indie cosmetic makers
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
-            Free tier covers research and the public tools. Maker tier unlocks the
-            integrated workflow when you&apos;re ready to ship products.
+            We&apos;re makers too. The existing cosmetic compliance tools cost $200+ a
+            month and are built for brands with a regulatory team — we couldn&apos;t
+            afford them either when we started. So we kept this honest: the public
+            tools stay free for everyone, and CA$12/month covers the workflow when
+            you&apos;re ready to ship.
           </p>
           <p className="mx-auto mt-3 max-w-2xl text-sm text-brand">
             Maker plans come with a 7-day free trial — no credit card required.

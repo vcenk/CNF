@@ -550,7 +550,127 @@ export const SOAP_RECIPES: SoapRecipe[] = [
       }
     ),
   },
-  // 15. Long-shelf life
+  // 15. Solid dish soap
+  {
+    slug: "solid-dish-soap",
+    name: "Solid Dish Soap Bar",
+    summary:
+      "High-coconut, low-superfat cleaning bar for dishes. Cuts grease without the plastic bottle.",
+    description:
+      "A solid bar that replaces bottled dish liquid. The high coconut percentage gives huge oil-cutting lather, and we drop the superfat to 1% so very little oil is left unsaponified — this is the part that matters for greasy plates. A pinch of fine sea salt hardens the bar so it lasts longer in a wet sink. No fragrance: kitchen surfaces shouldn't smell like a perfume counter, and unscented soap is safest around food prep.",
+    tags: ["intermediate", "vegan", "no_palm", "kitchen", "unscented"],
+    cureWeeks: 6,
+    instructions: [
+      "Standard CP procedure with PPE on. High-coconut bars saponify fast, so don't wander off.",
+      "Weigh oils and warm to 38–43°C (100–110°F) — the bar will thicken quickly because of the coconut.",
+      "Mix lye-water and let cool. Standard 33% lye concentration is fine.",
+      "Combine, stick-blend in short pulses to a light-medium trace.",
+      "Stir in fine sea salt at light trace and pour quickly — high-coconut + salt traces hard within a minute.",
+      "Pour into a lined loaf or individual moulds. Tap to release air.",
+      "Unmould after 12–24 hours — sooner than a normal bar because high-coconut sets fast.",
+      "Cut into chunky pieces (you want a heavier bar in a sink than on a soap dish).",
+      "Cure 6 weeks. Salt + low superfat = a bar that's harsh-feeling on hands when fresh; it mellows beautifully with cure.",
+    ],
+    notes: [
+      "Use this on dishes, not skin. The 1% superfat that makes it cut grease will dry your hands raw if you wash with it.",
+      "Store in a draining holder — this bar lasts months but only if it dries between uses.",
+      "Skip the salt if you live somewhere with very hard water; salt + hard water = scummy lather. Add 0.5% sodium citrate instead.",
+      "If you want a scent, peppermint or eucalyptus EO at 1% adds a clean kitchen smell without overpowering the rinse.",
+    ],
+    recipe: baseInputs(
+      [
+        { slug: "coconut_oil_76", percent: 80 },
+        { slug: "olive_oil", percent: 15 },
+        { slug: "castor_oil", percent: 5 },
+      ],
+      {
+        superfatPercent: 1,
+        additives: [{ slug: "salt", percent: 1 }],
+      }
+    ),
+  },
+  // 16. Honey & beeswax
+  {
+    slug: "honey-beeswax-bar",
+    name: "Honey & Beeswax Bar",
+    summary:
+      "Beeswax for a dense, long-lasting bar plus a touch of honey for humectancy. Gentle warm-amber scent without fragrance oil.",
+    description:
+      "Beeswax pulls double duty: it hardens the bar significantly (3% is enough — go higher and the lather suffers) and brings a faint honey-amber aroma you don't get from any other ingredient. Pairing it with 1% honey amplifies the warmth and adds humectancy. The trade-off is heat: both honey and the higher pour temperature needed for beeswax will accelerate trace and can overheat the loaf. Soap a touch warmer than usual, then don't insulate.",
+    tags: ["intermediate", "no_palm"],
+    cureWeeks: 6,
+    instructions: [
+      "Standard CP setup with full PPE.",
+      "Weigh oils into the soaping pot. Beeswax melts around 62°C (145°F) — higher than most soap oils — so heat the pot until everything is fully liquid.",
+      "Cool the oils to 49–54°C (120–130°F). Beeswax solidifies fast below that and you'll get tiny wax flecks in the bar.",
+      "Mix lye-water and bring it to roughly the same temperature as the oils — within 5°C is fine.",
+      "Dissolve the honey in 1 tablespoon of warm distilled water. Set aside; you'll add it at trace.",
+      "Combine lye-water and oils. Stick-blend in short pulses — beeswax+honey accelerates trace, you'll get there fast.",
+      "At light trace, stir in the dissolved honey. Don't over-blend.",
+      "Pour into a lined loaf mould. Do NOT insulate — honey will cause the loaf to overheat and crack.",
+      "Unmould after 24–48 hours. Cure 6 weeks; beeswax bars need extra time to fully harden.",
+    ],
+    notes: [
+      "Not vegan — beeswax and honey are both animal products. Mark labels accordingly.",
+      "Stay at or below 3% beeswax. Higher percentages dampen lather noticeably.",
+      "Local raw honey gives the warmest scent but darkens the bar to tan. Light pasteurised honey keeps the colour paler.",
+      "If you live somewhere humid, beeswax bars sweat — wrap or shrink-film for storage and shipping.",
+    ],
+    recipe: baseInputs(
+      [
+        { slug: "olive_oil", percent: 45 },
+        { slug: "coconut_oil_76", percent: 25 },
+        { slug: "shea_butter", percent: 15 },
+        { slug: "sweet_almond_oil", percent: 7 },
+        { slug: "castor_oil", percent: 5 },
+        { slug: "beeswax", percent: 3 },
+      ],
+      {
+        superfatPercent: 5,
+        additives: [{ slug: "honey", percent: 1 }],
+      }
+    ),
+  },
+  // 17. Annatto natural orange
+  {
+    slug: "annatto-natural-orange",
+    name: "Annatto Natural Orange",
+    summary:
+      "Soft yellow to deep orange colour from annatto seeds infused into olive oil. No synthetic colorants, no micas, no oxides.",
+    description:
+      "Annatto seeds (Bixa orellana) have been used as a natural dye for centuries — they're what gives commercial cheddar its colour. In soap, annatto delivers a warm yellow-to-orange that survives the high pH of saponification, unlike most plant pigments which fade or turn brown. The trick is infusing the seeds into olive oil for one to two weeks beforehand, then using that infused oil in your recipe. Heavier infusion = deeper colour. This is a palm-free, vegan, fragrance-free bar that proves you don't need micas to make a beautiful soap.",
+    tags: ["intermediate", "vegan", "no_palm", "unscented"],
+    cureWeeks: 4,
+    instructions: [
+      "Two weeks before soaping: combine 30g annatto seeds with 500g olive oil in a clean glass jar. Cap and store somewhere dark, shaking once a day. The oil will turn deep orange-red.",
+      "Strain the infused oil through a fine cheese cloth or coffee filter to remove all seed material. Use this oil for the olive portion of the recipe.",
+      "Standard CP procedure from here. Weigh and warm oils to 38–43°C.",
+      "Mix lye-water and cool to similar temperature.",
+      "Combine and stick-blend in short pulses. The batter will start a striking orange and lighten as it traces.",
+      "Pour at light-to-medium trace. The colour deepens over the next 24 hours as the soap saponifies — don't panic if it looks pale at the pour.",
+      "Cover and insulate normally; gel phase brings the orange out fully.",
+      "Unmould after 24–48 hours. The bars should be a warm yellow to orange depending on infusion strength.",
+      "Cure 4 weeks. The colour holds remarkably well — most natural pigments fade, but annatto is unusually stable.",
+    ],
+    notes: [
+      "Use a dedicated jar for the infusion — annatto stains plastic and silicone permanently.",
+      "Stronger colour: leave the infusion 3–4 weeks instead of 2, or grind the seeds first.",
+      "For a swirl, infuse only half the olive oil and use plain olive for the rest. Pour into the mould in alternating layers and swirl with a chopstick.",
+      "Annatto is food-safe (FDA approved for cheese) so it's fine for a soap that touches skin. Pair with skin-safe EOs only.",
+      "If you want red instead of orange, infuse alkanet root in a separate batch of olive oil — it produces a purple-to-red that's also heat-stable.",
+    ],
+    recipe: baseInputs(
+      [
+        { slug: "olive_oil", percent: 45 },
+        { slug: "coconut_oil_76", percent: 25 },
+        { slug: "shea_butter", percent: 15 },
+        { slug: "sweet_almond_oil", percent: 10 },
+        { slug: "castor_oil", percent: 5 },
+      ],
+      { superfatPercent: 5 }
+    ),
+  },
+  // 18. Long-shelf life
   {
     slug: "long-shelf-life",
     name: "Long-Shelf-Life Bar (Anti-DOS)",
@@ -607,6 +727,47 @@ if (recipe15) {
 export const RECIPES_BY_SLUG: Record<string, SoapRecipe> = Object.fromEntries(
   SOAP_RECIPES.map((r) => [r.slug, r])
 );
+
+/**
+ * Per-recipe hero image. Five archetype photos cover all 18 recipes —
+ * keeps file count low and visual style consistent. Used for the recipe
+ * detail page hero AND the Recipe schema's `image` field (which Google
+ * uses for rich-result eligibility).
+ *
+ * Files live in /public/recipes/ as 16:9 PNGs.
+ */
+const RECIPE_IMAGE_BY_SLUG: Record<string, string> = {
+  // Plain cream/beige bar — most recipes
+  "balanced-beginner-bar": "/recipes/plain-bar.png",
+  "100-olive-castile": "/recipes/plain-bar.png",
+  "bastille-80-olive": "/recipes/plain-bar.png",
+  "goat-milk-cp": "/recipes/plain-bar.png",
+  "vegan-no-palm": "/recipes/plain-bar.png",
+  "luxe-butter-blend": "/recipes/plain-bar.png",
+  "hot-process-quick": "/recipes/plain-bar.png",
+  "long-shelf-life": "/recipes/plain-bar.png",
+  "liquid-castile": "/recipes/plain-bar.png",
+  "shave-bar": "/recipes/plain-bar.png",
+  // Textured / inclusion bars
+  "oatmeal-honey-bar": "/recipes/oat-bar.png",
+  "coffee-kitchen-bar": "/recipes/oat-bar.png",
+  "honey-beeswax-bar": "/recipes/oat-bar.png",
+  "solid-dish-soap": "/recipes/oat-bar.png",
+  // Rough/crystalline white bar
+  "coconut-salt-bar": "/recipes/salt-bar.png",
+  // Coloured / swirled bars
+  "lavender-beginner": "/recipes/coloured-bar.png",
+  "annatto-natural-orange": "/recipes/coloured-bar.png",
+  // Black bar
+  "activated-charcoal-bar": "/recipes/charcoal-bar.png",
+};
+
+/** Default image when a recipe doesn't have a specific archetype yet. */
+export const DEFAULT_RECIPE_IMAGE = "/recipes/plain-bar.png";
+
+export function getRecipeImagePath(slug: string): string {
+  return RECIPE_IMAGE_BY_SLUG[slug] ?? DEFAULT_RECIPE_IMAGE;
+}
 
 export const RECIPE_TAG_LABEL: Record<RecipeTag, string> = {
   beginner: "Beginner",

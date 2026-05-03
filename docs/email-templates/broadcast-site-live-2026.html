@@ -1,0 +1,390 @@
+<!--
+  ====================================================================
+  Resend Broadcast — Site live announcement
+  ====================================================================
+
+  Where to use this:
+    Resend Dashboard
+      → Broadcasts → Create broadcast → From scratch (HTML)
+      → Audience: FormulaNorth Newsletter
+      → From: noreply@formulanorth.ca (or hello@formulanorth.ca)
+      → Subject:
+
+        FormulaNorth is live — free tools for Canadian cosmetic makers
+
+      → Preview text (set in the Resend UI):
+
+        Six free tools, ingredient + Hotlist database, supplier directory,
+        18 soap recipes, and a 7-day Maker trial. Built for Canadian indies.
+
+      → Paste the entire HTML below into the body
+      → Send a test to yourself first
+      → Schedule or send
+
+  Why no first-name personalization:
+    The footer signup form only collects emails, not names. If a
+    template references {{firstName}} it would render literally for
+    everyone who signed up via the footer. We use a generic greeting
+    here.
+
+  Why the logo loads:
+    Uses the public URL https://formulanorth.ca/FormulaNorth_Logo.png
+    (NOT a base64 data URI — those are blocked in Gmail/Outlook).
+
+  Unsubscribe:
+    Resend auto-injects {{{RESEND_UNSUBSCRIBE_URL}}} into broadcasts
+    when the audience has unsubscribe enabled (it does by default).
+  ====================================================================
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FormulaNorth is live</title>
+    <!--[if mso]>
+      <style type="text/css">
+        body, table, td { font-family: Arial, Helvetica, sans-serif !important; }
+      </style>
+    <![endif]-->
+  </head>
+  <body style="margin:0; padding:0; background-color:#fffaf1; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; color:#1e1a17;">
+
+    <!-- Preheader (hidden, shows in inbox preview line) -->
+    <div style="display:none; visibility:hidden; opacity:0; color:transparent; height:0; width:0; overflow:hidden; mso-hide:all;">
+      Six free tools, ingredient + Hotlist database, supplier directory, 18 soap recipes, and a 7-day Maker trial.
+    </div>
+
+    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#fffaf1;">
+      <tr>
+        <td align="center" style="padding:32px 16px;">
+
+          <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600" style="max-width:600px; background-color:#ffffff; border:1px solid #e8e2d5; border-radius:16px; overflow:hidden;">
+
+            <!-- ===== Header / Logo ===== -->
+            <tr>
+              <td align="center" style="padding:36px 32px 28px; background-color:#fffaf1; border-bottom:1px solid #e8e2d5;">
+                <a href="https://formulanorth.ca" style="text-decoration:none; display:inline-block;">
+                  <img
+                    src="https://formulanorth.ca/FormulaNorth_Logo.png"
+                    alt="FormulaNorth"
+                    width="240"
+                    style="display:block; max-width:240px; height:auto; border:0;"
+                  />
+                </a>
+                <p style="margin:14px 0 0; font-size:13px; line-height:1.5; color:#5a544d; letter-spacing:0.04em; text-transform:uppercase;">
+                  For Canadian indie cosmetic makers
+                </p>
+              </td>
+            </tr>
+
+            <!-- ===== Headline + intro ===== -->
+            <tr>
+              <td style="padding:36px 32px 8px;">
+
+                <p style="margin:0 0 14px; font-size:11px; font-weight:700; letter-spacing:0.12em; color:#0d6c63; text-transform:uppercase;">
+                  &#10003; Now live
+                </p>
+
+                <h1 style="margin:0 0 20px; font-size:28px; font-weight:700; color:#1e1a17; line-height:1.25;">
+                  FormulaNorth is live.
+                </h1>
+
+                <p style="margin:0 0 16px; font-size:16px; line-height:1.6; color:#3d3935;">
+                  Hey there &mdash;
+                </p>
+
+                <p style="margin:0 0 16px; font-size:16px; line-height:1.6; color:#3d3935;">
+                  We built FormulaNorth because Canadian indie cosmetic makers were stitching together U.S. tools, expensive U.K. databases, and outdated PDFs to do work that should be straightforward. Now it's all in one place &mdash; <strong style="color:#1e1a17;">free, no signup required</strong> for the core tools.
+                </p>
+
+                <p style="margin:0 0 8px; font-size:16px; line-height:1.6; color:#3d3935;">
+                  Here's what's ready to use today.
+                </p>
+
+              </td>
+            </tr>
+
+            <!-- ===== Free tools ===== -->
+            <tr>
+              <td style="padding:24px 32px 8px;">
+
+                <h2 style="margin:0 0 16px; font-size:18px; font-weight:700; color:#1e1a17;">
+                  Six free tools
+                </h2>
+
+                <!-- Tool 1: Soap calculator -->
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 0 10px;">
+                  <tr>
+                    <td style="padding:14px 18px; background-color:#fffaf1; border:1px solid #e8d8b0; border-radius:10px;">
+                      <p style="margin:0 0 4px; font-size:15px; font-weight:700; color:#1e1a17;">
+                        <a href="https://formulanorth.ca/tools/soap-calculator" style="color:#0d6c63; text-decoration:none;">Soap Calculator (Lye / SAP) &rarr;</a>
+                      </p>
+                      <p style="margin:0; font-size:14px; line-height:1.55; color:#3d3935;">
+                        Enter oils, superfat, water ratio. Get NaOH or KOH amounts plus live hardness, cleansing, conditioning, bubbly, and creamy scores. Plus an <a href="https://formulanorth.ca/tools/soap-calculator/recipes" style="color:#0d6c63;">18-recipe library</a> &mdash; balanced beginner bars to dish soap, salt bars, milk soap, and natural-pigment formulas.
+                      </p>
+                    </td>
+                  </tr>
+                </table>
+
+                <!-- Tool 2: CNF readiness -->
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 0 10px;">
+                  <tr>
+                    <td style="padding:14px 18px; background-color:#fffaf1; border:1px solid #e8d8b0; border-radius:10px;">
+                      <p style="margin:0 0 4px; font-size:15px; font-weight:700; color:#1e1a17;">
+                        <a href="https://formulanorth.ca/tools/cnf-readiness-checker" style="color:#0d6c63; text-decoration:none;">CNF Readiness Checker &rarr;</a>
+                      </p>
+                      <p style="margin:0; font-size:14px; line-height:1.55; color:#3d3935;">
+                        Paste your ingredients and product details &mdash; get a quick readiness report with Hotlist flags, label reminders, and claim-risk notes before you file with Health Canada.
+                      </p>
+                    </td>
+                  </tr>
+                </table>
+
+                <!-- Tool 3: Fragrance allergen -->
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 0 10px;">
+                  <tr>
+                    <td style="padding:14px 18px; background-color:#fffaf1; border:1px solid #e8d8b0; border-radius:10px;">
+                      <p style="margin:0 0 4px; font-size:15px; font-weight:700; color:#1e1a17;">
+                        <a href="https://formulanorth.ca/tools/fragrance-allergen-calculator" style="color:#0d6c63; text-decoration:none;">Fragrance Allergen Calculator &rarr;</a>
+                      </p>
+                      <p style="margin:0; font-size:14px; line-height:1.55; color:#3d3935;">
+                        Check which of the 81 EU/Canadian fragrance allergens (Linalool, Limonene, Citral&hellip;) cross the disclosure threshold in your formula. Soap, lotion, balm &mdash; all product types covered.
+                      </p>
+                    </td>
+                  </tr>
+                </table>
+
+                <!-- Tool 4: INCI formatter -->
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 0 10px;">
+                  <tr>
+                    <td style="padding:14px 18px; background-color:#fffaf1; border:1px solid #e8d8b0; border-radius:10px;">
+                      <p style="margin:0 0 4px; font-size:15px; font-weight:700; color:#1e1a17;">
+                        <a href="https://formulanorth.ca/tools/inci-list-formatter" style="color:#0d6c63; text-decoration:none;">INCI Ingredient List Formatter &rarr;</a>
+                      </p>
+                      <p style="margin:0; font-size:14px; line-height:1.55; color:#3d3935;">
+                        Clean up an ingredient list and get suggested INCI ordering plus allergen disclosure reminders.
+                      </p>
+                    </td>
+                  </tr>
+                </table>
+
+                <!-- Tool 5: Cost calculator -->
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 0 10px;">
+                  <tr>
+                    <td style="padding:14px 18px; background-color:#fffaf1; border:1px solid #e8d8b0; border-radius:10px;">
+                      <p style="margin:0 0 4px; font-size:15px; font-weight:700; color:#1e1a17;">
+                        <a href="https://formulanorth.ca/tools/cosmetic-cost-calculator" style="color:#0d6c63; text-decoration:none;">Cosmetic Cost Calculator &rarr;</a>
+                      </p>
+                      <p style="margin:0; font-size:14px; line-height:1.55; color:#3d3935;">
+                        Calculate cost per batch and per unit including labour, packaging, and overhead &mdash; with wholesale and retail price suggestions.
+                      </p>
+                    </td>
+                  </tr>
+                </table>
+
+                <!-- Tool 6: Label checklist -->
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 0 10px;">
+                  <tr>
+                    <td style="padding:14px 18px; background-color:#fffaf1; border:1px solid #e8d8b0; border-radius:10px;">
+                      <p style="margin:0 0 4px; font-size:15px; font-weight:700; color:#1e1a17;">
+                        <a href="https://formulanorth.ca/tools/cosmetic-label-checklist" style="color:#0d6c63; text-decoration:none;">Cosmetic Label Checklist &rarr;</a>
+                      </p>
+                      <p style="margin:0; font-size:14px; line-height:1.55; color:#3d3935;">
+                        Generate a Canadian cosmetic label checklist tailored to your product type, including bilingual reminders and net quantity tips.
+                      </p>
+                    </td>
+                  </tr>
+                </table>
+
+              </td>
+            </tr>
+
+            <!-- ===== Reference databases ===== -->
+            <tr>
+              <td style="padding:24px 32px 8px;">
+
+                <h2 style="margin:0 0 12px; font-size:18px; font-weight:700; color:#1e1a17;">
+                  Reference databases
+                </h2>
+
+                <p style="margin:0 0 14px; font-size:15px; line-height:1.6; color:#3d3935;">
+                  The data behind the tools &mdash; searchable, browseable, no signup.
+                </p>
+
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                  <tr>
+                    <td style="padding:8px 0; vertical-align:top; font-size:15px; line-height:1.6; color:#3d3935;">
+                      <span style="color:#0d6c63; font-weight:700;">&#10003;</span>&nbsp;&nbsp;
+                      <a href="https://formulanorth.ca/ingredients" style="color:#0d6c63; font-weight:700; text-decoration:none;">Ingredient database</a>
+                      &mdash; INCI lookup, Hotlist status, fragrance-allergen flags
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding:8px 0; vertical-align:top; font-size:15px; line-height:1.6; color:#3d3935;">
+                      <span style="color:#0d6c63; font-weight:700;">&#10003;</span>&nbsp;&nbsp;
+                      <a href="https://formulanorth.ca/ingredients/hotlist" style="color:#0d6c63; font-weight:700; text-decoration:none;">Hotlist reference</a>
+                      &mdash; 32 prohibited + 38 restricted substances with concentration caps
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding:8px 0; vertical-align:top; font-size:15px; line-height:1.6; color:#3d3935;">
+                      <span style="color:#0d6c63; font-weight:700;">&#10003;</span>&nbsp;&nbsp;
+                      <a href="https://formulanorth.ca/suppliers" style="color:#0d6c63; font-weight:700; text-decoration:none;">Canadian supplier directory</a>
+                      &mdash; real Canadian suppliers grouped by province with catalog links
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding:8px 0; vertical-align:top; font-size:15px; line-height:1.6; color:#3d3935;">
+                      <span style="color:#0d6c63; font-weight:700;">&#10003;</span>&nbsp;&nbsp;
+                      <a href="https://formulanorth.ca/blog" style="color:#0d6c63; font-weight:700; text-decoration:none;">Blog &amp; guides</a>
+                      &mdash; CNF prep, soap making, label rules, Canadian regulatory walkthroughs
+                    </td>
+                  </tr>
+                </table>
+
+              </td>
+            </tr>
+
+            <!-- ===== CTA ===== -->
+            <tr>
+              <td align="center" style="padding:28px 32px 8px;">
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                  <tr>
+                    <td align="center" style="background-color:#0d6c63; border-radius:10px;">
+                      <a href="https://formulanorth.ca/tools"
+                         style="display:inline-block; padding:14px 32px; color:#ffffff; font-size:16px; font-weight:600; text-decoration:none; line-height:1; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;">
+                        Try the free tools &rarr;
+                      </a>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr>
+              <td align="center" style="padding:14px 32px 8px;">
+                <p style="margin:0; font-size:14px; line-height:1.6; color:#5a544d;">
+                  No account needed. Bookmark whatever you find useful.
+                </p>
+              </td>
+            </tr>
+
+            <!-- ===== Divider ===== -->
+            <tr>
+              <td style="padding:8px 32px;">
+                <div style="border-top:1px solid #e8e2d5; height:1px; line-height:1px; font-size:1px;">&nbsp;</div>
+              </td>
+            </tr>
+
+            <!-- ===== Maker tier ===== -->
+            <tr>
+              <td style="padding:24px 32px 8px;">
+
+                <p style="margin:0 0 10px; font-size:11px; font-weight:700; letter-spacing:0.12em; color:#b07b1f; text-transform:uppercase;">
+                  Going pro?
+                </p>
+
+                <h2 style="margin:0 0 12px; font-size:18px; font-weight:700; color:#1e1a17;">
+                  The Maker tier &mdash; CA$12/mo, 7-day free trial
+                </h2>
+
+                <p style="margin:0 0 14px; font-size:15px; line-height:1.6; color:#3d3935;">
+                  When you're ready to formalize, a paid account adds the workflow pieces:
+                </p>
+
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                  <tr>
+                    <td style="padding:6px 0; vertical-align:top; font-size:14px; line-height:1.55; color:#3d3935;">
+                      <span style="color:#0d6c63; font-weight:700;">&#10003;</span>&nbsp;&nbsp;
+                      Save unlimited formulas with version history
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding:6px 0; vertical-align:top; font-size:14px; line-height:1.55; color:#3d3935;">
+                      <span style="color:#0d6c63; font-weight:700;">&#10003;</span>&nbsp;&nbsp;
+                      PDF and .hcxs (Health Canada) export from any formula
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding:6px 0; vertical-align:top; font-size:14px; line-height:1.55; color:#3d3935;">
+                      <span style="color:#0d6c63; font-weight:700;">&#10003;</span>&nbsp;&nbsp;
+                      Bilingual label drafter with INCI ordering
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding:6px 0; vertical-align:top; font-size:14px; line-height:1.55; color:#3d3935;">
+                      <span style="color:#0d6c63; font-weight:700;">&#10003;</span>&nbsp;&nbsp;
+                      Costing across batches, with wholesale + retail tiers
+                    </td>
+                  </tr>
+                </table>
+
+                <p style="margin:18px 0 0; font-size:14px; line-height:1.6; color:#5a544d;">
+                  No card required for the trial. Cancel anytime in one click.
+                </p>
+
+              </td>
+            </tr>
+
+            <!-- ===== Maker CTA ===== -->
+            <tr>
+              <td align="center" style="padding:18px 32px 32px;">
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                  <tr>
+                    <td align="center" style="background-color:#ffffff; border:2px solid #0d6c63; border-radius:10px;">
+                      <a href="https://formulanorth.ca/pricing"
+                         style="display:inline-block; padding:12px 28px; color:#0d6c63; font-size:15px; font-weight:600; text-decoration:none; line-height:1; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;">
+                        Start a 7-day Maker trial &rarr;
+                      </a>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <!-- ===== Footer ===== -->
+            <tr>
+              <td style="padding:28px 32px 32px; background-color:#fffaf1; border-top:1px solid #e8e2d5;">
+
+                <p style="margin:0 0 12px; font-size:12px; line-height:1.6; color:#8a847d; text-align:center;">
+                  You're receiving this because you signed up for FormulaNorth updates at
+                  <a href="https://formulanorth.ca" style="color:#0d6c63; text-decoration:none;">formulanorth.ca</a>.
+                  We only email when something meaningful changes &mdash; new tools, new compliance dates, or major updates.
+                </p>
+
+                <p style="margin:0 0 16px; font-size:11px; line-height:1.6; color:#a09a93; text-align:center;">
+                  FormulaNorth is preparation support for Canadian indie cosmetic makers. It is not legal or regulatory advice and does not replace official Health Canada guidance. Always verify against the current Cosmetic Regulations and Hotlist before sale.
+                </p>
+
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                  <tr>
+                    <td align="center" style="padding-top:8px;">
+                      <a href="{{{RESEND_UNSUBSCRIBE_URL}}}" style="font-size:11px; color:#8a847d; text-decoration:underline; padding:0 8px;">
+                        Unsubscribe
+                      </a>
+                      <span style="color:#cfc8be;">&middot;</span>
+                      <a href="https://formulanorth.ca/privacy" style="font-size:11px; color:#8a847d; text-decoration:none; padding:0 8px;">
+                        Privacy
+                      </a>
+                      <span style="color:#cfc8be;">&middot;</span>
+                      <a href="https://formulanorth.ca/contact" style="font-size:11px; color:#8a847d; text-decoration:none; padding:0 8px;">
+                        Contact
+                      </a>
+                    </td>
+                  </tr>
+                </table>
+
+                <p style="margin:14px 0 0; font-size:11px; color:#a09a93; text-align:center;">
+                  &copy; 2026 FormulaNorth &middot; Canada
+                </p>
+
+              </td>
+            </tr>
+
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

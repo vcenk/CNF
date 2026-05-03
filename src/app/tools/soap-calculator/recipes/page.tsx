@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { JsonLd } from "@/components/seo/json-ld";
 import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
@@ -6,6 +7,7 @@ import { DisclaimerCallout } from "@/components/marketing/disclaimer-callout";
 import {
   SOAP_RECIPES,
   RECIPE_TAG_LABEL,
+  getRecipeImagePath,
   type RecipeTag,
 } from "@/lib/soap-recipes";
 import { calculateSoap } from "@/lib/soap-calculator";
@@ -165,33 +167,44 @@ export default async function RecipesIndexPage({ searchParams }: RecipesPageProp
                 <Link
                   key={r.slug}
                   href={`/tools/soap-calculator/recipes/${r.slug}`}
-                  className="group flex h-full flex-col rounded-xl border border-border bg-card p-5 transition-all hover:-translate-y-0.5 hover:shadow-md"
+                  className="group flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card transition-all hover:-translate-y-0.5 hover:shadow-md"
                 >
-                  <div className="flex flex-wrap gap-1.5">
-                    {r.tags.slice(0, 3).map((t) => (
-                      <span
-                        key={t}
-                        className="rounded-full bg-brand-soft/40 px-2 py-0.5 text-xs font-medium text-brand"
-                      >
-                        {RECIPE_TAG_LABEL[t]}
-                      </span>
-                    ))}
+                  <div className="relative aspect-[16/9] w-full overflow-hidden bg-muted">
+                    <Image
+                      src={getRecipeImagePath(r.slug)}
+                      alt={`${r.name} — handmade soap`}
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
                   </div>
-                  <h2 className="mt-3 line-clamp-2 font-display text-base font-semibold leading-snug transition-colors group-hover:text-brand">
-                    {r.name}
-                  </h2>
-                  <p className="mt-2 line-clamp-3 flex-1 text-sm text-muted-foreground">
-                    {r.summary}
-                  </p>
-                  <div className="mt-4 flex items-center justify-between border-t border-border/40 pt-3 text-xs text-muted-foreground">
-                    <span className="flex items-center gap-1">
-                      <Sparkles className="h-3 w-3 text-brand" />
-                      {okCount}/{totalQ} qualities in range
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <Clock className="h-3 w-3" />
-                      {r.cureWeeks === 0 ? "no cure" : `${r.cureWeeks}w cure`}
-                    </span>
+                  <div className="flex flex-1 flex-col p-5">
+                    <div className="flex flex-wrap gap-1.5">
+                      {r.tags.slice(0, 3).map((t) => (
+                        <span
+                          key={t}
+                          className="rounded-full bg-brand-soft/40 px-2 py-0.5 text-xs font-medium text-brand"
+                        >
+                          {RECIPE_TAG_LABEL[t]}
+                        </span>
+                      ))}
+                    </div>
+                    <h2 className="mt-3 line-clamp-2 font-display text-base font-semibold leading-snug transition-colors group-hover:text-brand">
+                      {r.name}
+                    </h2>
+                    <p className="mt-2 line-clamp-3 flex-1 text-sm text-muted-foreground">
+                      {r.summary}
+                    </p>
+                    <div className="mt-4 flex items-center justify-between border-t border-border/40 pt-3 text-xs text-muted-foreground">
+                      <span className="flex items-center gap-1">
+                        <Sparkles className="h-3 w-3 text-brand" />
+                        {okCount}/{totalQ} qualities in range
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <Clock className="h-3 w-3" />
+                        {r.cureWeeks === 0 ? "no cure" : `${r.cureWeeks}w cure`}
+                      </span>
+                    </div>
                   </div>
                 </Link>
               );

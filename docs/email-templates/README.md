@@ -21,6 +21,7 @@ email FormulaNorth sends. Pasted into the Supabase dashboard at
 
 | File | When to send | Subject line |
 |---|---|---|
+| `broadcast-site-live-2026.html` | One-off — site launch announcement (six free tools, databases, Maker trial) | `FormulaNorth is live — free tools for Canadian cosmetic makers` |
 | `broadcast-fragrance-allergen-2026.html` | One-off — Health Canada fragrance allergen update | `Fragrance allergen rules: 24 now, 81 coming — what to update` |
 
 For broadcasts, paste the body into Resend → Broadcasts → Create broadcast → HTML, set the subject in the form above (NOT inside the HTML), pick the FormulaNorth Newsletter audience, send a test to yourself first, then schedule or send.
