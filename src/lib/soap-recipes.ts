@@ -729,40 +729,35 @@ export const RECIPES_BY_SLUG: Record<string, SoapRecipe> = Object.fromEntries(
 );
 
 /**
- * Per-recipe hero image. Five archetype photos cover all 18 recipes —
- * keeps file count low and visual style consistent. Used for the recipe
- * detail page hero AND the Recipe schema's `image` field (which Google
- * uses for rich-result eligibility).
+ * Per-recipe hero image — one unique photo per recipe so the index
+ * page reads as a curated library, not a wall of identical bars.
+ * Used for the recipe detail page hero AND the Recipe schema's
+ * `image` field (which Google uses for rich-result eligibility).
  *
  * Files live in /public/recipes/ as 16:9 PNGs.
  */
 const RECIPE_IMAGE_BY_SLUG: Record<string, string> = {
-  // Plain cream/beige bar — most recipes
-  "balanced-beginner-bar": "/recipes/plain-bar.png",
-  "100-olive-castile": "/recipes/plain-bar.png",
-  "bastille-80-olive": "/recipes/plain-bar.png",
-  "goat-milk-cp": "/recipes/plain-bar.png",
-  "vegan-no-palm": "/recipes/plain-bar.png",
-  "luxe-butter-blend": "/recipes/plain-bar.png",
-  "hot-process-quick": "/recipes/plain-bar.png",
-  "long-shelf-life": "/recipes/plain-bar.png",
-  "liquid-castile": "/recipes/plain-bar.png",
-  "shave-bar": "/recipes/plain-bar.png",
-  // Textured / inclusion bars
-  "oatmeal-honey-bar": "/recipes/oat-bar.png",
-  "coffee-kitchen-bar": "/recipes/oat-bar.png",
-  "honey-beeswax-bar": "/recipes/oat-bar.png",
-  "solid-dish-soap": "/recipes/oat-bar.png",
-  // Rough/crystalline white bar
+  "balanced-beginner-bar": "/recipes/balanced-beginner.png",
+  "100-olive-castile": "/recipes/castile.png",
+  "bastille-80-olive": "/recipes/bastille.png",
   "coconut-salt-bar": "/recipes/salt-bar.png",
-  // Coloured / swirled bars
-  "lavender-beginner": "/recipes/coloured-bar.png",
-  "annatto-natural-orange": "/recipes/coloured-bar.png",
-  // Black bar
-  "activated-charcoal-bar": "/recipes/charcoal-bar.png",
+  "goat-milk-cp": "/recipes/goat-milk.png",
+  "coffee-kitchen-bar": "/recipes/coffee-bar.png",
+  "oatmeal-honey-bar": "/recipes/oatmeal-honey.png",
+  "vegan-no-palm": "/recipes/vegan.png",
+  "liquid-castile": "/recipes/liquid-castile.png",
+  "luxe-butter-blend": "/recipes/luxe-butter.png",
+  "shave-bar": "/recipes/shave-bar.png",
+  "hot-process-quick": "/recipes/hot-process.png",
+  "lavender-beginner": "/recipes/lavender.png",
+  "activated-charcoal-bar": "/recipes/charcoal.png",
+  "long-shelf-life": "/recipes/long-shelf.png",
+  "solid-dish-soap": "/recipes/dish-soap.png",
+  "honey-beeswax-bar": "/recipes/honey-beeswax.png",
+  "annatto-natural-orange": "/recipes/annatto.png",
 };
 
-/** Default image when a recipe doesn't have a specific archetype yet. */
+/** Default image when a recipe doesn't have its own photo yet. */
 export const DEFAULT_RECIPE_IMAGE = "/recipes/plain-bar.png";
 
 export function getRecipeImagePath(slug: string): string {
