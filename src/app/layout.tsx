@@ -22,10 +22,11 @@ const manrope = Manrope({
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: `${siteConfig.name} | ${siteConfig.tagline}`,
+    default: `Cosmetic Compliance & Formulation Software | ${siteConfig.name}`,
     template: `%s | ${siteConfig.name}`,
   },
-  description: siteConfig.description,
+  description:
+    "Cosmetic compliance and formulation software for Canadian indie makers — CNF preparation, ingredient database, bilingual labels, and soap calculator. Free to start.",
   keywords: [
     "FormulaNorth",
     "cosmetic formula management",

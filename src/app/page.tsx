@@ -65,7 +65,7 @@ const features = [
     description:
       "Prepare structured CNF information packages with validation support, filing notes, and reusable company details.",
     href: "/formulas",
-    badge: "Studio",
+    badge: "Maker",
   },
 ];
 
@@ -125,6 +125,25 @@ export default function HomePage() {
         priceCurrency: "CAD",
       },
     },
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      name: "FormulaNorth features",
+      description:
+        "Tools and workspace features included in FormulaNorth for Canadian indie cosmetic makers.",
+      numberOfItems: features.length,
+      itemListElement: features.map((feature, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        item: {
+          "@type": "Service",
+          name: feature.title,
+          description: feature.description,
+          url: `${siteConfig.url}${feature.href}`,
+          provider: { "@type": "Organization", name: siteConfig.name },
+        },
+      })),
+    },
   ];
 
   return (
@@ -136,12 +155,16 @@ export default function HomePage() {
           For Canadian indie cosmetic makers
         </p>
         <h1 className="mx-auto mt-4 max-w-3xl font-display text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-          Formulate. Comply. Sell.
+          Cosmetic compliance &amp; formulation, in one workspace.
         </h1>
+        <p className="mx-auto mt-5 font-display text-2xl font-semibold tracking-tight text-brand sm:text-3xl">
+          Formulate. Comply. Sell.
+        </p>
         <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
-          FormulaNorth helps Canadian indie cosmetic makers organize
-          ingredients, build formulas, calculate costs, draft bilingual labels,
-          and prepare CNF information with less confusion.
+          FormulaNorth is cosmetic compliance and formulation software built
+          for Canadian indie cosmetic makers — CNF preparation, ingredient
+          research with Hotlist flags, bilingual EN/FR label drafting,
+          costing, and a soap calculator, all in one workspace.
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
           <Link
