@@ -1,8 +1,15 @@
-# SEO Audit — FormulaNorth Homepage
+# SEO / GEO / Indexing Audit — FormulaNorth
 
-> Honest audit of the homepage SEO posture. Separates real signal from
-> 2010s-era cargo-cult advice. **Nothing here has been implemented yet** —
-> this is a proposal document for sign-off before changes ship.
+> Comprehensive audit of the site's organic-search and AI-search posture.
+> Separates real signal from 2010s-era cargo-cult advice.
+>
+> **Originally a homepage-only audit (Section 1) — implemented and shipped
+> 2026-05-03. Section 2 below extends the audit to the full project,
+> including GEO (AI-search citation) and indexing infrastructure.**
+
+---
+
+## Section 1 — Homepage SEO audit (originally proposed; SHIPPED)
 
 **Site:** FormulaNorth — free + paid tools for Canadian indie cosmetic
 makers (CNF preparation, ingredient database, bilingual label drafting,
@@ -156,3 +163,106 @@ Items 1-4 can ship in one PR. Item 5 is a separate session.
 - Existing Organization / WebSite / SoftwareApplication schemas (correct as-is)
 - robots.txt, sitemap.xml, canonical URLs (already correct)
 - Internal link anchor text (currently natural; don't keyword-stuff)
+
+---
+
+## Section 2 — Full-project SEO + GEO + indexing audit (2026-05-07)
+
+After the homepage was tightened, we audited every public page in the
+codebase plus the AI-search and indexing infrastructure. This is the
+honest read of where the project stands site-wide.
+
+### Per-page posture (summary)
+
+Audited 30+ public pages. **The site has unusually disciplined SEO
+hygiene for a project this young.** Most pages have proper metadata,
+canonical URLs, JSON-LD, and dates. A `buildSeoGuideMetadata` helper
+centralizes the pattern across the long-tail SEO landing pages.
+
+| Surface | Status |
+|---|---|
+| Homepage | ✅ keyword-first title/H1, ItemList schema (Section 1) |
+| Blog index `/blog` | ✅ metadata + canonical; no schema (acceptable for index) |
+| Blog post `/blog/[slug]` | ✅ BlogPosting + BreadcrumbList, datePublished/dateModified |
+| Soap recipes `/tools/soap-calculator/recipes/[slug]` | ✅ Recipe + BreadcrumbList, image, author, dates, prepTime, totalTime, recipeYield, hero image (shipped 2026-05-03) |
+| Tool pages (6) | ✅ WebApplication + FAQPage + BreadcrumbList |
+| Pricing `/pricing` | ✅ SoftwareApplication with Offer |
+| Ingredients `/ingredients/[slug]` | ✅ Product + BreadcrumbList |
+| Suppliers `/suppliers/[slug]` | ✅ LocalBusiness + BreadcrumbList — strong local-SEO signal |
+| BC regional pages | ✅ via `buildSeoGuideMetadata` helper |
+| Long-tail SEO guides (CNF, Hotlist, INCI, etc.) | ✅ via `buildSeoGuideMetadata` helper, with datePublished/dateModified |
+| Tools index `/tools` | ⚠️ → ✅ canonical added (this audit) |
+| Guides index `/guides` | ⚠️ → ✅ canonical added (this audit) |
+| `/about` | ⚠️ no JSON-LD (optional polish) |
+| Custom 404 | ❌ → ✅ added (this audit) |
+
+### GEO (Generative Engine Optimization) — what AI search engines need
+
+GEO is the discipline of getting cited by AI-search interfaces (ChatGPT
+Search, Perplexity, Google AI Overviews, Bing Copilot, Claude). Different
+from SEO: AI engines extract claims, prefer structured factual content,
+and increasingly look for an `llms.txt` file the way Google looks for
+`robots.txt`.
+
+| GEO signal | Status |
+|---|---|
+| `llms.txt` at site root (llmstxt.org standard) | ❌ → ✅ added (this audit) |
+| Author / Organization on schemas | ✅ already in place |
+| `datePublished` / `dateModified` on time-sensitive content | ✅ via `buildSeoGuideMetadata` helper and BlogPosting |
+| Clear factual claims with concrete numbers | ✅ disclosure thresholds, allergen counts, Hotlist counts all stated explicitly across the site |
+| Trust signals (about, contact, disclaimer) | ✅ DisclaimerCallout component used widely; About + Contact pages exist |
+| Citation-worthy structured data (Recipe, LocalBusiness, FAQPage) | ✅ extensive coverage |
+
+`llms.txt` is the highest-value GEO addition because it gives AI crawlers
+a curated map of the site's authoritative content with absolute URLs and
+short descriptions — increases the odds that AI search engines cite
+FormulaNorth instead of generic competitors.
+
+### Indexing infrastructure
+
+| Component | Status |
+|---|---|
+| `app/robots.ts` | ✅ allows `/`, blocks `/api/`, `/_next/`, `/formulas/`, `/auth/`, `/dashboard/`, `/tools/soap-calculator/print` |
+| `app/sitemap.ts` | ✅ covers static pages + dynamic ingredient/supplier/shop/blog/recipe URLs |
+| Search Console verification | ✅ google site-verification token in layout |
+| Google AdSense `account` meta | ✅ in layout |
+| Site-wide `index: true, follow: true` defaults | ✅ |
+| Per-page `noindex` flags on private pages | ✅ dashboard, auth, formulas, print, download routes all correctly noindexed |
+| `metadataBase` set | ✅ uses `siteConfig.url` |
+| Canonical URLs reference `.ca` domain (not Vercel preview) | ✅ |
+| Custom 404 page | ❌ → ✅ added (this audit) |
+
+### Fixes shipped in this audit (2026-05-07)
+
+1. **`alternates: { canonical }` added** to `/tools` and `/guides` index pages
+2. **`public/llms.txt` created** — full site map in the llmstxt.org markdown format, includes all key URLs grouped by section, plus a "Key facts for citation" block with concrete numbers (allergen counts, threshold dates, Hotlist counts) so AI engines can cite specific facts
+3. **Custom `not-found.tsx`** — branded 404 with 6 popular destination cards (Tools, Ingredients, Recipes, Suppliers, Guides, Blog) and a contact link. Has `robots: { index: false, follow: false }` (correct — 404 pages should not be indexed)
+
+### What we're NOT shipping (deliberate skips)
+
+These showed up as "optional polish" in the audit but aren't worth the work yet:
+
+- ❌ JSON-LD on `/about` — page is fine as-is, schema would be additive but not impactful
+- ❌ JSON-LD on `/guides` and `/blog` indexes — index pages without schema are common and acceptable; rich snippets come from individual articles
+- ❌ JSON-LD on `/ingredients/hotlist` — large reference table, schema doesn't add much
+- ❌ `datePublished` on ingredient pages — ingredient data is reference, not time-sensitive
+- ❌ `loading.tsx` — Next.js default loading is fine; bespoke loading states only matter if there's measurable UX gain
+
+### What's next (no action items, just things to revisit later)
+
+When the site has more authority and traffic:
+
+- Consider per-recipe FAQ blocks (genuine FAQs from user feedback) → `FAQPage` extension on recipe pages
+- Consider `Review` schema once you collect testimonials
+- Consider a dedicated `/changelog` for product updates → `dateModified` signal on whole site
+- Track AI-search citations (Perplexity Pages, Bing Copilot citations) once Search Console rolls out AI-overview reporting
+
+### Hard rules respected throughout
+
+- ❌ No fake domain age, fake review counts, fake aggregate ratings
+- ❌ No padding pages to hit a word-count target
+- ❌ No exact-match keyword anchor text on every internal link
+- ❌ No mass directory submissions
+- ❌ No schema types that don't accurately describe the page
+- ✅ All URLs in `llms.txt` resolve to real pages
+- ✅ All numbers in citation block ("32 prohibited", "38 restricted", "81 allergens", "April 12 2026", "August 1 2026") match the actual ingredient database content

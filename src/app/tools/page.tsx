@@ -65,6 +65,7 @@ export const metadata: Metadata = {
   title: "Free Tools for Canadian Cosmetic Makers",
   description:
     "Free FormulaNorth tools for Canadian cosmetic makers — CNF readiness checks, ingredient list formatting, costing, and label checklists.",
+  alternates: { canonical: "/tools" },
 };
 
 export default function ToolsIndexPage() {

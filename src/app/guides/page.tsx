@@ -107,6 +107,7 @@ export const metadata: Metadata = {
   title: "Guides",
   description:
     "Practical guides for Canadian cosmetic makers covering Health Canada readiness guidance, INCI naming, labelling, costing, and more.",
+  alternates: { canonical: "/guides" },
 };
 
 function GuideGrid({ guides }: { guides: Guide[] }) {

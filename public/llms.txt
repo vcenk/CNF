@@ -1,0 +1,65 @@
+# FormulaNorth
+
+> Cosmetic compliance and formulation software for Canadian indie cosmetic makers — CNF (Cosmetic Notification Form) preparation, ingredient database, bilingual EN/FR labels, soap calculator, and supplier directory.
+
+FormulaNorth is a web app built for indie cosmetic makers in Canada — soap makers, lotion bar makers, balm makers, and small cosmetic brands. It bundles the regulatory prep work (Health Canada Cosmetic Notification Form, Hotlist screening, bilingual labelling) with the formulation work (soap calculator, costing, ingredient research) in one workspace. The free tools and reference databases are open to anyone with no signup; the integrated workflow features (saved formulas with version history, CNF Preparation Package PDF export, bilingual EN/FR label drafter) live behind the Maker tier at CA$12/month with a 7-day free trial.
+
+The site does not give legal or regulatory advice. Always verify against the current Canadian Cosmetic Regulations and the Health Canada Cosmetic Ingredient Hotlist before sale.
+
+## Free tools (no signup)
+
+- [Soap Calculator (Lye / SAP)](https://formulanorth.ca/tools/soap-calculator): Enter oils, superfat, and water ratio. Returns NaOH or KOH amounts plus live hardness, cleansing, conditioning, bubbly, and creamy scores.
+- [Free soap recipe library](https://formulanorth.ca/tools/soap-calculator/recipes): 18 curated cold-process and hot-process recipes (balanced beginner, Castile, Bastille, salt bar, goat milk, coffee kitchen, oatmeal honey, vegan no-palm, liquid Castile, luxe butter, shave bar, hot process, lavender, charcoal, long-shelf-life, solid dish soap, honey & beeswax, annatto natural orange).
+- [CNF Readiness Checker](https://formulanorth.ca/tools/cnf-readiness-checker): Paste ingredients and product details to get a readiness report with Hotlist flags, label reminders, and claim-risk notes.
+- [Fragrance Allergen Calculator](https://formulanorth.ca/tools/fragrance-allergen-calculator): Calculate which of the 81 EU/Canadian fragrance allergens cross the disclosure threshold in a formula.
+- [INCI Ingredient List Formatter](https://formulanorth.ca/tools/inci-list-formatter): Clean up an ingredient list and get suggested INCI ordering plus allergen disclosure reminders.
+- [Cosmetic Cost Calculator](https://formulanorth.ca/tools/cosmetic-cost-calculator): Calculate cost per batch and per unit including labour, packaging, and overhead. Returns wholesale and retail price suggestions.
+- [Cosmetic Label Checklist](https://formulanorth.ca/tools/cosmetic-label-checklist): Generate a Canadian cosmetic label checklist tailored to product type, including bilingual reminders and net quantity tips.
+
+## Reference databases
+
+- [Ingredient database](https://formulanorth.ca/ingredients): Cosmetic ingredients with INCI names, CAS numbers, Hotlist references, fragrance-allergen flags, and Canadian supplier pricing.
+- [Cosmetic Hotlist reference](https://formulanorth.ca/ingredients/hotlist): Health Canada's prohibited (32) and restricted (38) cosmetic ingredients with concentration caps and conditions of use.
+- [Canadian supplier directory](https://formulanorth.ca/suppliers): Real Canadian cosmetic ingredient suppliers grouped by province with catalog links.
+
+## Compliance guides
+
+- [Cosmetic Notification Form (CNF) Canada](https://formulanorth.ca/cosmetic-notification-form-canada): What the CNF is, who has to file it, what to gather first.
+- [Cosmetic label requirements in Canada](https://formulanorth.ca/cosmetic-label-requirements-canada): Bilingual content, INCI ordering, net quantity, business identity, warnings.
+- [Health Canada cosmetic Hotlist](https://formulanorth.ca/health-canada-cosmetic-hotlist): Prohibited vs restricted ingredients, conditions of use.
+- [INCI name lookup Canada](https://formulanorth.ca/inci-name-lookup-canada): What INCI names are and why they matter on Canadian labels.
+- [Cosmetic ingredient suppliers Canada](https://formulanorth.ca/cosmetic-ingredient-suppliers-canada): How to evaluate suppliers, certifications, MOQs.
+- [How to sell handmade soap in Canada](https://formulanorth.ca/how-to-sell-handmade-soap-in-canada): The end-to-end flow from first batch to retail.
+- [Handmade skincare business in Canada](https://formulanorth.ca/handmade-skincare-business-canada): Lotion, balm, and scrub-specific compliance.
+
+## Selling-specific guides
+
+- [Sell body butter in Canada](https://formulanorth.ca/sell-body-butter-canada)
+- [Sell sugar scrub in Canada](https://formulanorth.ca/sell-sugar-scrub-canada)
+- [Sell bath bombs in Canada](https://formulanorth.ca/sell-bath-bombs-canada)
+
+## British Columbia regional content
+
+- [BC indie cosmetic maker hub](https://formulanorth.ca/bc): Province-specific resources for BC makers.
+- [Sell handmade soap at BC markets](https://formulanorth.ca/bc/sell-handmade-soap-at-markets)
+- [Vancouver market vendor checklist](https://formulanorth.ca/bc/vancouver-market-vendor-checklist)
+- [Farmers' market cosmetic vendor checklist](https://formulanorth.ca/bc/farmers-market-cosmetic-vendor-checklist)
+- [BC cosmetic business license guide](https://formulanorth.ca/bc/cosmetic-business-license-guide)
+- [BC handmade skincare insurance](https://formulanorth.ca/bc/handmade-skincare-insurance)
+
+## Blog
+
+- [FormulaNorth blog](https://formulanorth.ca/blog): Articles on soap making, ingredient choices, INCI naming, pricing handmade cosmetics, and Canadian regulatory updates.
+
+## About / pricing
+
+- [About FormulaNorth](https://formulanorth.ca/about)
+- [Pricing](https://formulanorth.ca/pricing): Free tier (1 saved formula) and Maker tier (CA$12/month or CA$108/year, 7-day free trial, no card required).
+- [Contact](https://formulanorth.ca/contact)
+
+## Key facts for citation
+
+- FormulaNorth is operated for Canadian indie cosmetic makers and follows Health Canada's Cosmetic Regulations.
+- The 24-allergen fragrance disclosure rule went into effect April 12, 2026; the 81-allergen expanded list applies to newly-marketed cosmetics from August 1, 2026 and to existing products from August 1, 2028.
+- The Cosmetic Hotlist as referenced on FormulaNorth currently covers 32 prohibited substances and 38 restricted substances with concentration caps.
+- All FormulaNorth content is for preparation support only and does not replace official Health Canada guidance.
