@@ -18,22 +18,38 @@ import { MapPin, ExternalLink, Plus, ShieldCheck } from "lucide-react";
 import { getOptionalUser } from "@/lib/auth/require-auth";
 import { isAdminEmail } from "@/lib/auth/require-admin";
 
-export const metadata: Metadata = {
-  title: "Canadian Cosmetic Ingredient Suppliers — Directory by Province",
-  description:
-    "Directory of Canadian cosmetic ingredient suppliers grouped by province. Find suppliers by location with ingredient catalogs, INCI names, and reference pricing.",
-  alternates: { canonical: "/suppliers" },
-  openGraph: {
-    title: "Canadian Cosmetic Ingredient Suppliers",
-    description:
-      "Find Canadian suppliers for your cosmetic ingredients, grouped by province.",
-    url: `${siteConfig.url}/suppliers`,
-    siteName: siteConfig.name,
-  },
-};
-
 interface SuppliersPageProps {
   searchParams: Promise<{ province?: string }>;
+}
+
+/**
+ * Province-filtered views (e.g. `?province=ON`) are intentional
+ * duplicates of the canonical `/suppliers` page. Same rationale as on
+ * the ingredients page — emit `noindex, follow` on the filtered variants
+ * to stop Search Console from listing each province as an "Alternate
+ * page with proper canonical tag" entry. The canonical `/suppliers`
+ * URL stays fully indexable.
+ */
+export async function generateMetadata({
+  searchParams,
+}: SuppliersPageProps): Promise<Metadata> {
+  const params = await searchParams;
+  const filtered = Boolean(params.province);
+
+  return {
+    title: "Canadian Cosmetic Ingredient Suppliers — Directory by Province",
+    description:
+      "Directory of Canadian cosmetic ingredient suppliers grouped by province. Find suppliers by location with ingredient catalogs, INCI names, and reference pricing.",
+    alternates: { canonical: "/suppliers" },
+    openGraph: {
+      title: "Canadian Cosmetic Ingredient Suppliers",
+      description:
+        "Find Canadian suppliers for your cosmetic ingredients, grouped by province.",
+      url: `${siteConfig.url}/suppliers`,
+      siteName: siteConfig.name,
+    },
+    ...(filtered ? { robots: { index: false, follow: true } } : {}),
+  };
 }
 
 interface SupplierRow {

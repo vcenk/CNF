@@ -8,20 +8,6 @@ import { IngredientSearch } from "@/features/ingredients/ingredient-search";
 import { IngredientFilters } from "@/features/ingredients/ingredient-filters";
 import { siteConfig } from "@/lib/site-config";
 
-export const metadata: Metadata = {
-  title: "Cosmetic Ingredient Database — INCI Names, Hotlist & Canadian Suppliers",
-  description:
-    "Search 170+ cosmetic ingredients by INCI name, function, or Health Canada hotlist status. Find Canadian suppliers and pricing. Free to use.",
-  alternates: { canonical: "/ingredients" },
-  openGraph: {
-    title: "Cosmetic Ingredient Database",
-    description: "Search INCI names, check hotlist status, find Canadian suppliers.",
-    url: `${siteConfig.url}/ingredients`,
-    siteName: siteConfig.name,
-    type: "website",
-  },
-};
-
 interface PageProps {
   searchParams: Promise<{
     q?: string;
@@ -29,6 +15,55 @@ interface PageProps {
     hotlist?: string;
     page?: string;
   }>;
+}
+
+/**
+ * Filtered or paginated views (e.g. `?fn=surfactant`, `?page=2`) are
+ * intentional duplicates of the canonical `/ingredients` page. We rely
+ * on the canonical tag to deduplicate, but Search Console still lists
+ * each variant under "Alternate page with proper canonical tag" — a
+ * benign report but noisy at scale (170+ ingredients × multiple filter
+ * combos = dozens of URLs).
+ *
+ * Emitting `noindex, follow` on the filter/paginated variants makes
+ * Google skip indexing them outright while still following links from
+ * them (so internal-link discovery works normally). The canonical
+ * `/ingredients` URL stays fully indexable.
+ */
+function isFilteredView(params: {
+  q?: string;
+  fn?: string;
+  hotlist?: string;
+  page?: string;
+}): boolean {
+  if (params.q) return true;
+  if (params.fn) return true;
+  if (params.hotlist && params.hotlist !== "all") return true;
+  if (params.page && params.page !== "1") return true;
+  return false;
+}
+
+export async function generateMetadata({
+  searchParams,
+}: PageProps): Promise<Metadata> {
+  const params = await searchParams;
+  const filtered = isFilteredView(params);
+
+  return {
+    title: "Cosmetic Ingredient Database — INCI Names, Hotlist & Canadian Suppliers",
+    description:
+      "Search 170+ cosmetic ingredients by INCI name, function, or Health Canada hotlist status. Find Canadian suppliers and pricing. Free to use.",
+    alternates: { canonical: "/ingredients" },
+    openGraph: {
+      title: "Cosmetic Ingredient Database",
+      description:
+        "Search INCI names, check hotlist status, find Canadian suppliers.",
+      url: `${siteConfig.url}/ingredients`,
+      siteName: siteConfig.name,
+      type: "website",
+    },
+    ...(filtered ? { robots: { index: false, follow: true } } : {}),
+  };
 }
 
 export default async function IngredientsPage({ searchParams }: PageProps) {
