@@ -2,6 +2,20 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  async redirects() {
+    return [
+      {
+        source: "/guides/fragrance-allergen-disclosure-2026",
+        destination: "/guides",
+        permanent: false,
+      },
+      {
+        source: "/guides/cosmetic-product-costing",
+        destination: "/guides",
+        permanent: false,
+      },
+    ];
+  },
   async headers() {
     return [
       // Tell Google not to index the auto-generated metadata image

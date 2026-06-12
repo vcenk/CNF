@@ -75,9 +75,7 @@ export function FragranceAllergenAlert({
             products, and to all existing products by August 1, 2028.
           </p>
           <Link
-            href={`/blog/fragrance-allergen-rules-2026${
-              source ? `?source=${source}` : ""
-            }`}
+            href="/blog/fragrance-allergen-rules-2026"
             className="mt-2 inline-flex items-center gap-1 text-xs font-medium text-amber-900 underline hover:text-amber-700 dark:text-amber-200"
           >
             Read what changed
@@ -151,9 +149,7 @@ export function FragranceAllergenAlert({
       {/* CTAs */}
       <div className="mt-6 flex flex-wrap items-center gap-3">
         <Link
-          href={`/tools/cnf-readiness-checker${
-            source ? `?source=${source}` : ""
-          }`}
+          href="/tools/cnf-readiness-checker"
           className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-brand-dark"
         >
           Run a free CNF + label readiness check

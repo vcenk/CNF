@@ -10,8 +10,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: [
           "/api/",
           "/_next/",
-          "/formulas/",
-          "/auth/",
           "/dashboard/",
           "/tools/soap-calculator/print",
         ],
