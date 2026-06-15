@@ -7,21 +7,31 @@ import { ProductCard } from "@/features/shop/product-card";
 import { siteConfig } from "@/lib/site-config";
 import { categoryLabels } from "@/domain/shop";
 
-export const metadata: Metadata = {
-  title: "Shop - Digital Products for Canadian Cosmetic Makers",
-  description:
-    "Formula packs, readiness templates, ingredient guides, and business kits for indie cosmetic makers in Canada. Instant digital download.",
-  alternates: { canonical: "/shop" },
-  openGraph: {
-    title: "Shop - FormulaNorth",
-    description: "Digital products for Canadian cosmetic makers.",
-    url: `${siteConfig.url}/shop`,
-    siteName: siteConfig.name,
-  },
-};
-
 interface PageProps {
   searchParams: Promise<{ category?: string }>;
+}
+
+export async function generateMetadata({ searchParams }: PageProps): Promise<Metadata> {
+  const { category } = await searchParams;
+  if (category) {
+    return {
+      title: "Shop - Digital Products for Canadian Cosmetic Makers",
+      alternates: { canonical: "/shop" },
+      robots: { index: false, follow: true },
+    };
+  }
+  return {
+    title: "Shop - Digital Products for Canadian Cosmetic Makers",
+    description:
+      "Formula packs, readiness templates, ingredient guides, and business kits for indie cosmetic makers in Canada. Instant digital download.",
+    alternates: { canonical: "/shop" },
+    openGraph: {
+      title: "Shop - FormulaNorth",
+      description: "Digital products for Canadian cosmetic makers.",
+      url: `${siteConfig.url}/shop`,
+      siteName: siteConfig.name,
+    },
+  };
 }
 
 export default async function ShopPage({ searchParams }: PageProps) {
