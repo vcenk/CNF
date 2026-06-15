@@ -196,22 +196,60 @@ export default function GuidesIndexPage() {
         </p>
       </div>
 
+      <section className="mb-10 max-w-3xl space-y-4 text-muted-foreground">
+        <p className="leading-7">
+          Selling handmade cosmetics in Canada involves more regulatory steps
+          than most new makers expect. Every product must carry a bilingual
+          label with correct{" "}
+          <strong className="text-foreground">INCI ingredient names</strong> listed
+          in descending order of predominance. Ingredients must be checked
+          against Health Canada's{" "}
+          <strong className="text-foreground">Cosmetic Ingredient Hotlist</strong>{" "}
+          for prohibited or restricted substances. And within 10 days of first
+          sale, most makers must file a{" "}
+          <strong className="text-foreground">Cosmetic Notification Form (CNF)</strong>{" "}
+          with Health Canada — a submission that requires detailed ingredient
+          data, concentrations, product function claims, and company information.
+        </p>
+        <p className="leading-7">
+          These guides cover the most common questions and sticking points
+          across that process — written specifically for independent Canadian
+          makers, not industry compliance teams. They explain what the
+          requirement is, why it exists, and what you need to do about it in
+          plain terms.
+        </p>
+      </section>
+
       <section className="mb-14">
-        <h2 className="mb-5 font-display text-xl font-semibold">
+        <h2 className="mb-3 font-display text-xl font-semibold">
           Compliance and notification
         </h2>
+        <p className="mb-5 max-w-2xl text-sm text-muted-foreground">
+          Guides covering the Cosmetic Notification Form, ingredient hotlist,
+          INCI naming, labelling requirements, and fragrance allergen disclosure
+          rules that apply to cosmetics sold in Canada.
+        </p>
         <GuideGrid guides={complianceGuides} />
       </section>
 
       <section className="mb-14">
-        <h2 className="mb-5 font-display text-xl font-semibold">
+        <h2 className="mb-3 font-display text-xl font-semibold">
           Product-type guides
         </h2>
+        <p className="mb-5 max-w-2xl text-sm text-muted-foreground">
+          Product-specific walkthroughs for soap, body butter, sugar scrubs,
+          bath bombs, and skincare — covering formulation considerations,
+          labelling specifics, and CNF preparation for each product type.
+        </p>
         <GuideGrid guides={productGuides} />
       </section>
 
       <section>
-        <h2 className="mb-5 font-display text-xl font-semibold">Coming soon</h2>
+        <h2 className="mb-3 font-display text-xl font-semibold">Coming soon</h2>
+        <p className="mb-5 max-w-2xl text-sm text-muted-foreground">
+          Guides in progress covering fragrance allergen disclosure requirements
+          and cosmetic product costing for small-batch makers.
+        </p>
         <GuideGrid guides={upcomingGuides} />
       </section>
     </div>

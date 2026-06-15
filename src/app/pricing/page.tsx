@@ -157,9 +157,65 @@ export default async function PricingPage({ searchParams }: PricingPageProps) {
     ],
   };
 
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "What is included in the free plan?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "The free plan includes full access to the ingredient database (250+ INCI ingredients, hotlist references, allergen flags), the Canadian supplier directory, all free tools (Soap Calculator, Fragrance Allergen Calculator, CNF Readiness Checker, INCI Formatter, Cost Calculator, Label Checklist), all blog and guide content, and 1 saved formula. No credit card required.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "What does the Maker plan include?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "The Maker plan (CA$12/month or CA$108/year) includes everything in Free plus: unlimited saved formulas with version history, Soap Maker integration inside the formula builder, CNF Preparation Package PDF export, bilingual EN/FR label generator with claim-risk flagging, cost-of-goods and retail/wholesale price recommendations, and personal supplier price tracking.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Is there a free trial for the Maker plan?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Yes. The Maker plan includes a 7-day free trial. No credit card is required up front.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Can I cancel my subscription?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Yes. You can cancel at any time from your account settings. Your Maker access continues until the end of the current billing period.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "How much do I save with annual billing?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Annual billing is CA$108/year, equivalent to CA$9/month — a saving of CA$36 compared to monthly billing at CA$12/month.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Is FormulaNorth only for Canadian makers?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "FormulaNorth is designed around Canadian cosmetic regulations — Health Canada's Cosmetics Regulations, CNF (Cosmetic Notification Form) requirements, and Canadian INCI labelling rules. Makers outside Canada can still use the tools and ingredient database, but the regulatory guidance is Canada-specific.",
+        },
+      },
+    ],
+  };
+
   return (
     <>
       <JsonLd data={structuredData} />
+      <JsonLd data={faqSchema} />
 
       <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6">
         {banner && (
