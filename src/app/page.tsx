@@ -1,6 +1,28 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { JsonLd } from "@/components/seo/json-ld";
 import { siteConfig } from "@/lib/site-config";
+
+export const metadata: Metadata = {
+  title: "Cosmetic Compliance & Formulation Software for Canadian Makers",
+  description:
+    "FormulaNorth helps Canadian indie cosmetic makers manage formulas, INCI ingredients, bilingual labels, costing, and CNF preparation — free to start.",
+  alternates: { canonical: "/" },
+  openGraph: {
+    title: "FormulaNorth — Cosmetic Compliance & Formulation Software",
+    description:
+      "Manage formulas, INCI ingredients, bilingual labels, costing, and CNF preparation. Built for Canadian indie cosmetic makers.",
+    url: siteConfig.url,
+    siteName: siteConfig.name,
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "FormulaNorth — Cosmetic Compliance & Formulation Software",
+    description:
+      "Manage formulas, INCI ingredients, bilingual labels, costing, and CNF preparation. Built for Canadian indie cosmetic makers.",
+  },
+};
 import { DisclaimerCallout } from "@/components/marketing/disclaimer-callout";
 import { FragranceAllergenAlert } from "@/components/marketing/fragrance-allergen-alert";
 import {

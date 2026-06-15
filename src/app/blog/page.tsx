@@ -2,21 +2,40 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllPosts, getCategoriesWithCounts } from "@/lib/blog";
 import { Badge } from "@/components/ui/badge";
+import { JsonLd } from "@/components/seo/json-ld";
 import { siteConfig } from "@/lib/site-config";
 import { Calendar, Clock, ArrowRight } from "lucide-react";
 
-export const metadata: Metadata = {
-  title: "Blog — Formulation Tips, Regulatory Updates & Business Advice",
-  description:
-    "Practical articles for Canadian cosmetic makers. Formulation tips, Health Canada regulatory updates, ingredient spotlights, and business advice.",
-  alternates: { canonical: "/blog" },
-  openGraph: {
-    title: "FormulaNorth Blog",
-    description: "Articles for Canadian cosmetic makers.",
-    url: `${siteConfig.url}/blog`,
-    siteName: siteConfig.name,
-  },
-};
+export async function generateMetadata({ searchParams }: BlogPageProps): Promise<Metadata> {
+  const { category } = await searchParams;
+  if (category) {
+    return {
+      title: `${category} Articles — FormulaNorth Blog`,
+      robots: { index: false, follow: true },
+      alternates: { canonical: "/blog" },
+    };
+  }
+  return {
+    title: "Blog — Formulation Tips, Regulatory Updates & Business Advice",
+    description:
+      "Practical articles for Canadian cosmetic makers. Formulation tips, Health Canada regulatory updates, ingredient spotlights, and business advice.",
+    alternates: { canonical: "/blog" },
+    openGraph: {
+      title: "FormulaNorth Blog — Articles for Canadian Cosmetic Makers",
+      description:
+        "Formulation tips, Health Canada regulatory updates, ingredient spotlights, and business advice for indie makers.",
+      url: `${siteConfig.url}/blog`,
+      siteName: siteConfig.name,
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "FormulaNorth Blog — Articles for Canadian Cosmetic Makers",
+      description:
+        "Formulation tips, Health Canada regulatory updates, ingredient spotlights, and business advice for indie makers.",
+    },
+  };
+}
 
 interface BlogPageProps {
   searchParams: Promise<{ category?: string }>;
@@ -35,6 +54,24 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
   const allPosts = getAllPosts();
   const categories = getCategoriesWithCounts();
 
+  const blogSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": `${siteConfig.url}/blog`,
+    "name": "FormulaNorth Blog",
+    "description": "Practical articles for Canadian cosmetic makers covering formulation, Health Canada regulations, ingredients, and business advice.",
+    "url": `${siteConfig.url}/blog`,
+    "isPartOf": { "@id": `${siteConfig.url}/#website` },
+    "inLanguage": "en",
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": siteConfig.url },
+        { "@type": "ListItem", "position": 2, "name": "Blog", "item": `${siteConfig.url}/blog` },
+      ],
+    },
+  };
+
   const activeCategory = category && categories.some((c) => c.name === category)
     ? category
     : null;
@@ -48,6 +85,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      {!category && <JsonLd data={blogSchema} />}
       <header className="mb-10">
         <p className="text-sm font-semibold uppercase tracking-wider text-brand">
           Blog

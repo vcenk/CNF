@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { JsonLd } from "@/components/seo/json-ld";
+import { siteConfig } from "@/lib/site-config";
 import {
   Card,
   CardDescription,
@@ -104,10 +106,24 @@ const upcomingGuides: Guide[] = [
 ];
 
 export const metadata: Metadata = {
-  title: "Guides",
+  title: "Guides for Canadian Cosmetic Makers — Health Canada, INCI & Labelling",
   description:
-    "Practical guides for Canadian cosmetic makers covering Health Canada readiness guidance, INCI naming, labelling, costing, and more.",
+    "Practical guides for Canadian cosmetic makers covering Health Canada readiness, CNF preparation, INCI naming, labelling requirements, and product costing.",
   alternates: { canonical: "/guides" },
+  openGraph: {
+    title: "Guides for Canadian Cosmetic Makers",
+    description:
+      "Health Canada readiness, CNF preparation, INCI naming, labelling requirements, and product costing — practical guides for indie makers.",
+    url: `${siteConfig.url}/guides`,
+    siteName: siteConfig.name,
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Guides for Canadian Cosmetic Makers — FormulaNorth",
+    description:
+      "Health Canada readiness, CNF preparation, INCI naming, labelling requirements, and product costing — practical guides for indie makers.",
+  },
 };
 
 function GuideGrid({ guides }: { guides: Guide[] }) {
@@ -139,8 +155,33 @@ function GuideGrid({ guides }: { guides: Guide[] }) {
 }
 
 export default function GuidesIndexPage() {
+  const allGuides = [...complianceGuides, ...productGuides];
+  const guidesSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": `${siteConfig.url}/guides`,
+    "name": "Guides for Canadian Cosmetic Makers",
+    "description": "Practical guides covering Health Canada readiness, CNF preparation, INCI naming, labelling, and product costing.",
+    "url": `${siteConfig.url}/guides`,
+    "inLanguage": "en",
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": siteConfig.url },
+        { "@type": "ListItem", "position": 2, "name": "Guides", "item": `${siteConfig.url}/guides` },
+      ],
+    },
+    "hasPart": allGuides.map((g) => ({
+      "@type": "WebPage",
+      "name": g.title,
+      "description": g.description,
+      "url": `${siteConfig.url}${g.href}`,
+    })),
+  };
+
   return (
     <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+      <JsonLd data={guidesSchema} />
       <div className="mb-12">
         <p className="text-sm font-semibold uppercase tracking-wider text-brand">
           Guides

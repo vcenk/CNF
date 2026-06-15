@@ -53,6 +53,21 @@ const tiers: Tier[] = [
 export const metadata: Metadata = {
   title: "Pricing — FormulaNorth",
   description: `${siteConfig.name} pricing for Canadian indie cosmetic makers. Free tier with all public tools. Maker tier at CA$12/month or CA$108/year — 7-day free trial, no card required.`,
+  alternates: { canonical: "/pricing" },
+  openGraph: {
+    title: "FormulaNorth Pricing — Free & Maker Plans",
+    description:
+      "Free tier includes the full ingredient database, supplier directory, and all tools. Maker tier at CA$12/month unlocks unlimited formulas, label drafting, and CNF prep.",
+    url: `${siteConfig.url}/pricing`,
+    siteName: siteConfig.name,
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "FormulaNorth Pricing — Free & Maker Plans",
+    description:
+      "Free tier includes the full ingredient database, supplier directory, and all tools. Maker tier at CA$12/month unlocks unlimited formulas, label drafting, and CNF prep.",
+  },
 };
 
 interface PricingPageProps {

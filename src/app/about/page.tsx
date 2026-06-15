@@ -4,9 +4,18 @@ import { ContentPageShell } from "@/components/marketing/content-page-shell";
 import { DisclaimerCallout } from "@/components/marketing/disclaimer-callout";
 
 export const metadata: Metadata = {
-  title: "About",
+  title: "About FormulaNorth — Built for Canadian Cosmetic Makers",
   description:
-    "Learn how FormulaNorth helps Canadian indie cosmetic makers organize formulas, labels, costing, and CNF preparation work.",
+    "FormulaNorth is a formulation workspace for Canadian indie cosmetic makers — ingredient research, batch math, bilingual labels, costing, and CNF preparation in one place.",
+  alternates: { canonical: "/about" },
+  openGraph: {
+    title: "About FormulaNorth — Built for Canadian Cosmetic Makers",
+    description:
+      "Formulation workspace for Canadian indie makers covering ingredient research, batch math, bilingual labels, costing, and CNF preparation.",
+    url: "https://formulanorth.ca/about",
+    siteName: "FormulaNorth",
+    type: "website",
+  },
 };
 
 export default function AboutPage() {

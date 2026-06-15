@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { JsonLd } from "@/components/seo/json-ld";
+import { siteConfig } from "@/lib/site-config";
 import {
   Card,
   CardDescription,
@@ -66,11 +68,48 @@ export const metadata: Metadata = {
   description:
     "Free FormulaNorth tools for Canadian cosmetic makers — CNF readiness checks, ingredient list formatting, costing, and label checklists.",
   alternates: { canonical: "/tools" },
+  openGraph: {
+    title: "Free Tools for Canadian Cosmetic Makers",
+    description:
+      "Soap calculator, fragrance allergen checker, CNF readiness tool, INCI formatter, cost calculator, and label checklist — all free.",
+    url: `${siteConfig.url}/tools`,
+    siteName: siteConfig.name,
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Free Tools for Canadian Cosmetic Makers — FormulaNorth",
+    description:
+      "Soap calculator, fragrance allergen checker, CNF readiness tool, INCI formatter, cost calculator, and label checklist — all free.",
+  },
 };
 
 export default function ToolsIndexPage() {
+  const toolsSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Free Tools for Canadian Cosmetic Makers",
+    "numberOfItems": tools.filter((t) => !t.comingSoon).length,
+    "itemListElement": tools
+      .filter((t) => !t.comingSoon)
+      .map((tool, i) => ({
+        "@type": "ListItem",
+        "position": i + 1,
+        "item": {
+          "@type": "SoftwareApplication",
+          "name": tool.title,
+          "url": `${siteConfig.url}${tool.href}`,
+          "description": tool.description,
+          "applicationCategory": "UtilitiesApplication",
+          "operatingSystem": "Web",
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CAD" },
+        },
+      })),
+  };
+
   return (
     <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+      <JsonLd data={toolsSchema} />
       <div className="mb-12">
         <div className="flex flex-wrap items-center gap-3">
           <p className="text-sm font-semibold uppercase tracking-wider text-brand">
