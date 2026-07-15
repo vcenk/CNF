@@ -123,7 +123,40 @@ export default function CostCalculatorPage() {
 
         <CalculatorForm />
 
-        <section className="mt-20 max-w-3xl">
+        <section className="mt-16 max-w-3xl space-y-4 text-muted-foreground">
+          <h2 className="font-display text-2xl font-semibold text-foreground">
+            What goes into cosmetic product costing
+          </h2>
+          <p className="leading-7">
+            Many indie cosmetic makers underprice their products because they only
+            count raw ingredient costs. A complete cost of goods calculation
+            includes ingredients, packaging (jars, lids, pumps, boxes), labels,
+            inbound shipping, a spoilage and breakage allowance, and direct labour
+            for measuring, mixing, filling, labelling, and packing each unit.
+            Overhead — market and vendor fees, insurance, software, tools, and
+            space — is usually spread across all products as an additional line.
+          </p>
+          <p className="leading-7">
+            Wholesale pricing typically requires at least a 2× markup over true
+            cost of goods so that when a retailer takes their margin (usually
+            50%), the maker can cover costs and have room for promotional
+            discounts. Retail pricing for handmade cosmetics is typically 4–5×
+            cost of goods at minimum. Pricing against your actual costs — not a
+            competitor&apos;s price or what you think customers will pay — is the
+            only way to know whether a product is commercially viable before you
+            invest in a production run.
+          </p>
+          <p className="leading-7">
+            Batch size significantly affects per-unit cost. A 500 g batch has
+            higher per-unit ingredient costs than a 5 kg batch because fixed costs
+            (labels, jar minimums, shipping) spread across fewer units. Building
+            your costing model so it updates when batch size changes makes scaling
+            decisions and minimum order quantities much easier to set correctly.
+          </p>
+        </section>
+
+        <section className="mt-12 max-w-3xl">
+          <h2 className="font-display text-2xl font-semibold">Frequently asked questions</h2>
           <h2 className="font-display text-2xl font-semibold">Frequently asked questions</h2>
           <div className="mt-6 divide-y divide-border">
             {faqs.map((f) => (

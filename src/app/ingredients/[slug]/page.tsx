@@ -223,7 +223,7 @@ export default async function IngredientDetailPage({ params }: PageProps) {
                 {functions.map((fn) => (
                   <Link
                     key={fn.slug}
-                    href={`/ingredients?fn=${fn.slug}`}
+                    href={`/ingredients/function/${fn.slug}`}
                     className="rounded-full bg-brand-soft/50 px-2 py-0.5 text-xs text-brand hover:bg-brand-soft"
                   >
                     {fn.name}
@@ -250,6 +250,53 @@ export default async function IngredientDetailPage({ params }: PageProps) {
             </Card>
           )}
         </div>
+
+        {!ingredient.description && functions.length > 0 && (
+          <section className="mb-8 space-y-3 text-muted-foreground">
+            <h2 className="font-display text-xl font-semibold text-foreground">
+              About {name} in cosmetic formulation
+            </h2>
+            <p className="leading-7">
+              {ingredient.inci_name}
+              {ingredient.common_name && ingredient.common_name !== ingredient.inci_name
+                ? ` (commonly known as ${ingredient.common_name})`
+                : ""}{" "}
+              is used in cosmetic formulations as a{" "}
+              {functions.map((fn) => fn.name.toLowerCase()).join(", ")}.{" "}
+              {ingredient.hotlist_status === "not_listed"
+                ? `It is not listed on the Health Canada Cosmetic Ingredient Hotlist, meaning there are no specific restrictions on its use in Canadian cosmetics.`
+                : ingredient.hotlist_status === "restricted"
+                  ? `It appears on the Health Canada Cosmetic Ingredient Hotlist as a restricted ingredient — review the conditions and concentration limits before including it in a Canadian cosmetic formula.`
+                  : `It appears on the Health Canada Cosmetic Ingredient Hotlist as a prohibited ingredient and cannot be used in Canadian cosmetic products.`}
+            </p>
+            {(ingredient.typical_use_level_min != null || ingredient.typical_use_level_max != null) && (
+              <p className="leading-7">
+                Typical usage levels in cosmetic formulations range from{" "}
+                {ingredient.typical_use_level_min}% to{" "}
+                {ingredient.typical_use_level_max}%. Always verify appropriate
+                use levels for your specific product type, rinse-off or
+                leave-on application, and target skin type.
+              </p>
+            )}
+            {ingredient.cas_number && (
+              <p className="leading-7">
+                The CAS registry number for {ingredient.inci_name} is{" "}
+                {ingredient.cas_number}. Canadian suppliers should be able to
+                provide a Certificate of Analysis identifying the material by
+                this CAS number and the INCI name shown above.
+              </p>
+            )}
+            <p className="leading-7">
+              When including {ingredient.common_name || ingredient.inci_name} in
+              a formula intended for sale in Canada, list it on the cosmetic
+              label using the INCI name{" "}
+              <strong className="text-foreground">{ingredient.inci_name}</strong>{" "}
+              in descending order of concentration. The same INCI name is used
+              on the Cosmetic Notification Form filed with Health Canada within
+              10 days of first sale.
+            </p>
+          </section>
+        )}
 
         {isRestricted && (
           <section className="mb-8 rounded-xl border border-warning/30 bg-warning-soft/30 p-5">

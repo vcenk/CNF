@@ -192,7 +192,7 @@ export default async function IngredientsPage({ searchParams }: PageProps) {
             {functions.map((fn) => (
               <Link
                 key={fn.slug}
-                href={`/ingredients?fn=${fn.slug}`}
+                href={`/ingredients/function/${fn.slug}`}
                 className="rounded-full border border-border bg-card px-3 py-1 text-sm transition-colors hover:border-brand hover:text-brand"
               >
                 {fn.name}

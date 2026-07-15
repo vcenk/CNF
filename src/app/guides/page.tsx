@@ -203,7 +203,7 @@ export default function GuidesIndexPage() {
           label with correct{" "}
           <strong className="text-foreground">INCI ingredient names</strong> listed
           in descending order of predominance. Ingredients must be checked
-          against Health Canada's{" "}
+          against Health Canada&apos;s{" "}
           <strong className="text-foreground">Cosmetic Ingredient Hotlist</strong>{" "}
           for prohibited or restricted substances. And within 10 days of first
           sale, most makers must file a{" "}

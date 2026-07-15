@@ -1,16 +1,17 @@
 import type { MetadataRoute } from "next";
 import { siteConfig } from "@/lib/site-config";
-import { getAllIngredientSlugs } from "@/lib/supabase/queries/ingredients";
+import { getAllIngredientSlugs, getIngredientFunctions } from "@/lib/supabase/queries/ingredients";
 import { getAllSupplierSlugs } from "@/lib/supabase/queries/suppliers";
 import { getAllProductSlugs } from "@/lib/supabase/queries/shop";
 import { getAllPostSlugs } from "@/lib/blog";
 import { SOAP_RECIPES } from "@/lib/soap-recipes";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [ingredientSlugs, supplierSlugs, productSlugs] = await Promise.all([
+  const [ingredientSlugs, supplierSlugs, productSlugs, ingredientFunctions] = await Promise.all([
     getAllIngredientSlugs(),
     getAllSupplierSlugs(),
     getAllProductSlugs(),
+    getIngredientFunctions(),
   ]);
 
   const postSlugs = getAllPostSlugs();
@@ -53,6 +54,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteConfig.url}/feedback`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.5 },
   ];
 
+  const ingredientFunctionPages: MetadataRoute.Sitemap = ingredientFunctions.map((fn) => ({
+    url: `${siteConfig.url}/ingredients/function/${fn.slug}`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.8,
+  }));
+
   const ingredientPages: MetadataRoute.Sitemap = ingredientSlugs.map((slug) => ({
     url: `${siteConfig.url}/ingredients/${slug}`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.7,
   }));
@@ -78,6 +83,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return [
     ...staticPages,
+    ...ingredientFunctionPages,
     ...ingredientPages,
     ...supplierPages,
     ...shopPages,

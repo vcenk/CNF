@@ -58,7 +58,7 @@ export default function AboutPage() {
           Any cosmetic sold in Canada must use correct{" "}
           <strong>INCI (International Nomenclature of Cosmetic Ingredients)</strong>{" "}
           names on the label, list ingredients in descending order of
-          predominance, and comply with Health Canada's{" "}
+          predominance, and comply with Health Canada&apos;s{" "}
           <strong>Cosmetic Ingredient Hotlist</strong> — a list of ingredients
           that are prohibited or restricted in Canadian cosmetic products.
         </p>
@@ -134,7 +134,7 @@ export default function AboutPage() {
         </h3>
         <p className="leading-7 text-muted-foreground">
           Canadian cosmetic labels must be bilingual in English and French.
-          FormulaNorth's label generator drafts label content in both languages
+          FormulaNorth&apos;s label generator drafts label content in both languages
           from the formula data — including the INCI ingredient list in correct
           descending order, net quantity, business identity requirements, and
           applicable warning statements. Fragrance allergen disclosure is
