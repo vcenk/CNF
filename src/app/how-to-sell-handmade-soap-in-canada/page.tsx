@@ -286,6 +286,11 @@ export default function HowToSellHandmadeSoapInCanadaPage() {
           href: "/health-canada-cosmetic-hotlist",
           description: "Check soap ingredients against restricted and prohibited substances.",
         },
+        {
+          label: "Canadian cosmetic ingredient suppliers",
+          href: "/cosmetic-ingredient-suppliers-canada",
+          description: "Find Canadian soap oil and fragrance suppliers with COAs and INCI documentation.",
+        },
       ]}
     />
   );

@@ -157,7 +157,6 @@ export default function CostCalculatorPage() {
 
         <section className="mt-12 max-w-3xl">
           <h2 className="font-display text-2xl font-semibold">Frequently asked questions</h2>
-          <h2 className="font-display text-2xl font-semibold">Frequently asked questions</h2>
           <div className="mt-6 divide-y divide-border">
             {faqs.map((f) => (
               <div key={f.question} className="py-5">
