@@ -1,268 +1,365 @@
-# SEO / GEO / Indexing Audit — FormulaNorth
-
-> Comprehensive audit of the site's organic-search and AI-search posture.
-> Separates real signal from 2010s-era cargo-cult advice.
->
-> **Originally a homepage-only audit (Section 1) — implemented and shipped
-> 2026-05-03. Section 2 below extends the audit to the full project,
-> including GEO (AI-search citation) and indexing infrastructure.**
-
----
-
-## Section 1 — Homepage SEO audit (originally proposed; SHIPPED)
-
-**Site:** FormulaNorth — free + paid tools for Canadian indie cosmetic
-makers (CNF preparation, ingredient database, bilingual label drafting,
-soap calculator, supplier directory).
-
-**URL:** https://formulanorth.ca/
-
-**Audience:** Canadian indie cosmetic makers (soap, lotion, balm, body
-products) preparing to file Cosmetic Notification Forms with Health
-Canada and ship product to market.
-
-**Audit date:** 2026-05-03
-
----
-
-## Step 1 — Inspection (live homepage)
-
-| Element | Current value | Notes |
-|---|---|---|
-| `<title>` | `FormulaNorth \| Formulate. Comply. Sell.` | **39 chars** — well under Google's 60-char display limit. Brand-first. No primary keyword. |
-| Meta description | "FormulaNorth helps Canadian indie cosmetic makers organize formulas, ingredient research, costing, labels, and CNF preparation work in one place." | **145 chars** — within 140-165 sweet spot. Brand-first; primary keyword phrase is implicit, not leading. No CTA. |
-| H1 | "Formulate. Comply. Sell." | Punchy brand tagline. Zero keyword signal. |
-| First paragraph | "FormulaNorth helps Canadian indie cosmetic makers organize ingredients, build formulas, calculate costs, draft bilingual labels, and prepare CNF information with less confusion." | Echoes the description. Reasonable but generic; "less confusion" is filler. |
-| JSON-LD types emitted | `Organization`, `WebSite`, `SoftwareApplication` (with `AggregateOffer` inside) | All three are accurate and valid. SoftwareApplication is the right primary type for this site. |
-| Word count (visible main content) | ~575 words | Within healthy range for a tool-led homepage. Not thin, not bloated. |
-
----
-
-## Step 2 — Triage of common SEO recommendations
-
-| Recommendation | Verdict | Reasoning |
-|---|---|---|
-| **(a) Move keyword to start of `<title>`** | **VALID** | Brand-first titles work for sites with established brand recognition. FormulaNorth is brand-new with zero SEO equity in the name — leading with the keyword phrase captures search-result clicks before users know who we are. |
-| **(b) Move keyword to start of meta description** | **VALID (mild)** | Description is decent but starts with brand. Leading with the keyword phrase reinforces relevance to search query and matches user intent at the SERP. |
-| **(c) Add "since 2015" / "10 years of experience" phrasing** | **CARGO-CULT — and unethical** | Site went live in 2026. Faking domain age is deceptive, easily disprovable via WHOIS / Wayback Machine, and erodes trust. Will be flagged in any honest review. **Do not do.** |
-| **(d) Pad homepage to 4,000–5,000 words** | **CARGO-CULT** | Word count is correlated with depth, not causal. A tool-led homepage is supposed to be scannable — long-form content belongs in `/blog`, not `/`. Bloat hurts UX, increases bounce, and Google's helpful-content systems can demote pages that read like padding. |
-| **(e) Add Product / AggregateOffer / AggregateRating / Review schemas** | **PARTIAL** | `AggregateOffer` is already inside the `SoftwareApplication` schema — correct. `Product` doesn't apply (homepage isn't a product page). `AggregateRating` and `Review` would be **schema spam** without real reviews — Google can issue manual actions for fake structured data. Don't add these until you actually collect ratings. |
-| **(f) Add WebSite / Organization / BreadcrumbList / ItemList / CollectionPage / FAQPage where they accurately describe the page** | **PARTIAL** | `WebSite` + `Organization` already present (good). `BreadcrumbList` doesn't apply to the homepage (it IS the root). `ItemList` is a legitimate add — there's a "6 free tools" section that maps cleanly to ItemList. `CollectionPage` is a misfit (homepage isn't a curated collection per Schema.org). `FAQPage` is valid only if a real FAQ section exists — currently none on the homepage; could add one. |
-| **(g) Stuff target keyword into anchor text of every internal link** | **CARGO-CULT** | This pattern (over-optimised anchor text) has been a Penguin demotion signal since 2012. Modern Google rewards natural anchor variation. Stuffing the same keyword phrase across every internal link looks spammy and risks suppression. |
-| **(h) Submit URL to 50+ directory backlink sites** | **CARGO-CULT** | Effective in 2010, harmful since Penguin (2012). Low-quality directories carry zero link equity now and can attract a Manual Action ("unnatural inbound links") if done at scale. Better: 3-5 high-authority Canadian small-business or indie-maker directories that are already curated. |
-| **(i) Ensure H1 contains primary target keyword** | **VALID — with finesse** | Current H1 "Formulate. Comply. Sell." is brand-strong but keyword-zero. For a brand-new site, this is leaving search relevance on the table. Recommended pattern below: keep the punchy tagline as a styled hero element, promote a keyword-rich H1 underneath it. Sites like Linear and Notion do this routinely. |
-
----
-
-## Step 3 — Proposed rewrites
-
-### Primary target keyword
-
-**Primary phrase:** `cosmetic compliance and formulation software for Canadian makers`
-
-This phrase wins because it captures the **full** value proposition (compliance + formulation), names the **audience** (Canadian makers), and matches commercial-intent searches from people who are actually looking for a product like FormulaNorth. It's long-tail but has bottom-of-funnel intent.
-
-**Secondary phrases (use across H2s, sections, internal links — natural variation):**
-
-1. `Cosmetic Notification Form (CNF) preparation` — high-intent; what users Google when they're filing with Health Canada
-2. `Canadian cosmetic ingredient database` — informational; targets research-stage searchers
-3. `Soap recipe calculator Canada` — head-term for the soap calculator
-4. `Bilingual cosmetic label generator` — captures EN/FR label-drafting search intent
-
-### Proposed `<title>` (50-60 chars, keyword-first)
-
-**Recommended:**
-```
-Cosmetic Compliance & Formulation Software | FormulaNorth
-```
-**57 chars.** Keyword-first, brand at end. Within Google's 60-char display limit on desktop and mobile.
-
-**Alt option (more action-led):**
-```
-CNF Prep, Ingredient Database & Soap Calc | FormulaNorth
-```
-**56 chars.** Front-loads the three concrete deliverables; risk is it reads like a feature list rather than a category.
-
-### Proposed meta description (140-165 chars, keyword-first, ends with soft CTA)
-
-**Recommended:**
-```
-Cosmetic compliance and formulation software for Canadian indie makers — CNF preparation, ingredient database, bilingual labels, and soap calculator. Free to start.
-```
-**164 chars.** Starts with primary keyword phrase, lists concrete differentiators, ends with low-friction CTA. No "Click here!" pushiness.
-
-### Tightened first paragraph (keyword present, no stuffing)
-
-**Current:**
-> "FormulaNorth helps Canadian indie cosmetic makers organize ingredients, build formulas, calculate costs, draft bilingual labels, and prepare CNF information with less confusion."
-
-**Proposed:**
-> "FormulaNorth is **cosmetic compliance and formulation software** built for Canadian indie cosmetic makers — CNF preparation, ingredient research with Hotlist flags, bilingual EN/FR label drafting, costing, and a soap calculator, all in one workspace."
-
-Keyword phrase appears once, naturally, in the first 8 words. Removes "less confusion" filler. Names concrete deliverables that mirror what users searched for.
-
-### H1 — recommended pattern
-
-The current H1 is brand voice gold. Don't kill it — promote it visually but reorganize the heading structure so the keyword-rich version is the actual `<h1>`:
-
-**Proposed structure:**
-
-```jsx
-<p className="...uppercase tracking-wider text-brand">
-  For Canadian indie cosmetic makers
-</p>
-<h1>Cosmetic compliance & formulation, in one workspace.</h1>
-<p className="text-3xl font-display">Formulate. Comply. Sell.</p>
-```
-
-The H1 carries the keyword. "Formulate. Comply. Sell." stays as a styled tagline directly underneath — visually equally prominent, semantically supportive. Google sees the keyword H1; users see both.
-
-### Schema additions to evaluate
-
-| Schema type | Add? | Justification |
-|---|---|---|
-| `ItemList` (6 free tools as items) | **Yes** | Accurately describes the "Everything a Canadian maker needs" section. Each tool can be a `SoftwareApplication` sub-item with name + URL. Makes the homepage eligible for Search "carousel" treatment for the tool grid. |
-| `FAQPage` | **Conditional** | Only if you add 3-5 real FAQs to the homepage. FAQ rich results still display in Search and are zero-spam-risk when the FAQs are real. Suggest adding a small FAQ section ("Is FormulaNorth free?", "Do I need a Health Canada license?", "How is this different from a US soap calculator?", etc.). |
-| `BreadcrumbList` | **No** | Homepage is the root — no breadcrumb hierarchy to describe. |
-| `CollectionPage` | **No** | Homepage isn't a curated collection in Schema.org's sense. SoftwareApplication + ItemList already describe the page accurately. |
-| `Product` | **No** | Not a product page. Adding it would be schema spam. (Reserve for `/shop/[slug]` pages, which don't exist yet.) |
-| `AggregateRating` / `Review` | **No** (yet) | Don't have real ratings. Adding fake ones risks a manual action. Revisit when you genuinely collect testimonials. |
-
----
-
-## What this audit explicitly refuses to recommend
-
-These show up in cheap SEO checklists but are either ineffective or actively harmful:
-
-- ❌ Faking founding year, "since" claims, or company history
-- ❌ Schema types that don't accurately describe the page (Product on a non-commerce homepage = structured-data spam)
-- ❌ Padding word count to hit a magic number
-- ❌ Exact-match keyword anchor text on every internal link
-- ❌ Mass directory submission / link farms / PBN backlinks
-- ❌ Hidden text or "SEO blocks" at the bottom of the page
-- ❌ Hiding ownership of related/sister sites
-
----
-
-## Recommended order of operations (when you approve)
-
-1. **Title + meta description rewrite** — 5-minute change, biggest immediate SERP impact
-2. **First paragraph rewrite** — same edit window, reinforces keyword relevance
-3. **H1 restructure** — small JSX change, preserves brand voice while gaining keyword signal
-4. **`ItemList` schema for the 6 free tools** — pure additive; no UX change, eligible for tool-carousel rich results
-5. **(Optional) Add FAQ section + `FAQPage` schema** — content work; requires 3-5 real FAQs
-
-Items 1-4 can ship in one PR. Item 5 is a separate session.
-
----
-
-## What we're NOT changing
-
-- Word count (575 is fine — don't pad)
-- Brand voice / "Formulate. Comply. Sell." tagline (keep, just demote to sub-tagline)
-- Existing Organization / WebSite / SoftwareApplication schemas (correct as-is)
-- robots.txt, sitemap.xml, canonical URLs (already correct)
-- Internal link anchor text (currently natural; don't keyword-stuff)
-
----
-
-## Section 2 — Full-project SEO + GEO + indexing audit (2026-05-07)
-
-After the homepage was tightened, we audited every public page in the
-codebase plus the AI-search and indexing infrastructure. This is the
-honest read of where the project stands site-wide.
-
-### Per-page posture (summary)
-
-Audited 30+ public pages. **The site has unusually disciplined SEO
-hygiene for a project this young.** Most pages have proper metadata,
-canonical URLs, JSON-LD, and dates. A `buildSeoGuideMetadata` helper
-centralizes the pattern across the long-tail SEO landing pages.
-
-| Surface | Status |
-|---|---|
-| Homepage | ✅ keyword-first title/H1, ItemList schema (Section 1) |
-| Blog index `/blog` | ✅ metadata + canonical; no schema (acceptable for index) |
-| Blog post `/blog/[slug]` | ✅ BlogPosting + BreadcrumbList, datePublished/dateModified |
-| Soap recipes `/tools/soap-calculator/recipes/[slug]` | ✅ Recipe + BreadcrumbList, image, author, dates, prepTime, totalTime, recipeYield, hero image (shipped 2026-05-03) |
-| Tool pages (6) | ✅ WebApplication + FAQPage + BreadcrumbList |
-| Pricing `/pricing` | ✅ SoftwareApplication with Offer |
-| Ingredients `/ingredients/[slug]` | ✅ Product + BreadcrumbList |
-| Suppliers `/suppliers/[slug]` | ✅ LocalBusiness + BreadcrumbList — strong local-SEO signal |
-| BC regional pages | ✅ via `buildSeoGuideMetadata` helper |
-| Long-tail SEO guides (CNF, Hotlist, INCI, etc.) | ✅ via `buildSeoGuideMetadata` helper, with datePublished/dateModified |
-| Tools index `/tools` | ⚠️ → ✅ canonical added (this audit) |
-| Guides index `/guides` | ⚠️ → ✅ canonical added (this audit) |
-| `/about` | ⚠️ no JSON-LD (optional polish) |
-| Custom 404 | ❌ → ✅ added (this audit) |
-
-### GEO (Generative Engine Optimization) — what AI search engines need
-
-GEO is the discipline of getting cited by AI-search interfaces (ChatGPT
-Search, Perplexity, Google AI Overviews, Bing Copilot, Claude). Different
-from SEO: AI engines extract claims, prefer structured factual content,
-and increasingly look for an `llms.txt` file the way Google looks for
-`robots.txt`.
-
-| GEO signal | Status |
-|---|---|
-| `llms.txt` at site root (llmstxt.org standard) | ❌ → ✅ added (this audit) |
-| Author / Organization on schemas | ✅ already in place |
-| `datePublished` / `dateModified` on time-sensitive content | ✅ via `buildSeoGuideMetadata` helper and BlogPosting |
-| Clear factual claims with concrete numbers | ✅ disclosure thresholds, allergen counts, Hotlist counts all stated explicitly across the site |
-| Trust signals (about, contact, disclaimer) | ✅ DisclaimerCallout component used widely; About + Contact pages exist |
-| Citation-worthy structured data (Recipe, LocalBusiness, FAQPage) | ✅ extensive coverage |
-
-`llms.txt` is the highest-value GEO addition because it gives AI crawlers
-a curated map of the site's authoritative content with absolute URLs and
-short descriptions — increases the odds that AI search engines cite
-FormulaNorth instead of generic competitors.
-
-### Indexing infrastructure
-
-| Component | Status |
-|---|---|
-| `app/robots.ts` | ✅ allows `/`, blocks `/api/`, `/_next/`, `/formulas/`, `/auth/`, `/dashboard/`, `/tools/soap-calculator/print` |
-| `app/sitemap.ts` | ✅ covers static pages + dynamic ingredient/supplier/shop/blog/recipe URLs |
-| Search Console verification | ✅ google site-verification token in layout |
-| Google AdSense `account` meta | ✅ in layout |
-| Site-wide `index: true, follow: true` defaults | ✅ |
-| Per-page `noindex` flags on private pages | ✅ dashboard, auth, formulas, print, download routes all correctly noindexed |
-| `metadataBase` set | ✅ uses `siteConfig.url` |
-| Canonical URLs reference `.ca` domain (not Vercel preview) | ✅ |
-| Custom 404 page | ❌ → ✅ added (this audit) |
-
-### Fixes shipped in this audit (2026-05-07)
-
-1. **`alternates: { canonical }` added** to `/tools` and `/guides` index pages
-2. **`public/llms.txt` created** — full site map in the llmstxt.org markdown format, includes all key URLs grouped by section, plus a "Key facts for citation" block with concrete numbers (allergen counts, threshold dates, Hotlist counts) so AI engines can cite specific facts
-3. **Custom `not-found.tsx`** — branded 404 with 6 popular destination cards (Tools, Ingredients, Recipes, Suppliers, Guides, Blog) and a contact link. Has `robots: { index: false, follow: false }` (correct — 404 pages should not be indexed)
-
-### What we're NOT shipping (deliberate skips)
-
-These showed up as "optional polish" in the audit but aren't worth the work yet:
-
-- ❌ JSON-LD on `/about` — page is fine as-is, schema would be additive but not impactful
-- ❌ JSON-LD on `/guides` and `/blog` indexes — index pages without schema are common and acceptable; rich snippets come from individual articles
-- ❌ JSON-LD on `/ingredients/hotlist` — large reference table, schema doesn't add much
-- ❌ `datePublished` on ingredient pages — ingredient data is reference, not time-sensitive
-- ❌ `loading.tsx` — Next.js default loading is fine; bespoke loading states only matter if there's measurable UX gain
-
-### What's next (no action items, just things to revisit later)
-
-When the site has more authority and traffic:
-
-- Consider per-recipe FAQ blocks (genuine FAQs from user feedback) → `FAQPage` extension on recipe pages
-- Consider `Review` schema once you collect testimonials
-- Consider a dedicated `/changelog` for product updates → `dateModified` signal on whole site
-- Track AI-search citations (Perplexity Pages, Bing Copilot citations) once Search Console rolls out AI-overview reporting
-
-### Hard rules respected throughout
-
-- ❌ No fake domain age, fake review counts, fake aggregate ratings
-- ❌ No padding pages to hit a word-count target
-- ❌ No exact-match keyword anchor text on every internal link
-- ❌ No mass directory submissions
-- ❌ No schema types that don't accurately describe the page
-- ✅ All URLs in `llms.txt` resolve to real pages
-- ✅ All numbers in citation block ("32 prohibited", "38 restricted", "81 allergens", "April 12 2026", "August 1 2026") match the actual ingredient database content
+# FormulaNorth SEO, Search Console, and AdSense Readiness
+
+> Last audited: 2026-09-13
+> Scope: repository, production HTML, live `robots.txt`, `sitemap.xml`,
+> `ads.txt`, representative Search results, the supplied AdSense rejection,
+> and the supplied Google Search Console Page Indexing report.
+
+## Executive diagnosis
+
+FormulaNorth's technical SEO foundation is mostly sound. The AdSense rejection
+is not caused by a missing meta tag, sitemap, or schema type. The strongest
+explanation is the site's current **inventory-quality profile**:
+
+- Google sees a large indexable footprint dominated by programmatic database
+  pages: 280 ingredient pages and 25 ingredient-function pages in a 373-URL
+  sitemap.
+- Search Console reports 21 URLs as **Crawled - currently not indexed**, and a
+  validation attempt failed. The examples span guides, ingredient records, a
+  tool, a blog post, filtered URLs, and generated image URLs.
+- Much of the regulatory content has no visible person-level author or reviewer,
+  no author credentials, and no inline primary-source citations. This is a major
+  trust gap for content that can affect product safety and legal compliance.
+- Several indexable surfaces are objectively weak inventory: an under-
+  construction resources page, thin category pages, a duplicate supplier page,
+  and short product pages.
+- The global AdSense script is present on every route. If Auto ads are enabled,
+  route exclusions must prevent ads on dashboards, authentication, checkout,
+  result/utility screens, empty states, and other non-content pages.
+
+The site has real potential and useful tools. The approval problem is that the
+original value is not yet demonstrated consistently across the indexable URL
+set. More schema or more keyword variations will not solve that.
+
+## Evidence captured in this audit
+
+### AdSense
+
+The supplied AdSense screen states:
+
+- Site ownership: verified.
+- Policy finding: **Low value content**.
+- Site status: not ready to show ads.
+
+Google Publisher Policies prohibit Google-served ads on screens with no or
+low-value publisher content, on pages under construction, and on replicated
+content without meaningful added value. Google's site-readiness guidance also
+asks whether the content is distinctive, original, useful, and supported by
+clear navigation.
+
+### Search Console
+
+The supplied Page Indexing screenshots show:
+
+- 21 affected pages under **Crawled - currently not indexed**.
+- Validation started 2026-07-14 and failed 2026-07-24.
+- Current examples include:
+  - `/sell-bath-bombs-canada`
+  - `/cosmetic-ingredient-suppliers-canada`
+  - `/inci-name-lookup-canada`
+  - `/ingredients/hotlist`
+  - multiple `/ingredients/[slug]` pages
+  - `/tools/cosmetic-cost-calculator`
+  - `/blog/soap-maker-starter-kit`
+  - filtered `/ingredients?...` URLs
+  - generated icon and Open Graph image URLs
+
+`Crawled - currently not indexed` is not a technical error by itself. It means
+Google fetched the URL but did not currently choose it for the index. In this
+case, the mix of affected page types is consistent with a site-level quality
+and differentiation problem rather than a discovery failure.
+
+The filtered URLs and generated images are historical noise that the current
+deployment already handles correctly:
+
+- filtered ingredient URLs return `noindex, follow`;
+- `/icon`, `/apple-icon`, and `/opengraph-image` return an
+  `X-Robots-Tag: noindex` header, including on the hashed query URLs shown in
+  Search Console.
+
+Those URLs may remain in the report until Google recrawls them. Do not reverse
+the correct `noindex` directives just to make the validation counter reach zero.
+
+### Additional Search Console exclusions supplied 2026-09-13
+
+The later screenshots add two reports:
+
+1. **Excluded by `noindex` tag — 42 URLs.** The examples are filtered or
+   paginated views under `/ingredients`, `/suppliers`, `/blog`, and `/shop`.
+   Live checks of representative URLs confirmed `noindex, follow` and a clean
+   canonical pointing to the unfiltered collection. This is the intended state:
+   these URLs are useful navigation states but are not separate search results.
+   The failed validation does not require a code change; validation was run
+   against URLs that should remain excluded.
+2. **Duplicate without user-selected canonical — 2 URLs.** Both are tracking
+   variants of `/blog/fragrance-allergen-rules-2026`, using
+   `?source=label-guide` and `?source=cnf-guide`. Both live URLs now return HTTP
+   200 and declare `https://formulanorth.ca/blog/fragrance-allergen-rules-2026`
+   as their canonical. Current internal alert links also use the clean URL. The
+   report therefore reflects an older crawl or canonical state. Inspect each
+   exact variant in URL Inspection, run **Test live URL**, and request validation
+   only after Google reports the declared canonical from the current HTML.
+
+Do not add filtered or tracking variants to the sitemap. If `source` attribution
+is no longer needed, a redirect that removes only that known tracking parameter
+would make the signal stronger, but the current clean canonical is already a
+valid consolidation signal.
+
+### Production crawl
+
+The live sitemap returned HTTP 200 and contained 373 URLs:
+
+| Page class | URLs |
+|---|---:|
+| Ingredient detail pages | 280 |
+| Ingredient function pages | 25 |
+| Recipe detail pages | 18 |
+| Editorial/guide pages | 15 |
+| Supplier detail pages | 10 |
+| Shop product pages | 5 |
+| Homepage | 1 |
+| Indexes and other pages | 19 |
+
+All 373 URLs returned successfully when transient parallel-crawl failures were
+retried sequentially. Every successful sitemap page had a canonical and one
+H1. This confirms that basic HTML delivery is not the primary blocker.
+
+Diagnostic content counts from rendered `<main>` content:
+
+- 39 sitemap URLs had fewer than roughly 250 visible words.
+- 330 had fewer than roughly 500 visible words.
+
+These are **not ranking thresholds**—Google has no preferred word count. They
+are useful here only because they expose how much of the indexable footprint is
+made of short, templated records or category lists.
+
+### Sitemap gap
+
+The production sitemap omits all eight blog posts even though the source code
+maps `getAllPostSlugs()` into the sitemap. It also omits these trust pages:
+
+- `/about`
+- `/contact`
+- `/privacy`
+- `/terms`
+- `/disclaimer`
+- `/data-sources`
+
+The build trace for the dynamic sitemap route does not include
+`src/content/blog/*.mdx`. That explains why filesystem-based blog discovery can
+return an empty list in the deployed serverless function. Use a build-time
+manifest/static import, or explicitly include the content directory in output
+file tracing. Add the trust pages directly to the static sitemap list.
+
+### Content and trust gaps
+
+- The repository contains eight substantial blog posts (about 900-1,700 words
+  each) and 18 templated guide pages.
+- Across those 26 editorial pages, only one source file contains a direct
+  external source URL. A separate `/data-sources` page is helpful but is not a
+  substitute for claim-level citations.
+- Blog schema identifies the author as the FormulaNorth organization. No visible
+  byline, reviewer, author page, credentials, or editorial review method is
+  presented.
+- The About page describes the product but not who created or reviews its
+  regulatory and formulation guidance.
+- The editorial pages contain no original photographs, diagrams, screenshots,
+  worked examples, or other first-hand evidence media.
+- `/resources` says resources are “coming soon” while remaining indexable and
+  included in the sitemap. This directly resembles the “under construction”
+  inventory Google says it will not monetize.
+- `/suppliers/windy-point` and `/suppliers/windy-point-soap` have the same title
+  and represent the same supplier. Pick one canonical URL and 301 redirect the
+  other; do not leave both as self-canonical indexable pages.
+- Many ingredient pages repeat the same explanatory template. Some records have
+  only a name, status, generic function sentence, related links, and calls to
+  action. Those pages do not all deserve independent indexing yet.
+- Ingredient function pages under about 200 words mostly repeat a category
+  description plus a generated card list. Several add little value beyond the
+  main searchable ingredient index.
+- Five shop product pages are about 210-230 words in the live HTML. Their value
+  should be demonstrated with original previews, exact deliverables, intended
+  user, methodology, version/update information, and usage examples.
+
+### Accuracy and consistency risks
+
+- Production Search showed 153 ingredients on the paginated index while the
+  homepage could fall back to “250+”. The current source now uses a live count,
+  but the fallback should be neutral (“browse the database”), not a larger
+  unverifiable number.
+- Claims such as “32 prohibited” and “38 restricted” describe the subset in the
+  FormulaNorth database, not the full Health Canada Cosmetic Ingredient
+  Hotlist. Always label these as database coverage, never as the total size of
+  the official Hotlist.
+- Contact identity is inconsistent: public support uses
+  `support@formulanorth.com`, while privacy requests use a personal Gmail
+  address and the primary brand domain is `.ca`. This may be legitimate, but a
+  consistent branded contact identity looks more trustworthy.
+- Titles generated by some dynamic routes already contain “FormulaNorth” and
+  then inherit the root `| FormulaNorth` template. Ingredient function pages can
+  render `... | FormulaNorth | FormulaNorth`. Remove the brand from child title
+  values and let the root template append it once.
+- Ingredient pages use `Product` structured data without an offer, review, or
+  aggregate rating. That is not eligible for a Google Product rich result and
+  does not accurately describe a reference record. Prefer a plain WebPage plus
+  a suitable Schema.org entity only when it truthfully models the content.
+
+## Priority remediation plan
+
+### P0 — complete before requesting another AdSense review
+
+1. **Remove unfinished inventory.** Noindex and remove `/resources` from the
+   sitemap until it contains real resources, or publish the promised resources.
+2. **Fix sitemap completeness.** Include all blog posts and the six trust pages.
+   Replace runtime filesystem discovery with a deployment-safe manifest or
+   tracing configuration.
+3. **Resolve the duplicate supplier.** Choose one Windy Point slug and 301 the
+   other. Remove the redirected URL from the sitemap.
+4. **Prune weak programmatic pages.** Keep only ingredient and function pages
+   that provide a useful, accurate, independently valuable answer. Apply
+   `noindex, follow` to low-information records until they are enriched. A page
+   should not be indexable merely because a database row exists.
+5. **Add accountable authorship.** Show a real byline and reviewer where readers
+   expect one. Link to an About/author section that states relevant lived or
+   professional experience truthfully. Never invent credentials.
+6. **Add claim-level primary citations.** Regulatory assertions should link to
+   the exact Health Canada, Justice Laws, EU regulation, or other authoritative
+   passage. Add a “Sources and review method” block to every regulatory guide.
+7. **Demonstrate first-hand value.** Add original worked examples, screenshots,
+   calculations, testing notes, downloadable checklists, comparison tables, or
+   photos that could not be produced by merely paraphrasing public guidance.
+8. **Control ad inventory.** Before enabling Auto ads, exclude all auth,
+   dashboard, checkout, download, print, utility/result, empty, error, and other
+   non-content routes. Confirm the privacy policy describes actual behavior.
+9. **Set up consent correctly.** If ads can be served to EEA, UK, or Swiss
+   visitors, configure a Google-certified CMP/TCF flow in AdSense Privacy &
+   messaging. A privacy-policy paragraph alone is not consent.
+10. **Wait for evidence.** Deploy the changes, let Google recrawl, and look for
+    improving index coverage and genuine organic traffic before reapplying.
+    Approval is discretionary and cannot be guaranteed.
+
+### P1 — strengthen quality and organic performance
+
+- Consolidate overlapping pages instead of creating a separate page for every
+  keyword variation. The CNF guide and CNF blog walkthrough, for example, need
+  clearly different jobs or should be merged.
+- Turn the strongest guides into definitive resources with named ownership,
+  revision history, exact citations, and useful original assets.
+- Give each ingredient record unique evidence: exact official source link,
+  synonym/identifier notes, formulation role, safety/restriction context,
+  supplier-document examples, and a visible correction history where relevant.
+- Add an editorial policy covering sourcing, corrections, review cadence, AI
+  assistance if material, and conflicts/affiliate relationships.
+- Add original images only when they help users. Use descriptive filenames,
+  meaningful alt text, stable dimensions, and image sitemaps where worthwhile.
+- Improve the blog index so the article list is present in server-rendered HTML,
+  not only after a client-side rendering bailout.
+
+### P2 — technical cleanup
+
+- Remove duplicated brand text from dynamic titles and shorten titles that are
+  likely to be truncated or rewritten.
+- Remove legacy `keywords` metadata; Google Search does not use the meta keywords
+  tag.
+- Stop treating `changeFrequency` and `priority` as optimization levers; Google
+  ignores both. Use accurate `lastModified` values for significant changes.
+- Validate supported structured data with Rich Results Test, but remove schema
+  that does not accurately describe the page. Schema is not a substitute for
+  content quality.
+- Add automated checks for sitemap URL status, canonical equality, accidental
+  noindex, title duplication, empty states, and source-link coverage.
+
+## Search Console operating procedure
+
+After P0 changes are deployed:
+
+1. Submit the corrected sitemap in Search Console.
+2. Inspect the homepage and five representative high-value URLs: one guide, one
+   blog post, one tool, one enriched ingredient, and one recipe.
+3. Confirm live fetch, indexing allowed, declared canonical, and Google-selected
+   canonical.
+4. Request indexing for those representative URLs. Do not submit hundreds of
+   thin records individually.
+5. Check Manual Actions and Security Issues separately; URL Inspection does not
+   evaluate all quality or policy conditions.
+6. Re-run validation only for a state that should actually change. Do not
+   validate the 42 intentional `noindex` filter/category URLs as "fixed."
+   Expect reports to update gradually as Google recrawls.
+7. Export the Performance report for the last 90 days and review queries, pages,
+   impressions, clicks, CTR, and countries. Improve pages with real impressions
+   first; prune pages that remain unused and undifferentiated.
+
+## AdSense re-review gate
+
+Do not check “I confirm I have fixed the issues” until all of these are true:
+
+- No public indexable page says “coming soon”, is empty, or is a dead end.
+- Duplicate URLs redirect or canonicalize consistently and are absent from the
+  sitemap.
+- The sitemap contains only canonical, indexable, HTTP 200 URLs worth showing in
+  Search.
+- Blog posts and trust pages are discoverable in the sitemap and navigation.
+- Regulatory content has visible, truthful authorship/review and inline primary
+  sources.
+- The strongest pages contain original value beyond summaries of official
+  guidance.
+- Weak generated pages are enriched, consolidated, or noindexed.
+- Ads are restricted to substantial publisher-content pages.
+- Privacy disclosures match the implementation, and required consent tooling is
+  configured.
+- Search Console shows recrawling and an improving index pattern; there is some
+  genuine audience/organic-use evidence.
+
+## 2026 corrections to older SEO advice
+
+- **FAQ rich results:** Google removed the FAQ rich-result feature from Search in
+  June 2026. Visible FAQs can still help readers, but adding `FAQPage` solely for
+  Google visibility is obsolete.
+- **`llms.txt`:** Google clarified in June 2026 that `llms.txt` is not needed and
+  has neither a positive nor negative effect on Google Search visibility. Keep it
+  only for other systems or as a maintained public content map.
+- **Word count:** Google does not prescribe a minimum word count. Depth,
+  originality, accuracy, and task completion matter.
+- **Sitemaps:** submission is a hint, not a guarantee of crawling or indexing.
+  Google ignores sitemap `priority` and `changefreq`.
+- **Schema:** structured data can make eligible content understandable, but it
+  does not make low-value content valuable and does not guarantee a rich result.
+- **GEO/AEO:** there is no separate shortcut. Google recommends the same
+  non-commodity, helpful, reliable, people-first content and sound technical
+  access used for Search generally.
+
+## Reusable principles for this and other projects
+
+1. Index only pages that independently satisfy a real user intent.
+2. Make the sitemap a curated list of canonical, indexable, successful URLs—not
+   a dump of every route or database row.
+3. Prefer fewer excellent pages over scaled keyword variants.
+4. Show who created and reviewed consequential content, how it was produced, and
+   why readers should trust it.
+5. Cite primary sources at the claim, not only on a generic sources page.
+6. Demonstrate experience with original evidence, examples, data, or media.
+7. Keep titles, descriptions, H1s, canonicals, and internal links descriptive and
+   natural. Do not keyword-stuff.
+8. Use structured data only when it matches visible content and a supported use
+   case.
+9. Keep non-content, private, filtered, duplicate, and unfinished pages out of
+   the index and ad inventory.
+10. Measure outcomes in Search Console and analytics; do not optimize to a
+    checklist score.
+
+The reusable operational version of these principles lives in
+`skills/seo/SKILL.md`.
+
+## Primary references
+
+- [Google AdSense: Make sure your site's pages are ready](https://support.google.com/adsense/answer/7299563)
+- [Google Publisher Policies: Inventory value](https://support.google.com/adsense/answer/10502938)
+- [AdSense Program policies](https://support.google.com/adsense/answer/48182)
+- [Google Search: Helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
+- [Google Search: AI feature optimization guidance](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide)
+- [Google Search: Build and submit a sitemap](https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap)
+- [Search Console: Page indexing report](https://support.google.com/webmasters/answer/7440203)
+- [Search Console: URL Inspection](https://support.google.com/webmasters/answer/9012289)
+- [Search Console: Manual actions](https://support.google.com/webmasters/answer/9044175)
+- [AdSense: CMP requirements for EEA, UK, and Switzerland](https://support.google.com/adsense/answer/13554020)
+- [Google Search documentation updates](https://developers.google.com/search/updates)

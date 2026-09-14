@@ -3,7 +3,7 @@ import { siteConfig } from "@/lib/site-config";
 import { getAllIngredientSlugs, getIngredientFunctions } from "@/lib/supabase/queries/ingredients";
 import { getAllSupplierSlugs } from "@/lib/supabase/queries/suppliers";
 import { getAllProductSlugs } from "@/lib/supabase/queries/shop";
-import { getAllPostSlugs } from "@/lib/blog";
+import { BLOG_POST_MANIFEST } from "@/content/blog/manifest";
 import { SOAP_RECIPES } from "@/lib/soap-recipes";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -14,8 +14,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     getIngredientFunctions(),
   ]);
 
-  const postSlugs = getAllPostSlugs();
-
   const staticPages: MetadataRoute.Sitemap = [
     { url: siteConfig.url, lastModified: new Date(), changeFrequency: "weekly", priority: 1 },
     { url: `${siteConfig.url}/ingredients`, lastModified: new Date(), changeFrequency: "daily", priority: 0.9 },
@@ -23,7 +21,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteConfig.url}/suppliers`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
     { url: `${siteConfig.url}/shop`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
     { url: `${siteConfig.url}/blog`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
-    { url: `${siteConfig.url}/resources`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.7 },
     { url: `${siteConfig.url}/pricing`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
     { url: `${siteConfig.url}/guides`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
     { url: `${siteConfig.url}/guides/health-canada-cosmetic-notification`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
@@ -42,7 +39,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteConfig.url}/tools/inci-list-formatter`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
     { url: `${siteConfig.url}/tools/cosmetic-cost-calculator`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
     { url: `${siteConfig.url}/tools/cosmetic-label-checklist`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
-    { url: `${siteConfig.url}/tools/soap-calculator`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
+    { url: `${siteConfig.url}/tools/soap-calculator`, lastModified: new Date("2026-09-13"), changeFrequency: "monthly", priority: 0.9 },
+    { url: `${siteConfig.url}/soap-sap-values-chart`, lastModified: new Date("2026-09-13"), changeFrequency: "monthly", priority: 0.8 },
     { url: `${siteConfig.url}/tools/soap-calculator/recipes`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
     { url: `${siteConfig.url}/bc`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
     { url: `${siteConfig.url}/bc/farmers-market-cosmetic-vendor-checklist`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
@@ -52,6 +50,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteConfig.url}/bc/handmade-skincare-insurance`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
     { url: `${siteConfig.url}/bc/temporary-food-vs-cosmetic-vendor`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
     { url: `${siteConfig.url}/feedback`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.5 },
+    { url: `${siteConfig.url}/about`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.4 },
+    { url: `${siteConfig.url}/contact`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.4 },
+    { url: `${siteConfig.url}/data-sources`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.5 },
+    { url: `${siteConfig.url}/privacy`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.2 },
+    { url: `${siteConfig.url}/terms`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.2 },
+    { url: `${siteConfig.url}/disclaimer`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.2 },
   ];
 
   const ingredientFunctionPages: MetadataRoute.Sitemap = ingredientFunctions.map((fn) => ({
@@ -70,8 +74,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     url: `${siteConfig.url}/shop/${slug}`, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 0.7,
   }));
 
-  const blogPages: MetadataRoute.Sitemap = postSlugs.map((slug) => ({
-    url: `${siteConfig.url}/blog/${slug}`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.6,
+  const blogPages: MetadataRoute.Sitemap = BLOG_POST_MANIFEST.map((post) => ({
+    url: `${siteConfig.url}/blog/${post.slug}`,
+    lastModified: new Date(post.date),
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
   }));
 
   const soapRecipePages: MetadataRoute.Sitemap = SOAP_RECIPES.map((r) => ({

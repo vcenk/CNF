@@ -7,9 +7,9 @@ import { BetaBadge } from "@/components/marketing/beta-badge";
 import { SoapForm } from "./soap-form";
 
 const pathname = "/tools/soap-calculator";
-const title = "Free Soap Calculator (Lye / SAP) for Canadian Soap Makers";
+const title = "Free Soap Lye Calculator (NaOH & KOH) — Canada";
 const description =
-  "Free saponification calculator. Enter oils, superfat, and water — get NaOH or KOH amounts plus hardness, cleansing, conditioning, bubbly, and creamy quality scores. Made for Canadian indie soap makers.";
+  "Calculate NaOH or KOH, water, superfat, SAP values, and predicted soap qualities for bar or liquid soap. Free for Canadian soap makers.";
 
 export const metadata: Metadata = {
   title,
@@ -40,7 +40,7 @@ const faqs = [
   {
     question: "Is the SAP data accurate?",
     answer:
-      "Values are industry-standard estimates from publicly available indie soap-making references. Always cross-reference with your supplier's spec sheet and zap-test or pH-test the finished bar before selling. SAP varies slightly between batches and producers.",
+      "The calculator uses working averages compared against established soap-making references. Natural oils and lye purity vary, so cross-check critical values against your supplier's specification sheet and Safety Data Sheet before production.",
   },
   {
     question: "Should I use NaOH or KOH?",
@@ -50,12 +50,12 @@ const faqs = [
   {
     question: "What's a safe water-to-oil ratio?",
     answer:
-      "33–38% of oil weight is the standard range. Lower ratios (a 'water discount') trace faster and produce a harder bar but are less forgiving for beginners. 33% is a good default.",
+      "There is no universally safe ratio for every formula. Water can be set as a percentage of oils, a water-to-lye ratio, or a lye concentration. FormulaNorth starts at 33% water as a percentage of oils, but makers should use a tested process and understand how less water can accelerate trace.",
   },
   {
     question: "Is the soap I make ready to sell in Canada?",
     answer:
-      "Soap with no therapeutic claims is treated as a cosmetic in Canada. Before selling, you'll need a Cosmetic Notification Form (CNF) on file with Health Canada, a bilingual label, and ingredient review against the Cosmetic Ingredient Hotlist. FormulaNorth covers all of that.",
+      "Health Canada lists soaps among cosmetics when they are represented for cosmetic uses such as cleansing. Cosmetics sold in Canada must meet notification, safety, ingredient, and labelling requirements; therapeutic claims or certain ingredients can change classification. Review your exact product before sale.",
   },
   {
     question: "What are INS and Iodine values?",
@@ -78,15 +78,6 @@ export default function SoapCalculatorPage() {
       description,
       offers: { "@type": "Offer", price: "0", priceCurrency: "CAD" },
       provider: { "@type": "Organization", name: siteConfig.name, url: siteConfig.url },
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      mainEntity: faqs.map((f) => ({
-        "@type": "Question",
-        name: f.question,
-        acceptedAnswer: { "@type": "Answer", text: f.answer },
-      })),
     },
     {
       "@context": "https://schema.org",
@@ -124,13 +115,13 @@ export default function SoapCalculatorPage() {
             <BetaBadge />
           </div>
           <h1 className="mt-2 font-display text-3xl font-bold tracking-tight sm:text-4xl">
-            Soap Calculator (Lye / SAP)
+            Free soap lye calculator for Canadian makers
           </h1>
           <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
-            Enter your oils, lye type, superfat, and water ratio. Get NaOH
-            or KOH amounts plus live hardness, cleansing, conditioning,
-            bubbly, and creamy scores. Built for Canadian indie soap makers
-            and tied into FormulaNorth&apos;s ingredient and label tooling.
+            Build a cold-process bar soap or liquid soap recipe using NaOH or
+            KOH. Enter oils, superfat, lye purity, and water method to calculate
+            batch weights plus live hardness, cleansing, conditioning, bubbly,
+            and creamy scores.
           </p>
         </header>
 
@@ -138,7 +129,7 @@ export default function SoapCalculatorPage() {
           <DisclaimerCallout title="Soap calculators are starting points, not safety reviews" />
         </div>
 
-        <div className="mb-10 grid gap-3 sm:grid-cols-3">
+        <div className="mb-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           <Link
             href="/tools/soap-calculator/recipes"
             className="group rounded-xl border border-border bg-card p-4 transition-colors hover:border-brand"
@@ -149,6 +140,18 @@ export default function SoapCalculatorPage() {
             <p className="mt-1 text-xs text-muted-foreground">
               15 trustworthy recipes — Castile, salt bar, milk soap, liquid,
               shave bar — open in calculator with one click.
+            </p>
+          </Link>
+          <Link
+            href="/soap-sap-values-chart"
+            className="group rounded-xl border border-border bg-card p-4 transition-colors hover:border-brand"
+          >
+            <p className="text-sm font-semibold transition-colors group-hover:text-brand">
+              🧪 SAP values chart
+            </p>
+            <p className="mt-1 text-xs text-muted-foreground">
+              Compare NaOH and KOH values, iodine, and soap qualities for every
+              oil in the calculator.
             </p>
           </Link>
           <Link
@@ -178,6 +181,47 @@ export default function SoapCalculatorPage() {
 
         <SoapForm />
 
+        <section className="mt-20 max-w-4xl" aria-labelledby="calculator-method">
+          <p className="text-sm font-semibold uppercase tracking-wider text-brand">
+            Transparent calculation
+          </p>
+          <h2 id="calculator-method" className="mt-2 font-display text-2xl font-semibold">
+            How this soap calculator determines lye and water
+          </h2>
+          <p className="mt-4 leading-7 text-muted-foreground">
+            Each oil weight is multiplied by its NaOH or KOH SAP value. The
+            results are added, reduced by the selected superfat, and adjusted
+            for the purity of your lye. Water is then calculated using the
+            method you selected: lye concentration, water-to-lye ratio, or water
+            as a percentage of oils.
+          </p>
+          <div className="mt-6 grid gap-4 sm:grid-cols-3">
+            {[
+              ["1. Choose the alkali", "Use NaOH for hard bar soap or KOH for liquid and soft soap."],
+              ["2. Verify the inputs", "Confirm oil weights, SAP values, lye purity, superfat, and water method."],
+              ["3. Assess the batch", "Treat quality scores as comparisons, then document and evaluate the finished soap."],
+            ].map(([heading, body]) => (
+              <div key={heading} className="rounded-xl border border-border bg-card p-5">
+                <h3 className="font-semibold">{heading}</h3>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">{body}</p>
+              </div>
+            ))}
+          </div>
+          <div className="mt-6 flex flex-wrap gap-4 text-sm font-medium">
+            <Link href="/soap-sap-values-chart" className="text-brand underline hover:text-brand-dark">
+              Review the complete SAP values chart →
+            </Link>
+            <a
+              href="https://www.ccohs.ca/oshanswers/chemicals/chem_profiles/sodium_hydroxide.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-brand underline hover:text-brand-dark"
+            >
+              Read the CCOHS sodium hydroxide safety profile →
+            </a>
+          </div>
+        </section>
+
         <section className="mt-20 max-w-3xl">
           <h2 className="font-display text-2xl font-semibold">
             Frequently asked questions
@@ -197,6 +241,7 @@ export default function SoapCalculatorPage() {
           <ul className="mt-4 grid gap-3 sm:grid-cols-2">
             {[
               { href: "/tools/soap-calculator/recipes", label: "Free Soap Recipe Library" },
+              { href: "/soap-sap-values-chart", label: "Soap SAP Values Chart" },
               { href: "/blog/soap-maker-starter-kit", label: "Soap Maker Starter Kit" },
               { href: "/blog/cold-process-soap-step-by-step", label: "Cold Process Soap: Step-by-Step" },
               { href: "/blog/choosing-your-first-soap-oils", label: "Choosing Your First Soap Oils" },

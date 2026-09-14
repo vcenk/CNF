@@ -17,7 +17,6 @@ import {
   OIL_CATEGORY_LABEL,
   RECIPE_PRESETS,
   SOAP_OILS,
-  SOAP_OILS_BY_SLUG,
   toGrams,
   type LyeType,
   type SoapInputAdditive,
