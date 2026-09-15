@@ -1,4 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
+import { createClient as createPublicClient } from "@supabase/supabase-js";
+import { isIngredientIndexable } from "@/lib/seo/ingredient-indexability";
 
 export interface IngredientSearchParams {
   query?: string;
@@ -204,6 +206,41 @@ export async function getRelatedIngredients(
   }
 
   return data ?? [];
+}
+
+function publicClient() {
+  return createPublicClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  );
+}
+
+export async function getIndexableIngredientSlugs() {
+  const supabase = publicClient();
+  const { data, error } = await supabase
+    .from("ingredients")
+    .select(
+      `
+      slug,
+      description,
+      cas_number,
+      hotlist_status,
+      hotlist_max_concentration,
+      hotlist_conditions,
+      typical_use_level_min,
+      typical_use_level_max,
+      is_fragrance_allergen,
+      ingredient_function_map(function_id),
+      ingredient_supplier_prices(id)
+    `
+    )
+    .order("slug");
+
+  if (error) return [];
+
+  return (data ?? [])
+    .filter(isIngredientIndexable)
+    .map((ingredient) => ingredient.slug as string);
 }
 
 export async function getAllIngredientSlugs() {

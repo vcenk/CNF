@@ -9,7 +9,7 @@ const pathname = "/how-to-sell-handmade-soap-in-canada";
 const title = "How to Sell Handmade Soap in Canada";
 const description =
   "A practical guide for Canadian soap makers — when soap is regulated as a cosmetic, what your label needs, how to cost a batch correctly, and how to prepare a Cosmetic Notification Form before your first sale.";
-const lastReviewed = "July 14, 2026";
+const lastReviewed = "September 14, 2026";
 
 const sections: SeoGuideSection[] = [
   {
@@ -228,7 +228,7 @@ const faqs: SeoGuideFaq[] = [
   {
     question: "Does soap with essential oils need fragrance allergen disclosure?",
     answer:
-      "If allergens from essential oils are present above the threshold — 0.001% in leave-on, 0.01% in rinse-off products — they must be disclosed individually by INCI name under the rules in effect since April 2026. Many common soap essential oils (lavender, lemongrass, clary sage, rose) contain regulated allergens. A full allergen review is part of pre-label preparation.",
+      "If allergens from essential oils are present above the threshold — 0.001% in leave-on, 0.01% in rinse-off products — they must be disclosed individually by INCI name under the rules in effect since April 12, 2026. The expanded list of 81 allergens applies to new cosmetics starting August 1, 2026, and existing cosmetics starting August 1, 2028. A supplier-backed allergen review is part of pre-label preparation.",
   },
 ];
 
@@ -242,8 +242,28 @@ export default function HowToSellHandmadeSoapInCanadaPage() {
       description={description}
       pathname={pathname}
       datePublished="2026-04-27"
-      dateModified="2026-07-14"
+      dateModified="2026-09-14"
       lastReviewed={lastReviewed}
+      sources={[
+        {
+          label: "Notification of Cosmetics: Guide for Cosmetic Notifications",
+          href: "https://www.canada.ca/en/health-canada/services/consumer-product-safety/cosmetics/notification-cosmetics/guide.html",
+          publisher: "Health Canada",
+          note: "Who must notify, the 10-day deadline, amendments, and ingredient information.",
+        },
+        {
+          label: "Industry Guide for the Labelling of Cosmetics",
+          href: "https://www.canada.ca/en/health-canada/services/consumer-product-safety/reports-publications/industry-professionals/labelling-cosmetics.html",
+          publisher: "Health Canada",
+          note: "Soap identity, loose-product leaflets, net quantity, contact information, and ingredients.",
+        },
+        {
+          label: "Cosmetic Ingredient Hotlist",
+          href: "https://www.canada.ca/en/health-canada/services/consumer-product-safety/cosmetics/cosmetic-ingredient-hotlist-prohibited-restricted-ingredients.html",
+          publisher: "Health Canada",
+          note: "Current prohibited and restricted ingredient conditions.",
+        },
+      ]}
       breadcrumbs={[{ label: "How to Sell Handmade Soap in Canada" }]}
       intro={
         <>

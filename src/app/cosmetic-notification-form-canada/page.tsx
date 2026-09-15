@@ -10,7 +10,7 @@ const pathname = "/cosmetic-notification-form-canada";
 const title = "Cosmetic Notification Form (CNF) Canada — A Practical Guide";
 const description =
   "What the Health Canada Cosmetic Notification Form is, who has to file it, what information you need to gather, and how to prepare your submission with less rework.";
-const lastReviewed = "July 24, 2026";
+const lastReviewed = "September 14, 2026";
 
 const sections: SeoGuideSection[] = [
   {
@@ -145,20 +145,20 @@ const sections: SeoGuideSection[] = [
           without a percentage column.
         </p>
         <p>
-          Blended ingredients require special attention. If you use a fragrance
-          oil, a botanical extract sold as a proprietary blend, or a
-          multi-component emulsifier, you need the full INCI breakdown of that
-          blend — not just the supplier&apos;s trade name. Ask your supplier
-          for an INCI disclosure before purchasing any blended material you
-          intend to use in a product you will sell.
+          Blended ingredients require special attention. Botanical extracts and
+          multi-component functional blends generally need their component
+          ingredients entered rather than only a supplier trade name. Fragrance
+          and flavour ingredients have specific grouping rules, but fragrance
+          allergens above the disclosure threshold must still be entered
+          separately. Ask the supplier for enough composition documentation to
+          complete the CNF accurately.
         </p>
         <p>
-          Soap made by the saponification of oils presents its own naming
-          convention. The fatty acid salts produced during saponification have
-          specific INCI names (Sodium Cocoate, Sodium Olivate, Sodium
-          Palmate, etc.) that differ from the oil names. A soap CNF lists the
-          saponified ingredient names, not the original oil names, along with
-          water (Aqua) and lye byproducts.
+          Soap made by saponifying oils needs particular care because the final
+          material differs from the starting oils and alkali. Do not infer the
+          filing names from a recipe label alone. Validate each ingredient in
+          the current CNF ingredient search and keep supplier and manufacturing
+          records that support the names and concentrations you enter.
         </p>
       </>
     ),
@@ -168,18 +168,19 @@ const sections: SeoGuideSection[] = [
     body: (
       <>
         <p>
-          If your product contains a fragrance oil or essential oils, the CNF
-          requires the individual components of the fragrance — not just
-          &quot;Fragrance&quot; or &quot;Parfum&quot; as a single line. This
-          means you need a full ingredient breakdown from your fragrance
-          supplier, including all aroma chemicals and carrier components.
+          The CNF permits most fragrance ingredients to be grouped under
+          &quot;fragrance&quot; or &quot;parfum&quot;. However, fragrance
+          allergens above the disclosure threshold must be entered separately,
+          even when they are part of a fragrance blend, essential oil, or
+          botanical extract. Ask your supplier for the composition information
+          needed to calculate those finished-product concentrations.
         </p>
         <p>
-          Since April 2026, Health Canada also requires that specific fragrance
+          Since April 12, 2026, Health Canada also requires that specific fragrance
           allergens be disclosed individually on the label when present above
           the threshold — 0.001% in leave-on products, 0.01% in rinse-off
           products. The allergen list expanded to 81 substances for new
-          products after August 1, 2026. Any product with essential oils or
+          products starting August 1, 2026. Any product with essential oils or
           fragrance blends needs a full allergen review before labelling can be
           finalized and the CNF prepared accurately.
         </p>
@@ -297,10 +298,11 @@ const sections: SeoGuideSection[] = [
           straightforward but adds time if you have not already done it.
         </p>
         <p>
-          <strong>Fragrance components not broken out.</strong> A fragrance oil
-          listed as a single line item is not sufficient. If you do not have
-          the full INCI breakdown from your fragrance supplier, you need to
-          request it before the CNF can be completed.
+          <strong>Fragrance allergens not calculated.</strong> The CNF permits
+          fragrance ingredients to be grouped under fragrance or parfum, but
+          regulated allergens above the applicable finished-product threshold
+          must be entered separately. Ask the supplier for allergen composition
+          data rather than assuming the fragrance line covers them.
         </p>
         <p>
           <strong>CNF left until after first sale.</strong> The 10-day window
@@ -372,14 +374,14 @@ const faqs: SeoGuideFaq[] = [
       "Each distinct product with its own formula generally requires its own CNF. A body lotion and a face serum are two separate notifications. Products with identical formulas sold under different names may be handled differently — review current Health Canada guidance for your specific situation.",
   },
   {
-    question: "What INCI name does saponified soap use?",
+    question: "How should saponified soap ingredients be entered?",
     answer:
-      "Soap made by saponifying oils uses the sodium salt names of the resulting fatty acids — for example, Sodium Cocoate (from coconut oil), Sodium Olivate (from olive oil), Sodium Palmate (from palm oil). The original oil names are not used in the soap CNF or on the label. Water is listed as Aqua. Glycerin produced during saponification is listed as Glycerin.",
+      "Saponification changes the identity of the starting oils and alkali, so do not guess filing names from the recipe alone. Validate each entry in Health Canada's current CNF ingredient search and retain supplier and manufacturing records that support the ingredient names and concentrations you submit.",
   },
   {
-    question: "What if I used a fragrance oil and don't have the full INCI breakdown?",
+    question: "What information do I need from a fragrance supplier?",
     answer:
-      "You need the full component INCI list from your fragrance supplier before you can complete the ingredient section of the CNF. Contact your supplier and request a full ingredient disclosure — a reputable fragrance supplier will provide this. Without it, you cannot accurately complete the CNF or the label.",
+      "Ask for documentation that identifies regulated fragrance allergens and their concentration in the supplied blend. You need that information to calculate whether each allergen exceeds the threshold in the finished cosmetic. Most other fragrance ingredients may be grouped under fragrance or parfum under the current CNF rules.",
   },
   {
     question: "Do I need to update my CNF if I change a formula?",
@@ -403,8 +405,28 @@ export default function CosmeticNotificationFormCanadaPage() {
       description={description}
       pathname={pathname}
       datePublished="2026-04-27"
-      dateModified="2026-07-24"
+      dateModified="2026-09-14"
       lastReviewed={lastReviewed}
+      sources={[
+        {
+          label: "Notification of Cosmetics: Guide for Cosmetic Notifications",
+          href: "https://www.canada.ca/en/health-canada/services/consumer-product-safety/cosmetics/notification-cosmetics/guide.html",
+          publisher: "Health Canada",
+          note: "Filing deadlines, amendments, ingredient entry, concentration ranges, and fragrance allergens.",
+        },
+        {
+          label: "Cosmetic Regulations, C.R.C., c. 869",
+          href: "https://laws-lois.justice.gc.ca/eng/regulations/C.R.C.,_c._869/",
+          publisher: "Justice Laws Website, Government of Canada",
+          note: "Controlling regulatory text, including section 30 notification requirements.",
+        },
+        {
+          label: "Cosmetic Ingredient Hotlist",
+          href: "https://www.canada.ca/en/health-canada/services/consumer-product-safety/cosmetics/cosmetic-ingredient-hotlist-prohibited-restricted-ingredients.html",
+          publisher: "Health Canada",
+          note: "Current prohibited and restricted ingredient conditions.",
+        },
+      ]}
       breadcrumbs={[{ label: "Cosmetic Notification Form Canada" }]}
       intro={
         <>

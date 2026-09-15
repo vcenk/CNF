@@ -19,6 +19,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { dataSourcesLastReviewed } from "@/lib/legal";
+import { isIngredientIndexable } from "@/lib/seo/ingredient-indexability";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -36,11 +37,13 @@ export async function generateMetadata({
   const description =
     ingredient.description ||
     `${name} is a cosmetic ingredient with INCI name ${ingredient.inci_name}. See Health Canada Hotlist status, typical use level, and Canadian supplier availability.`;
+  const indexable = isIngredientIndexable(ingredient);
 
   return {
     title,
     description: description.slice(0, 160),
     alternates: { canonical: `/ingredients/${slug}` },
+    robots: indexable ? undefined : { index: false, follow: true },
     openGraph: {
       title: name,
       description: description.slice(0, 160),
@@ -100,32 +103,18 @@ export default async function IngredientDetailPage({ params }: PageProps) {
   const structuredData = [
     {
       "@context": "https://schema.org",
-      "@type": "Product",
-      name: ingredient.inci_name,
-      alternateName: ingredient.common_name,
+      "@type": "WebPage",
+      name: `${name} cosmetic ingredient reference`,
       description: ingredient.description,
-      category: "Cosmetic Ingredient",
       url,
-      additionalProperty: [
-        ingredient.cas_number && {
-          "@type": "PropertyValue",
-          name: "CAS Number",
-          value: ingredient.cas_number,
-        },
-        {
-          "@type": "PropertyValue",
-          name: "INCI Name",
-          value: ingredient.inci_name,
-        },
-        {
-          "@type": "PropertyValue",
-          name: "Health Canada Status",
-          value:
-            ingredient.hotlist_status === "not_listed"
-              ? "Not listed"
-              : ingredient.hotlist_status,
-        },
-      ].filter(Boolean),
+      isPartOf: { "@type": "WebSite", name: siteConfig.name, url: siteConfig.url },
+      about: {
+        "@type": "DefinedTerm",
+        name: ingredient.inci_name,
+        alternateName: ingredient.common_name,
+        termCode: ingredient.cas_number || undefined,
+        inDefinedTermSet: `${siteConfig.url}/ingredients`,
+      },
     },
     {
       "@context": "https://schema.org",
@@ -194,8 +183,16 @@ export default async function IngredientDetailPage({ params }: PageProps) {
             </p>
           )}
           <p className="mt-3 text-xs text-muted-foreground">
-            Last reviewed {dataSourcesLastReviewed} · Always verify against the
-            current Health Canada Cosmetic Ingredient Hotlist before use.
+            Last reviewed {dataSourcesLastReviewed} · Always verify against the{" "}
+            <a
+              href="https://www.canada.ca/en/health-canada/services/consumer-product-safety/cosmetics/cosmetic-ingredient-hotlist-prohibited-restricted-ingredients.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline decoration-brand/40 underline-offset-2 hover:text-brand"
+            >
+              current Health Canada Cosmetic Ingredient Hotlist
+            </a>{" "}
+            before use.
           </p>
         </header>
 
@@ -264,7 +261,7 @@ export default async function IngredientDetailPage({ params }: PageProps) {
               is used in cosmetic formulations as a{" "}
               {functions.map((fn) => fn.name.toLowerCase()).join(", ")}.{" "}
               {ingredient.hotlist_status === "not_listed"
-                ? `It is not listed on the Health Canada Cosmetic Ingredient Hotlist, meaning there are no specific restrictions on its use in Canadian cosmetics.`
+                ? `It is not currently listed on the Health Canada Cosmetic Ingredient Hotlist. The Hotlist is not exhaustive, so this status does not by itself establish that every use or concentration is safe or compliant.`
                 : ingredient.hotlist_status === "restricted"
                   ? `It appears on the Health Canada Cosmetic Ingredient Hotlist as a restricted ingredient — review the conditions and concentration limits before including it in a Canadian cosmetic formula.`
                   : `It appears on the Health Canada Cosmetic Ingredient Hotlist as a prohibited ingredient and cannot be used in Canadian cosmetic products.`}
@@ -288,12 +285,13 @@ export default async function IngredientDetailPage({ params }: PageProps) {
             )}
             <p className="leading-7">
               When including {ingredient.common_name || ingredient.inci_name} in
-              a formula intended for sale in Canada, list it on the cosmetic
-              label using the INCI name{" "}
+              a formula intended for sale in Canada, use the INCI name{" "}
               <strong className="text-foreground">{ingredient.inci_name}</strong>{" "}
-              in descending order of concentration. The same INCI name is used
-              on the Cosmetic Notification Form filed with Health Canada within
-              10 days of first sale.
+              on the cosmetic label. Ingredients above 1% are generally listed
+              in descending order by weight; ingredients at 1% or less and
+              colourants have ordering exceptions. Use the applicable name on
+              the Cosmetic Notification Form submitted to Health Canada within
+              10 days after first sale.
             </p>
           </section>
         )}

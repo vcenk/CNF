@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { siteConfig } from "@/lib/site-config";
-import { getAllIngredientSlugs, getIngredientFunctions } from "@/lib/supabase/queries/ingredients";
+import { getIndexableIngredientSlugs, getIngredientFunctions } from "@/lib/supabase/queries/ingredients";
 import { getAllSupplierSlugs } from "@/lib/supabase/queries/suppliers";
 import { getAllProductSlugs } from "@/lib/supabase/queries/shop";
 import { BLOG_POST_MANIFEST } from "@/content/blog/manifest";
@@ -8,7 +8,7 @@ import { SOAP_RECIPES } from "@/lib/soap-recipes";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [ingredientSlugs, supplierSlugs, productSlugs, ingredientFunctions] = await Promise.all([
-    getAllIngredientSlugs(),
+    getIndexableIngredientSlugs(),
     getAllSupplierSlugs(),
     getAllProductSlugs(),
     getIngredientFunctions(),

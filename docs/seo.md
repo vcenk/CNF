@@ -238,6 +238,25 @@ file tracing. Add the trust pages directly to the static sitemap list.
     improving index coverage and genuine organic traffic before reapplying.
     Approval is discretionary and cannot be guaranteed.
 
+#### Implementation status — September 14, 2026
+
+- Completed: deployment-safe blog manifest, corrected sitemap inventory,
+  unfinished `/resources` removal from the sitemap, and a record-quality gate
+  for ingredient URLs.
+- The quality gate currently keeps 89 of 280 ingredient records in the sitemap.
+  The remaining records stay usable but render `noindex, follow` until they have
+  a substantive description plus multiple record-specific evidence signals.
+- Completed: ingredient reference markup now uses `WebPage`/`DefinedTerm`
+  instead of inaccurate `Product` schema.
+- Completed for the CNF, Canadian cosmetic-label, and handmade-soap selling
+  guides: visible editorial ownership, current review dates, official primary
+  source lists, and schema citations. Obsolete `FAQPage` markup was removed
+  while the useful visible FAQ content remains.
+- Still required: identify a real author or qualified reviewer and publish only
+  truthful credentials; add original worked evidence; resolve the duplicate
+  supplier URL; configure ad exclusions and consent; deploy, resubmit the
+  sitemap, and monitor recrawling before requesting another AdSense review.
+
 ### P1 — strengthen quality and organic performance
 
 - Consolidate overlapping pages instead of creating a separate page for every

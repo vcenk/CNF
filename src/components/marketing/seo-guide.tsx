@@ -27,6 +27,13 @@ export interface SeoGuideBreadcrumb {
   href?: string;
 }
 
+export interface SeoGuideSource {
+  label: string;
+  href: string;
+  publisher: string;
+  note?: string;
+}
+
 export interface SeoGuideProps {
   eyebrow: string;
   title: string;
@@ -41,6 +48,7 @@ export interface SeoGuideProps {
   faqs: SeoGuideFaq[];
   primaryCta: SeoGuideCta;
   relatedLinks?: SeoGuideCta[];
+  sources?: SeoGuideSource[];
 }
 
 export function buildSeoGuideMetadata(input: {
@@ -83,6 +91,7 @@ export function SeoGuide({
   faqs,
   primaryCta,
   relatedLinks,
+  sources,
 }: SeoGuideProps) {
   const url = `${siteConfig.url}${pathname}`;
 
@@ -94,19 +103,11 @@ export function SeoGuide({
       description,
       author: { "@type": "Organization", name: siteConfig.name, url: siteConfig.url },
       publisher: { "@type": "Organization", name: siteConfig.name, url: siteConfig.url },
+      citation: sources?.map((source) => source.href),
       datePublished,
       dateModified,
       mainEntityOfPage: url,
       inLanguage: "en-CA",
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      mainEntity: faqs.map((faq) => ({
-        "@type": "Question",
-        name: faq.question,
-        acceptedAnswer: { "@type": "Answer", text: faq.answer },
-      })),
     },
     {
       "@context": "https://schema.org",
@@ -159,9 +160,39 @@ export function SeoGuide({
           <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
             {description}
           </p>
-          <p className="mt-3 text-xs text-muted-foreground">
-            Last reviewed {lastReviewed}
-          </p>
+          <div className="mt-6 border-y border-border/80 py-4">
+            <dl className="grid gap-3 text-sm sm:grid-cols-3">
+              <div>
+                <dt className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                  Prepared by
+                </dt>
+                <dd className="mt-1 font-medium text-foreground">
+                  FormulaNorth Editorial Team
+                </dd>
+              </div>
+              <div>
+                <dt className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                  Last reviewed
+                </dt>
+                <dd className="mt-1 font-medium text-foreground">
+                  {lastReviewed}
+                </dd>
+              </div>
+              <div>
+                <dt className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                  Our method
+                </dt>
+                <dd className="mt-1">
+                  <Link
+                    href="/data-sources"
+                    className="font-medium text-brand underline decoration-brand/30 underline-offset-4 hover:text-brand-dark"
+                  >
+                    Sources and corrections
+                  </Link>
+                </dd>
+              </div>
+            </dl>
+          </div>
         </header>
 
         <div className="prose-intro space-y-4 leading-relaxed text-muted-foreground">
@@ -193,6 +224,40 @@ export function SeoGuide({
         <div className="mt-12">
           <DisclaimerCallout compact />
         </div>
+
+        {sources && sources.length > 0 && (
+          <section className="mt-12 border-l-2 border-brand/50 pl-5">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand">
+              Evidence desk
+            </p>
+            <h2 className="mt-2 font-display text-2xl font-semibold">
+              Primary sources
+            </h2>
+            <p className="mt-2 text-sm leading-6 text-muted-foreground">
+              We used these official sources for the regulatory statements in
+              this guide. Open the current source before making a filing,
+              printing a label, or selling a product.
+            </p>
+            <ol className="mt-5 space-y-4">
+              {sources.map((source) => (
+                <li key={source.href}>
+                  <a
+                    href={source.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-medium text-foreground underline decoration-brand/40 underline-offset-4 hover:text-brand"
+                  >
+                    {source.label}
+                  </a>
+                  <p className="mt-1 text-sm text-muted-foreground">
+                    {source.publisher}
+                    {source.note ? ` — ${source.note}` : ""}
+                  </p>
+                </li>
+              ))}
+            </ol>
+          </section>
+        )}
 
         <section className="mt-16">
           <h2 className="font-display text-2xl font-semibold">

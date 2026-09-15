@@ -10,7 +10,7 @@ const pathname = "/cosmetic-label-requirements-canada";
 const title = "Cosmetic Label Requirements in Canada";
 const description =
   "What goes on a Canadian cosmetic label — bilingual content, INCI ingredient list ordering, net quantity, business identity, warnings, and how to plan your label before printing.";
-const lastReviewed = "July 24, 2026";
+const lastReviewed = "September 14, 2026";
 
 const sections: SeoGuideSection[] = [
   {
@@ -380,7 +380,7 @@ const faqs: SeoGuideFaq[] = [
   {
     question: "Do I need to list fragrance allergens individually on my label?",
     answer:
-      "Yes, since April 2026. Specific fragrance allergens must be listed individually by INCI name when present above the disclosure threshold — 0.001% in leave-on products, 0.01% in rinse-off products. The list expanded to 81 allergens for new products after August 1, 2026. Any product with essential oils or fragrance blends needs an allergen review before the label is finalized.",
+      "Yes, since April 12, 2026. Specific fragrance allergens must be listed individually by INCI name when present above the disclosure threshold — 0.001% in leave-on products, 0.01% in rinse-off products. The expanded list of 81 allergens applies to new cosmetics starting August 1, 2026, and to existing cosmetics starting August 1, 2028. Any product with essential oils or fragrance blends needs an allergen review before the label is finalized.",
   },
   {
     question: "Can I use imperial units on my label?",
@@ -409,8 +409,28 @@ export default function CosmeticLabelRequirementsCanadaPage() {
       description={description}
       pathname={pathname}
       datePublished="2026-04-27"
-      dateModified="2026-07-24"
+      dateModified="2026-09-14"
       lastReviewed={lastReviewed}
+      sources={[
+        {
+          label: "Industry Guide for the Labelling of Cosmetics",
+          href: "https://www.canada.ca/en/health-canada/services/consumer-product-safety/reports-publications/industry-professionals/labelling-cosmetics.html",
+          publisher: "Health Canada",
+          note: "Product identity, dealer information, ingredient order, bilingual requirements, warnings, and fragrance allergens.",
+        },
+        {
+          label: "Cosmetic advertising, labelling and ingredients",
+          href: "https://www.canada.ca/en/health-canada/services/cosmetics/cosmetic-advertising-labelling-ingredients.html",
+          publisher: "Health Canada",
+          note: "Current fragrance-allergen transition dates and disclosure thresholds.",
+        },
+        {
+          label: "Cosmetic Regulations, C.R.C., c. 869",
+          href: "https://laws-lois.justice.gc.ca/eng/regulations/C.R.C.,_c._869/",
+          publisher: "Justice Laws Website, Government of Canada",
+          note: "Controlling legal requirements for Canadian cosmetic labels.",
+        },
+      ]}
       breadcrumbs={[{ label: "Cosmetic Label Requirements Canada" }]}
       intro={
         <>
