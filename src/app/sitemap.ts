@@ -66,9 +66,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     url: `${siteConfig.url}/ingredients/${slug}`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.7,
   }));
 
-  const supplierPages: MetadataRoute.Sitemap = supplierSlugs.map((slug) => ({
-    url: `${siteConfig.url}/suppliers/${slug}`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.6,
-  }));
+  const supplierPages: MetadataRoute.Sitemap = supplierSlugs
+    .filter((slug) => slug !== "windy-point")
+    .map((slug) => ({
+      url: `${siteConfig.url}/suppliers/${slug}`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.6,
+    }));
 
   const shopPages: MetadataRoute.Sitemap = productSlugs.map((slug) => ({
     url: `${siteConfig.url}/shop/${slug}`, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 0.7,

@@ -238,7 +238,7 @@ file tracing. Add the trust pages directly to the static sitemap list.
     improving index coverage and genuine organic traffic before reapplying.
     Approval is discretionary and cannot be guaranteed.
 
-#### Implementation status — September 14, 2026
+#### Implementation status — September 18, 2026
 
 - Completed: deployment-safe blog manifest, corrected sitemap inventory,
   unfinished `/resources` removal from the sitemap, and a record-quality gate
@@ -252,10 +252,20 @@ file tracing. Add the trust pages directly to the static sitemap list.
   guides: visible editorial ownership, current review dates, official primary
   source lists, and schema citations. Obsolete `FAQPage` markup was removed
   while the useful visible FAQ content remains.
+- Completed: `/suppliers/windy-point` permanently redirects to the canonical
+  `/suppliers/windy-point-soap` URL, and the duplicate slug is excluded from the
+  sitemap.
+- Completed: the AdSense script now loads only on an explicit allowlist of
+  substantial editorial routes. Authentication, dashboard, checkout, shop,
+  legal, download, print, result, supplier-directory, calculator, and thin
+  ingredient-detail routes are excluded from direct-load ad inventory.
+- Completed: the soap calculator now includes an original downloadable batch
+  record template for formula, process, cure, and release notes.
 - Still required: identify a real author or qualified reviewer and publish only
-  truthful credentials; add original worked evidence; resolve the duplicate
-  supplier URL; configure ad exclusions and consent; deploy, resubmit the
-  sitemap, and monitor recrawling before requesting another AdSense review.
+  truthful credentials; configure matching AdSense page exclusions (the script
+  can remain resident after client-side navigation), configure consent, deploy,
+  resubmit the sitemap, and monitor recrawling before requesting another AdSense
+  review.
 
 ### P1 — strengthen quality and organic performance
 

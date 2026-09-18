@@ -1,0 +1,38 @@
+Record section,Field,Value,Unit or format,Verification or source,Notes
+Batch identity,Batch ID,,Unique identifier,,Use the same ID on formula and cure records
+Batch identity,Production date,,YYYY-MM-DD,,
+Batch identity,Maker initials,,,,
+Batch identity,Formula name and version,,,,Record the exact version used
+Batch identity,Intended batch size,,g,Soap calculator result,Oil weight before lye and water
+Ingredient,Oil or butter 1 name,,,,Add one row for every oil or butter
+Ingredient,Oil or butter 1 weight,,g,Scale reading,
+Ingredient,Oil or butter 1 NaOH SAP value,,g NaOH per g oil,Supplier or published SAP reference,
+Ingredient,Oil or butter 2 name,,,,Duplicate ingredient rows as needed
+Ingredient,Oil or butter 2 weight,,g,Scale reading,
+Ingredient,Oil or butter 2 NaOH SAP value,,g NaOH per g oil,Supplier or published SAP reference,
+Lye calculation,Alkali type,,NaOH or KOH,Formula setting,
+Lye calculation,Calculated pure alkali,,g,Soap calculator result,
+Lye calculation,Lye purity,,%,Certificate of analysis or label,
+Lye calculation,Adjusted alkali weight,,g,Soap calculator result,
+Lye calculation,Superfat,,%,Formula setting,
+Water calculation,Water method,,Lye concentration or water-to-lye ratio or percent of oils,Formula setting,
+Water calculation,Water amount,,g,Soap calculator result,
+Additives,Fragrance or essential oil name,,,,Check applicable restrictions and supplier documentation
+Additives,Fragrance or essential oil weight,,g,Scale reading,
+Additives,Colourant and amount,,,,
+Additives,Other additive and amount,,,,
+Process,Lye solution start temperature,,°C,Thermometer reading,
+Process,Oil mixture start temperature,,°C,Thermometer reading,
+Process,Trace time,,hh:mm,Timer,
+Process,Mould time,,hh:mm,Clock,
+Process,Unmould date and time,,YYYY-MM-DD hh:mm,,
+Quality control,Appearance after unmould,,,,Record cracking separation pockets or other observations
+Quality control,Measured batch weight after unmould,,g,Scale reading,
+Quality control,pH test method and result,,,,Use a method appropriate to finished soap
+Cure,Cure location and conditions,,,,Record airflow temperature and humidity if available
+Cure,Target cure completion date,,YYYY-MM-DD,,
+Cure,Final sample weight,,g,Scale reading,Use the same sample bar each time
+Cure,Final observations,,,,Record hardness lather scent and defects
+Release,Label or INCI version checked,,,,
+Release,Lot or batch code assigned,,,,
+Release,Released by and date,,Name or initials plus YYYY-MM-DD,,

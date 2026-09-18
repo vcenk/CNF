@@ -212,6 +212,13 @@ export default function SoapCalculatorPage() {
               Review the complete SAP values chart →
             </Link>
             <a
+              href="/downloads/soap-batch-record-template.csv"
+              download
+              className="text-brand underline hover:text-brand-dark"
+            >
+              Download the soap batch record template (CSV) ↓
+            </a>
+            <a
               href="https://www.ccohs.ca/oshanswers/chemicals/chem_profiles/sodium_hydroxide.html"
               target="_blank"
               rel="noopener noreferrer"
@@ -220,6 +227,12 @@ export default function SoapCalculatorPage() {
               Read the CCOHS sodium hydroxide safety profile →
             </a>
           </div>
+          <p className="mt-4 text-sm leading-6 text-muted-foreground">
+            The batch record is an editable production log for your formula inputs,
+            lye calculation, process checks, cure observations, and release notes.
+            It is a recordkeeping aid, not a substitute for your own safety review or
+            regulatory obligations.
+          </p>
         </section>
 
         <section className="mt-20 max-w-3xl">

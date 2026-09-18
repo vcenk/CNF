@@ -14,6 +14,11 @@ const nextConfig: NextConfig = {
         destination: "/guides",
         permanent: false,
       },
+      {
+        source: "/suppliers/windy-point",
+        destination: "/suppliers/windy-point-soap",
+        permanent: true,
+      },
     ];
   },
   async headers() {
@@ -43,4 +48,3 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
-
