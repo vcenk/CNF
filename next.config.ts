@@ -19,6 +19,18 @@ const nextConfig: NextConfig = {
         destination: "/suppliers/windy-point-soap",
         permanent: true,
       },
+      {
+        source: "/blog/fragrance-allergen-rules-2026",
+        has: [
+          {
+            type: "query",
+            key: "source",
+            value: "(?:label-guide|cnf-guide)",
+          },
+        ],
+        destination: "/blog/fragrance-allergen-rules-2026",
+        permanent: true,
+      },
     ];
   },
   async headers() {

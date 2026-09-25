@@ -1,6 +1,6 @@
 # FormulaNorth SEO, Search Console, and AdSense Readiness
 
-> Last audited: 2026-09-13
+> Last audited: 2026-09-25
 > Scope: repository, production HTML, live `robots.txt`, `sitemap.xml`,
 > `ads.txt`, representative Search results, the supplied AdSense rejection,
 > and the supplied Google Search Console Page Indexing report.
@@ -80,7 +80,7 @@ deployment already handles correctly:
 Those URLs may remain in the report until Google recrawls them. Do not reverse
 the correct `noindex` directives just to make the validation counter reach zero.
 
-### Additional Search Console exclusions supplied 2026-09-13
+### Additional Search Console exclusions supplied through 2026-09-25
 
 The later screenshots add two reports:
 
@@ -96,14 +96,46 @@ The later screenshots add two reports:
    `?source=label-guide` and `?source=cnf-guide`. Both live URLs now return HTTP
    200 and declare `https://formulanorth.ca/blog/fragrance-allergen-rules-2026`
    as their canonical. Current internal alert links also use the clean URL. The
-   report therefore reflects an older crawl or canonical state. Inspect each
-   exact variant in URL Inspection, run **Test live URL**, and request validation
-   only after Google reports the declared canonical from the current HTML.
+   report therefore reflects an older crawl or canonical state. The application
+   now also permanently redirects those two known `source` values to the clean
+   URL, making consolidation unambiguous. Validate this issue after that redirect
+   is deployed and visible to the live URL test.
 
-Do not add filtered or tracking variants to the sitemap. If `source` attribution
-is no longer needed, a redirect that removes only that known tracking parameter
-would make the signal stronger, but the current clean canonical is already a
-valid consolidation signal.
+Do not add filtered or tracking variants to the sitemap. Keep the redirect
+narrowly scoped to known tracking values so unrelated query-string behaviour is
+not changed.
+
+### September 25 Search Console interpretation
+
+The latest screenshots show 29 **Page with redirect** URLs, 3 **Blocked by
+robots.txt** URLs, and 38 examples under **Crawled - currently not indexed**.
+These counts are not 70 technical defects:
+
+- **Page with redirect** is expected for legacy URLs that permanently redirect.
+  Google indexes the destination, not the redirecting URL. Keep redirect sources
+  out of the sitemap and do not repeatedly validate this group expecting zero.
+- The blocked `/twitter-image?...` URL is a generated image route and is
+  intentionally excluded. `/formulas` and `/auth/signup` are no longer blocked
+  by the current `robots.txt`; both intentionally declare `noindex`, so they may
+  move to a different exclusion group after recrawling.
+- Filtered `/ingredients?...` URLs now return `noindex, follow` and canonicalize
+  to `/ingredients`. Low-information ingredient records such as potassium
+  hydroxide also intentionally return `noindex, follow` under the content-quality
+  gate. These are correct exclusions, not pages to force into the index.
+- Live checks confirmed that `/sell-sugar-scrub-canada`,
+  `/blog/understanding-inci-names`, and `/tools/soap-calculator/recipes` are
+  indexable, self-canonical, substantial pages. Request indexing for a small
+  representative set of these clean URLs after deployment; Google still decides
+  whether and when to index them.
+- `/shop/canadian-cosmetic-label-template` is technically indexable but has much
+  less visible explanatory content than the editorial pages. Improve its preview,
+  deliverables, version/update history, intended audience, and usage example
+  before treating it as a priority organic landing page.
+
+The live sitemap was also emitting the current deployment/request time as
+`lastmod` for many unchanged dynamic pages. Unknown dates are now omitted;
+fixed dates remain only where a meaningful update is known. A sitemap date must
+describe a significant page change, not the time the sitemap was generated.
 
 ### Production crawl
 
