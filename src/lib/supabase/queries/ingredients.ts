@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { createClient as createPublicClient } from "@supabase/supabase-js";
 import { isIngredientIndexable } from "@/lib/seo/ingredient-indexability";
+import { hasIngredientEditorialGuide } from "@/content/ingredient-editorial-guides";
 
 export interface IngredientSearchParams {
   query?: string;
@@ -239,7 +240,11 @@ export async function getIndexableIngredientSlugs() {
   if (error) return [];
 
   return (data ?? [])
-    .filter(isIngredientIndexable)
+    .filter(
+      (ingredient) =>
+        isIngredientIndexable(ingredient) ||
+        hasIngredientEditorialGuide(ingredient.slug as string)
+    )
     .map((ingredient) => ingredient.slug as string);
 }
 

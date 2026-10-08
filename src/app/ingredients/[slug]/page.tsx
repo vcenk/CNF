@@ -20,6 +20,8 @@ import {
 } from "@/components/ui/table";
 import { dataSourcesLastReviewed } from "@/lib/legal";
 import { isIngredientIndexable } from "@/lib/seo/ingredient-indexability";
+import { getIngredientEditorialGuide } from "@/content/ingredient-editorial-guides";
+import { IngredientEditorialGuideSection } from "@/features/ingredients/ingredient-editorial-guide";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -32,12 +34,17 @@ export async function generateMetadata({
   const ingredient = await getIngredientBySlug(slug);
   if (!ingredient) return { title: "Not Found" };
 
+  const guide = getIngredientEditorialGuide(slug);
   const name = ingredient.common_name || ingredient.inci_name;
-  const title = `${name} (${ingredient.inci_name}) — INCI, Hotlist Status & Canadian Suppliers`;
+  const title =
+    guide?.metaTitle ||
+    `${name} (${ingredient.inci_name}) — INCI, Hotlist Status & Canadian Suppliers`;
   const description =
+    guide?.metaDescription ||
     ingredient.description ||
     `${name} is a cosmetic ingredient with INCI name ${ingredient.inci_name}. See Health Canada Hotlist status, typical use level, and Canadian supplier availability.`;
-  const indexable = isIngredientIndexable(ingredient);
+
+  const indexable = Boolean(guide) || isIngredientIndexable(ingredient);
 
   return {
     title,
@@ -64,6 +71,7 @@ export default async function IngredientDetailPage({ params }: PageProps) {
   const { slug } = await params;
   const ingredient = await getIngredientBySlug(slug);
   if (!ingredient) notFound();
+  const guide = getIngredientEditorialGuide(slug);
 
   const functionMap = (ingredient.ingredient_function_map ?? []) as Array<{
     is_primary: boolean;
@@ -105,8 +113,10 @@ export default async function IngredientDetailPage({ params }: PageProps) {
       "@context": "https://schema.org",
       "@type": "WebPage",
       name: `${name} cosmetic ingredient reference`,
-      description: ingredient.description,
+      description: guide?.metaDescription || ingredient.description,
       url,
+      dateModified: guide ? "2026-10-07" : undefined,
+      citation: guide?.sources.map((source) => source.href),
       isPartOf: { "@type": "WebSite", name: siteConfig.name, url: siteConfig.url },
       about: {
         "@type": "DefinedTerm",
@@ -183,7 +193,7 @@ export default async function IngredientDetailPage({ params }: PageProps) {
             </p>
           )}
           <p className="mt-3 text-xs text-muted-foreground">
-            Last reviewed {dataSourcesLastReviewed} · Always verify against the{" "}
+            Last reviewed {guide?.reviewed || dataSourcesLastReviewed} · Always verify against the{" "}
             <a
               href="https://www.canada.ca/en/health-canada/services/consumer-product-safety/cosmetics/cosmetic-ingredient-hotlist-prohibited-restricted-ingredients.html"
               target="_blank"
@@ -247,6 +257,10 @@ export default async function IngredientDetailPage({ params }: PageProps) {
             </Card>
           )}
         </div>
+
+        {guide && (
+          <IngredientEditorialGuideSection name={name} guide={guide} />
+        )}
 
         {!ingredient.description && functions.length > 0 && (
           <section className="mb-8 space-y-3 text-muted-foreground">

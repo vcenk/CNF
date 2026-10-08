@@ -299,6 +299,25 @@ file tracing. Add the trust pages directly to the static sitemap list.
   resubmit the sitemap, and monitor recrawling before requesting another AdSense
   review.
 
+#### Ingredient enrichment status — October 7, 2026
+
+- Search Console's 55 `Excluded by noindex` examples are mostly intentional
+  filter, category, province, and pagination states. Do not make those URL
+  variants indexable and do not validate the report expecting it to reach zero.
+- Six high-intent ingredient references now have distinct editorial guides:
+  citric acid, squalane, decyl glucoside, caprylic/capric triglyceride, avocado
+  oil, and peppermint oil. Each guide adds a direct answer, practical formulation
+  notes, a production-verification checklist, and claim-level source links.
+- A curated editorial guide is an explicit positive indexability signal. These
+  six canonical detail URLs may enter the sitemap even when their short database
+  descriptions alone do not pass the generic record-quality threshold.
+- Editorial overrides must remain selective. Do not use a shared paragraph to
+  turn every ingredient row into an indexable page; add a guide only after the
+  record has a distinct search intent, useful formulation guidance, and sources.
+- After deployment, inspect and request indexing for two or three representative
+  enriched URLs first. Confirm the live URL is indexable, self-canonical, and
+  included in the sitemap before requesting the rest.
+
 ### P1 — strengthen quality and organic performance
 
 - Consolidate overlapping pages instead of creating a separate page for every
